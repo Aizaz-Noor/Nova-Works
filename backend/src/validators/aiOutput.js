@@ -27,7 +27,7 @@ export function validateAiOutput(value,directory) {
     const tp=`${path}.tasks[${j}]`;
     if(!object(t)){issue(tp,'Expected a task object');return;}
     extras(t,['title','description','assigneeId','deadline','estimatedHours'],tp);
-    text(t.title,`${tp}.title`);description(t.description,`${tp}.description`);
+    text(t.title,`${tp}.title`);if(typeof t.description!=='string'||!t.description.trim()||t.description.length>20000)issue(`${tp}.description`,'Required non-empty task description (maximum 20000 characters)');
     if(roles.get(t.assigneeId)!=='AGENT')issue(`${tp}.assigneeId`,'Must reference an existing AGENT');
     if(!validDate(t.deadline))issue(`${tp}.deadline`,'Expected a real date in YYYY-MM-DD format');
     else if(validDate(p.deadline)&&t.deadline>p.deadline)issue(`${tp}.deadline`,'Task deadline must not exceed project deadline');

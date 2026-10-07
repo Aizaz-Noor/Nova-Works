@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 export async function openPostgres(connectionString) {
  let ca=process.env.DATABASE_CA_CERT;try{if(process.env.DATABASE_CA_FILE)ca=await readFile(process.env.DATABASE_CA_FILE,'utf8');}catch{throw new Error('Database CA certificate could not be read');}
  const address=new URL(connectionString);for(const name of ['sslmode','sslcert','sslkey','sslrootcert'])address.searchParams.delete(name);
+ if(address.hostname.endsWith('.pooler.supabase.com') || address.hostname.endsWith('.supabase.co')){const bundled=await readFile(new URL('../../certs/supabase-root.pem',import.meta.url),'utf8');ca=ca?[bundled,ca]:bundled;}
  const pool=new pg.Pool({connectionString:address.toString(),max:5,connectionTimeoutMillis:10000,ssl:{rejectUnauthorized:true,...(ca?{ca}: {})}});
  pool.on('error',()=>console.error('PostgreSQL pool connection unavailable'));
  const db={kind:'postgres',query:(text,values)=>pool.query(text,values),close:()=>pool.end()};

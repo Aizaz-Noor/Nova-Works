@@ -11,3 +11,5 @@ Aizaz/**
 node_modules/**
 **/node_modules/**
 .git/**
+
+!backend/certs/supabase-root.pem

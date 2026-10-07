@@ -69,3 +69,5 @@ test('provider errors, malformed JSON and missing configuration are sanitized',a
   await assert.rejects(extractProjects('t',[],{apiKey:'key',model:'m',fetchImpl:mock}),e=>[422,502].includes(e.status)&&!e.message.includes('secret credential'));
  }
 });
+
+test('required task descriptions reject missing, blank and oversized AI fields',()=>{const db=setup();try{for(const value of [undefined,'','   ','x'.repeat(20001)]){const result=draft();result.projects[0].tasks[0].description=value;assert.throws(()=>validateAiOutput(result,teamDirectory(db)),error=>error.status===422&&error.issues.some(issue=>issue.path==='projects[0].tasks[0].description'));assert.equal(count(db,'projects'),0);assert.equal(count(db,'tasks'),0);}}finally{db.close();}});

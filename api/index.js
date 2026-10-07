@@ -9,6 +9,7 @@ async function initialize() {
   try { if (new URL(process.env.FRONTEND_ORIGIN).origin !== process.env.FRONTEND_ORIGIN) fail('FRONTEND_ORIGIN_INVALID'); }
   catch { fail('FRONTEND_ORIGIN_INVALID'); }
   process.env.DATABASE_AUTO_MIGRATE = '0';
+  if (process.env.VERCEL) delete process.env.DATABASE_CA_FILE;
   // Hosted certificate text takes precedence over a stale local-only file path.
   if (process.env.DATABASE_CA_CERT) {
     process.env.DATABASE_CA_CERT = process.env.DATABASE_CA_CERT.replace(/\\n/g, '\n').trim();

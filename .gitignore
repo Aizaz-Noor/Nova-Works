@@ -19,3 +19,6 @@ tmp/
 backend/*.crt
 backend/*.pem
 backend/*.cer
+
+# Public provider root certificate, not a private key
+!backend/certs/supabase-root.pem
