@@ -14,6 +14,9 @@ try{
  const made=await admin('/api/admin/create-from-transcript','POST',{transcript});
  assert.ok([200,201].includes(made.status),`Creation failed: ${made.body.error?.code} ${made.body.error?.message}`);
  assert.equal(made.body.projectCount,3);assert.equal(made.body.taskCount,12);
+ const expected=JSON.parse(await readFile(new URL('../test/fixtures/expected.json',import.meta.url),'utf8'));
+ const canonical=draft=>draft.projects.map(p=>({name:p.name,clientName:p.clientName,managerId:p.managerId,deadline:p.deadline,tasks:p.tasks.map(t=>({title:t.title,assigneeId:t.assigneeId,deadline:t.deadline,estimatedHours:t.estimatedHours})).sort((a,b)=>a.title.localeCompare(b.title))})).sort((a,b)=>a.name.localeCompare(b.name));
+ assert.deepEqual(canonical(made.body),canonical(expected),'Saved official fields must match final agreed decisions');
  const repeat=await admin('/api/admin/create-from-transcript','POST',{transcript});assert.equal(repeat.status,200);assert.equal(repeat.body.replayed,true);
  const ids=made.body.projects.map(p=>p.id);const urban=made.body.projects.find(p=>p.managerId==='PM01');const quick=made.body.projects.find(p=>p.managerId==='PM02');
  assert.equal((await admin('/api/projects')).body.projects.filter(p=>ids.includes(p.id)).length,3);

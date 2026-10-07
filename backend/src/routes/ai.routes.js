@@ -9,8 +9,9 @@ export function aiRoutes(db,extract,limits) {
  router.post('/create-from-transcript',requireAdmin,async(req,res)=>{
   const transcript=req.body?.transcript;
   if(typeof transcript!=='string'||!transcript.trim()||transcript.length>100000)throw new ApiError(400,'BAD_INPUT','Transcript must contain 1 to 100000 characters');
-  const normalized=transcript.trim();const hash=createHash('sha256').update(normalized).digest('hex');
-  const prior=await previousSubmission(db,hash);
+  const normalized=transcript.replace(/\r\n?/g,'\n').trim();const hash=createHash('sha256').update(normalized).digest('hex');
+  const legacyHash=createHash('sha256').update(normalized.replace(/\n/g,'\r\n')).digest('hex');
+  const prior=await previousSubmission(db,hash) || (legacyHash!==hash?await previousSubmission(db,legacyHash):null);
   if(prior)return res.json({...prior,replayed:true});
   if(inFlight.has(hash))throw new ApiError(409,'SUBMISSION_IN_PROGRESS','This transcript is already processing; wait and retry');
   inFlight.add(hash);
