@@ -4,7 +4,7 @@ import { requireAdmin } from '../middleware/auth.js';
 import { ApiError } from '../middleware/errorHandler.js';
 import { teamDirectory, previousSubmission, saveDraft } from '../services/projectService.js';
 import { validateAiOutput } from '../validators/aiOutput.js';
-export function aiRoutes(db,extract) {
+export function aiRoutes(db,extract,limits) {
  const router=Router();const inFlight=new Set();
  router.post('/create-from-transcript',requireAdmin,async(req,res)=>{
   const transcript=req.body?.transcript;
@@ -13,7 +13,7 @@ export function aiRoutes(db,extract) {
   const prior=previousSubmission(db,hash);
   if(prior)return res.json({...prior,replayed:true});
   if(inFlight.has(hash))throw new ApiError(409,'SUBMISSION_IN_PROGRESS','This transcript is already processing; wait and retry');
-  inFlight.add(hash);
+  limits.ai();inFlight.add(hash);
   try {
    const directory=teamDirectory(db);
    const draft=validateAiOutput(await extract(normalized,directory),directory);
