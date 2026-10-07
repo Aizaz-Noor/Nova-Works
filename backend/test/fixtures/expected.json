@@ -1,0 +1,115 @@
+{
+  "projects": [
+    {
+      "name": "UrbanCart Website",
+      "clientName": "UrbanCart Clothing",
+      "managerId": "PM01",
+      "deadline": "2026-10-20",
+      "description": "Test fixture only",
+      "tasks": [
+        {
+          "title": "Product catalog UI",
+          "assigneeId": "DEV01",
+          "deadline": "2026-10-12",
+          "estimatedHours": 12,
+          "description": "Test fixture only"
+        },
+        {
+          "title": "Demo cart UI",
+          "assigneeId": "DEV01",
+          "deadline": "2026-10-15",
+          "estimatedHours": 8,
+          "description": "Test fixture only"
+        },
+        {
+          "title": "Product and cart APIs",
+          "assigneeId": "DEV02",
+          "deadline": "2026-10-14",
+          "estimatedHours": 14,
+          "description": "Test fixture only"
+        },
+        {
+          "title": "Website integration and testing",
+          "assigneeId": "DEV01",
+          "deadline": "2026-10-19",
+          "estimatedHours": 6,
+          "description": "Test fixture only"
+        }
+      ]
+    },
+    {
+      "name": "QuickServe Mobile App",
+      "clientName": "QuickServe Services",
+      "managerId": "PM02",
+      "deadline": "2026-10-24",
+      "description": "Test fixture only",
+      "tasks": [
+        {
+          "title": "Login and profile screens",
+          "assigneeId": "DEV03",
+          "deadline": "2026-10-12",
+          "estimatedHours": 8,
+          "description": "Test fixture only"
+        },
+        {
+          "title": "Service booking screens",
+          "assigneeId": "DEV03",
+          "deadline": "2026-10-17",
+          "estimatedHours": 12,
+          "description": "Test fixture only"
+        },
+        {
+          "title": "Booking and account APIs",
+          "assigneeId": "DEV02",
+          "deadline": "2026-10-16",
+          "estimatedHours": 16,
+          "description": "Test fixture only"
+        },
+        {
+          "title": "Mobile integration and testing",
+          "assigneeId": "DEV04",
+          "deadline": "2026-10-22",
+          "estimatedHours": 10,
+          "description": "Test fixture only"
+        }
+      ]
+    },
+    {
+      "name": "HelpDeskPro AI Assistant",
+      "clientName": "HelpDeskPro Solutions",
+      "managerId": "PM03",
+      "deadline": "2026-10-22",
+      "description": "Test fixture only",
+      "tasks": [
+        {
+          "title": "FAQ document processing",
+          "assigneeId": "DEV06",
+          "deadline": "2026-10-13",
+          "estimatedHours": 10,
+          "description": "Test fixture only"
+        },
+        {
+          "title": "Assistant answer generation",
+          "assigneeId": "DEV05",
+          "deadline": "2026-10-17",
+          "estimatedHours": 14,
+          "description": "Test fixture only"
+        },
+        {
+          "title": "Human escalation flow",
+          "assigneeId": "DEV05",
+          "deadline": "2026-10-18",
+          "estimatedHours": 6,
+          "description": "Test fixture only"
+        },
+        {
+          "title": "Assistant evaluation and testing",
+          "assigneeId": "DEV06",
+          "deadline": "2026-10-21",
+          "estimatedHours": 8,
+          "description": "Test fixture only"
+        }
+      ]
+    }
+  ]
+}

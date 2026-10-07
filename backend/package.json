@@ -1,0 +1,24 @@
+{
+  "name": "novaworks-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "db:init": "node src/db/database.js",
+    "seed": "node src/db/seed.js",
+    "reset:projects": "node src/db/reset.js",
+    "test": "node --test test/core.test.js",
+    "test:live": "node scripts/verify-live.js",
+    "test:api": "node --test test/api.test.js",
+    "test:all": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-session": "^1.18.2"
+  }
+}
