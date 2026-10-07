@@ -35,3 +35,10 @@ test('Vercel exact assigned origins work and unrelated origins stay forbidden',a
  for(const origin of ['https://evil.example','https://demo.vercel.app.evil.example'])assert.equal((await fetch(base+'/api/health',{headers:{Origin:origin}})).status,403);
  });}finally{for(const k of keys){if(prior[k]===undefined)delete process.env[k];else process.env[k]=prior[k];}}
 });
+
+test('trusted HTTPS ingress issues a Secure session cookie usable on the next request',async()=>{
+ const previous=process.env.TRUST_PROXY;process.env.TRUST_PROXY='1';
+ try{await withServer({production:true},async base=>{
+ const response=await fetch(base+'/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json','X-Forwarded-Proto':'https'},body:JSON.stringify({email:'admin@novaworks.example',password:'Demo123!'})});assert.equal(response.status,200);const cookie=response.headers.get('set-cookie');assert.ok(cookie?.includes('Secure'));assert.ok(cookie.includes('HttpOnly'));const me=await fetch(base+'/api/auth/me',{headers:{Cookie:cookie.split(';')[0],'X-Forwarded-Proto':'https'}});assert.equal(me.status,200);assert.equal((await me.json()).role,'ADMIN');
+ });}finally{if(previous===undefined)delete process.env.TRUST_PROXY;else process.env.TRUST_PROXY=previous;}
+});

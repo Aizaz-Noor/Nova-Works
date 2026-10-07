@@ -9,6 +9,8 @@ async function initialize() {
   try { if (new URL(process.env.FRONTEND_ORIGIN).origin !== process.env.FRONTEND_ORIGIN) fail('FRONTEND_ORIGIN_INVALID'); }
   catch { fail('FRONTEND_ORIGIN_INVALID'); }
   process.env.DATABASE_AUTO_MIGRATE = '0';
+  // This adapter runs behind Vercel's HTTPS ingress, not a public HTTP listener.
+  process.env.TRUST_PROXY = '1';
   if (process.env.VERCEL) delete process.env.DATABASE_CA_FILE;
   // Hosted certificate text takes precedence over a stale local-only file path.
   if (process.env.DATABASE_CA_CERT) {
