@@ -1,118 +1,41 @@
-# Hackathon Run State
+﻿# Hackathon Run State
 
 Mode: LIVE
-Updated: 2026-10-07 (official PDF verified; Gate 1 analysis; no product code)
-Owner: Aizaz / Hackathon Orchestrator
+Updated: 2026-10-07T12:27:00+05:00
+Owner: Aizaz / integration owner
 
-Keep this concise. Single operational truth; exact brief/rules live in `HACKATHON_CONTEXT.md`. Detailed evidence goes under `hackathon/`. During parallel work only the orchestrator/integration owner edits this file; specialists return handoffs.
+## Current phase and approvals
 
-## Current Phase
+Integration verified; preparing main publication. Gate1 PASS; Gate2 PASS Direction1 approved; Gate3 planning PASS. User explicitly authorized review/merge/main push of Abdullah backend and subsequent finalization. TokenRouter integration is next. Gate4 partial integrated milestone; full MVP Gate5 UNVERIFIED until actual AI conversion passes. No deployment/submission authorized or performed.
 
-BUILD handoff ready. Gate1 PASS; Gate2 PASS (lead approved Direction1); Gate3 planning PASS (bounded scope/architecture/design/owners/deadline). Runtime AI preflight UNVERIFIED and required as first slice. Frontend implemented in app/client; backend not implemented in this checkout.
+## Clock
 
-## Start Time
+Official hard stop13:00 Asia/Karachi7October2026, lead confirmed. Freeze12:40. Three-hour duration implies10:00start (inferred). At12:27,33minutes to deadline/13tofreeze. Recalculate; no clock restart.
 
-Official deadline: 2026-10-07T13:00:00+05:00, confirmed by lead. Freeze: 12:40 Asia/Karachi. Three-hour duration implies10:00 start (inferred, not separately confirmed). Do not reset clock.
+## Official problem and approved scope
 
-## Estimated Time Remaining
+Infinity_Hack_26_AI_Project_Manager_Challenge (1).pdf,12pages; exact evidence in HACKATHON_CONTEXT.md. NovaWorks administrator -> full transcript + safe ten-user directory -> actual runtime extraction -> validate complete draft -> atomic persistent projects/tasks -> authorized project/task screens. Must: login/logout, directory, roles enforced in direct API requests, final decisions, positive hours/validdates, error/correction, duplicate prevention, local recording/README. No optional backlog.
 
-At11:47+05:00, approximately73minutes remained to hard stop and53minutes to freeze. Recalculate on every handoff/resume.
+## Working code and repository
 
-## Official Problem
+Active verified clone: ../tmp/novaworks-publish. Remote https://github.com/Aizaz-Noor/Nova-Works. Frontend base753a52daacc5689066edb98c4d82a419c2f639a3. Actual incoming branch origin/Abdul-8869-backend42da5e188debacf1da52fd896d3cd1ae70d66d08; earlier backend/meeting-to-execution pointer was not pushed. Integration branch integration/frontend-backend, merge d10d56f plus verified adapter/static-serving/lockfile/docs changes. Original workspace Git remains unborn; preserve infrastructure. Aizaz alone integrates main.
 
-RELEASED. Source: `../Infinity_Hack_26_AI_Project_Manager_Challenge (1).pdf` (12 pages); text and requirements in `HACKATHON_CONTEXT.md`. Evidence: `../hackathon/reports/problem-clarity-20261007.md`.
+## What works and observed evidence
 
-## Product Thesis
+React/Vite frontend + Express/SQLite/session backend integrated. npm.cmd run test:all in backend PASS10/10: HTTPauth/RBAC/directaccess, validation,rollback,persistence,deduplication/concurrency,mockedprovider. npm.cmd run build in app/client PASS26modules. db:init/seed/start PASS10accounts. Real browser port3001: admin login/directory/logout PASS; provider-unconfigured503 preserves transcript and saves no projects. Isolated injected-fixture memory-only testserver3002: submit ->3projects/12tasks ->detail4tasks ->logout ->Ali3own tasks, no admin state. Fixture is not liveAI and never seeded into demoDB. Prior frontend375/768/1440 preview visual checks PASS. Evidence ../hackathon/reports/backend-integration-20261007.md.
 
-For NovaWorks administrator, convert final meeting decisions into authorized, persistent project/task records using one actual AI extraction and deterministic validation/atomic save. Direction1 APPROVED by Aizaz,7October2026.
+## P0 and next action
 
-## Current MVP
+Actual runtime AI UNVERIFIED. Backend currently OpenRouter, requested TokenRouter not yet integrated; no real key/model configured or paidcall executed. Next: secure backend-only TokenRouter configuration, verify actual API/model compatibility, run official original/modified transcript acceptance and browser real creation/persistence/roles. Stop optional cosmetics. Full MVP cannot be called complete until liveAI proof. Recording/pitch/finaldemo/submission pending.
 
-React/Vite JavaScript/plain CSS + Node/Express + SQLite + server-side sessions/runtime AI. Approved required scope. Contract, owners, checkpoints and copyable prompts: TEAM_BUILD_HANDOFF.md. Design: DESIGN_SYSTEM.md. API/model/key readiness NOT VERIFIED; no paid call or deployment authorized by this handoff.
+## Run commands and demo
 
-## Must-Haves
+From active clone: npm.cmd ci --prefix app/client; npm.cmd ci --prefix backend; npm.cmd run build --prefix app/client. Copy backend/.env.example to backend/.env; private sessionsecret>=32chars, exact origin127.0.0.1:3001; provider key/model server-only. npm.cmd run db:init --prefix backend; npm.cmd run seed --prefix backend; npm.cmd start --prefix backend. Combined URL http://127.0.0.1:3001/ currently running, process9264. Accounts seeded, all fictional passwordDemo123!. No generated projects in actual DB. Preview/?preview=1 explicitlystatic. Official input backend/docs/meeting_transcript.txt; expected3projects/12tasks withfinal corrections. ModifiedQuickServe12hours/2026-10-23. npm.cmd run test:live --prefix backend NOT RUN, actual authorizedprovidercalls required.
 
-Simple login/logout; ten demo accounts; read-only directory; admin-only live AI transcript conversion; validated atomic persistent project/task creation; session-enforced role access in all requests; required project/task screens; original/modified-input demo; root README/.env.example; local video if local DB. See context R1-R8.
+## AI behavior
 
-## Optional Backlog
+Input actual transcript + allowlisted id/name/role/specialization/skills, never passwords. Structured model extraction -> deterministic validation ->atomic transaction. Errors save nothing/requestcorrection; no canned-output fallback. Current OpenRouter service; TokenRouter next. Model/service actual execution NOT VERIFIED.
 
-Empty.
+## Freeze, judge and submission
 
-## Current Milestone
-
-Direction approved; flow/API/schema/file ownership/design handoff and compressed clock ready. Aizaz frontend/integration; Basit server/AI; Abdullah fixtures/independent QA/evidence. Frontend scaffold/components/API client implemented. npm.cmd run build PASS (26modules; JS212.36kB, gzip66.44kB). Vite running127.0.0.1:5173, process37551. Browser UI smoke PASS with explicitly labeled static samples at1440/768/375. Missing backend failure-state PASS. Live auth/AI/persistence NOT RUN. Report: ../hackathon/reports/frontend-milestone-20261007.md.
-
-## What Works Right Now
-
-Frontend builds and dev server starts. Normal route uses real API; explicitly labeled static interface preview at /?preview=1. Backend/live AI not available in this checkout.
-
-## What Is Broken
-
-Backend unavailable in this checkout; normal API calls proxy500 and show clear service-unavailable feedback. No live AI/persistence evidence.
-
-## P0 Blockers
-
-Integrated backend/auth/AI flow unavailable; frontend-only runtime evidenced.
-
-## P1 Issues
-
-Integrated backend/auth/AI flow unavailable; frontend-only runtime evidenced.
-
-## Current Demo Flow
-
-UNSET. See `DEMO_PLAN.md` after a product direction is approved.
-
-## Demo-Safe Input
-
-Official complete transcript, PDF pp. 6-10. Expected three projects/twelve tasks; hours 40/46/38; final corrections applied. Modified QuickServe integration: 12 hours, 2026-10-23; other tasks unchanged. Reference is test evidence, never seeded output.
-
-## AI Role
-
-Input: UNSET
-Processing: UNSET
-Output: UNSET
-User value: UNSET
-Fallback: UNSET
-
-Runtime AI is REQUIRED by this official brief. Provider/model/key availability and permitted spending are unverified; no API call performed.
-
-## Last QA Result
-
-Frontend build PASS: npm.cmd run build in app/client (uncommitted source). Dev server PASS: npm.cmd run dev, URL http://127.0.0.1:5173/. Browser UI smoke PASS (preview roles/detail/transcript-error preservation;375/768nooverflow). Full authenticated AI/persistence flow BLOCKED by absent backend. Source401/session reset fixes built; actual backend regression NOT RUN. Gate4partial frontend; Gate5NOT STARTED.
-
-## Last Judge Review
-
-Product: NOT RUN. No score assigned.
-
-## Top 3 Current Improvements
-
-None selected until a product exists; do not invent three issues.
-
-## Next Action
-
-Frontend ready for backend integration. Basit supply actual server on3001 and authorized runtime AI; Abdullah verify integrated original/modified conversion, request-level roles and persistence. Stop cosmetic expansion; prioritize core flow before12:40freeze.
-
-## Feature Freeze
-
-NO
-Scheduled12:40 today; hard stop13:00 Asia/Karachi. No new features after freeze.
-
-## Pitch Status
-
-NOT STARTED. Official presentation duration: unknown.
-
-## Working Revision and Commands
-
-Frontend publication candidate; exact revision from git log. Run npm.cmd install then npm.cmd run dev/build in app/client. Basit server and Abdullah tests unchanged. Shared API contract TEAM_BUILD_HANDOFF.md.
-
-## Submission Status
-
-NOT SUBMITTED. Required artifacts/deadline/authorization/confirmation: unset.
-
-## Pending Decisions
-
-Code Nomads confirmed: Aizaz (lead/UI/integration), Basit and Abdullah (contributors). Shared stack, task assignments, start/deadline times and remaining submission rules still pending. Tool split and corrected three-member team recorded in context. AI coding permission confirmed by lead. No repeated approval needed for completed infrastructure setup.
-
-## Repository confirmation
-
-Team repository: https://github.com/Aizaz-Noor/Nova-Works.git. User explicitly authorized frontend push. Candidate extends existing main092479efdb8ce3d9f1387501b8f57a59e6d635ef; reviewed on feature/aizaz-frontend in an isolated clone. Frontend-only milestone, no backend integration claim. No force push or deployment authorized. Source commit is available through git log; remote publication is verified separately by the orchestrator after push.
+Featurefreeze NO, scheduled12:40; hardcode stop13:00. Judge review NOT RUN/no fabricatedscore. Local video required and pending; no deployment/submission performed. TeamAizazUIintegration, Abdullah deliveredbackend, BasitAI/backend support. Further unverified contributions not claimed.

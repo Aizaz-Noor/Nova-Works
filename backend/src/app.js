@@ -1,5 +1,7 @@
 import './config.js';
 import express from 'express';
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import session from 'express-session';
 import { requireAuth } from './middleware/auth.js';
 import { ApiError, errorHandler } from './middleware/errorHandler.js';
@@ -34,6 +36,8 @@ export function createApp({db,extract=extractProjects,sessionSecret=process.env.
  app.use('/api',requireAuth(db));
  app.use('/api/team',teamRoutes(db));app.use('/api/projects',projectRoutes(db));app.use('/api/tasks',taskRoutes(db));
  app.use('/api/admin',aiRoutes(db,extract));
+ const clientDist=fileURLToPath(new URL('../../app/client/dist/',import.meta.url));
+ if(existsSync(clientDist))app.use(express.static(clientDist));
  app.use((req,res,next)=>next(new ApiError(404,'NOT_FOUND','Route not found')));
  app.use(errorHandler);return app;
 }

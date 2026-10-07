@@ -1,71 +1,103 @@
-# NovaWorks - Meeting to Execution
+﻿# NovaWorks — Meeting to Execution
 
-Code Nomads: Aizaz (UI/UX and integration), Abdul Basit Shahid (backend/AI), Abdullah (QA and demo evidence).
+Code Nomads | Infinity Hack '26 | AI Project Manager challenge
 
-## Current status
+## What works
 
-Frontend milestone implemented. Real backend login, AI transcript conversion, persistence and request-level authorization are pending integration. This is not yet a complete challenge submission.
+React frontend and Abdullah's Express/SQLite backend are integrated. Login/logout, ten-person directory, session-enforced project/task access, validation, duplicate prevention and atomic persistent saves are implemented. All 10 backend tests pass. Browser checks passed for real login/directory/logout and provider-not-configured recovery. A visibly labeled, isolated test fixture verified successful saving, project detail and developer filtering; it is not live AI evidence.
 
-Stack: React19.2.8, Vite6.4.3, JavaScript, plain CSS. Planned backend: Node/Express, SQLite, server-side sessions and runtime AI. Provider/model not yet verified. Tested frontend on Node24.12.0.
+**Live AI remains unverified.** The current backend uses OpenRouter. Requested TokenRouter integration and original/modified transcript acceptance remain next. Without credentials/model, conversion returns an error and saves nothing. This is not yet a complete challenge submission.
 
-## Run the frontend
+## Team
+
+- Aizaz: product, UI/UX, React frontend, integration and main pushes.
+- Abdullah: delivered backend branch Abdul-8869-backend (42da5e1), authentication, SQLite, extraction adapter, validation and tests.
+- Abdul Basit: assigned backend/AI support; further delivered contributions not verified here.
+
+Repository: https://github.com/Aizaz-Noor/Nova-Works
+Live app: Not deployed. Demo recording: Pending. Submission: Not submitted.
+
+## Stack and requirements
+
+Node.js 24+ (tested24.12.0), npm, React19.2.8, Vite6.4.3, JavaScript/plainCSS, Express5, express-session, built-in SQLite. Actual AI requires authorized provider credentials and a tested model. Sessions use HttpOnly cookies and an in-memory server store; sign in again after server restart. Projects/tasks persist in SQLite.
+
+## Run locally
 
 ```powershell
 git clone https://github.com/Aizaz-Noor/Nova-Works.git
-cd Nova-Works/app/client
-npm.cmd ci
-npm.cmd run dev
+cd Nova-Works
+npm.cmd ci --prefix app/client
+npm.cmd ci --prefix backend
+npm.cmd run build --prefix app/client
+Copy-Item backend/.env.example backend/.env
 ```
 
-Keep the terminal running. Open http://127.0.0.1:5173/. Frontend requests /api via Vite proxy to backend http://127.0.0.1:3001; real login requires the backend to be running separately. Backend run/seed/schema/environment commands will be supplied by Basit's integration; they do not exist in this frontend milestone.
-
-For design review open http://127.0.0.1:5173/?preview=1. This visibly labeled preview uses static fictional sample data. It does not authenticate, call AI, create records or prove server access restrictions. Change View as to examine manager/developer interfaces.
+Edit backend/.env: set a private SESSION_SECRET of at least32characters. Keep FRONTEND_ORIGIN=http://127.0.0.1:3001. Configure only authorized AI credentials/model. Never commit .env or place keys in browser variables.
 
 ```powershell
-npm.cmd run build
+npm.cmd run db:init --prefix backend
+npm.cmd run seed --prefix backend
+npm.cmd start --prefix backend
 ```
 
-Build output: app/client/dist/. It is generated locally and excluded from Git. Backend may serve this build on the same origin for the final demo. Vite preview alone has no API proxy.
+Keep that terminal open. Visit **http://127.0.0.1:3001/**. Backend serves the built frontend and API on one origin. Default database: backend/data/novaworks.sqlite. Seed reruns preserve ten unique accounts. For Vite development run npm.cmd run dev --prefix app/client, change FRONTEND_ORIGIN to http://127.0.0.1:5173 and restart backend. Vite proxies /api to3001. Use exactly the configured browser origin.
 
-## Implemented frontend
+## Environment variables
 
-Login form and API error handling; administrator transcript form; project cards/details; manager project presentation; agent My Tasks; read-only ten-person directory; loading/empty/error/success states; session reset handling; responsive layouts. Actual saved-record and AI behavior depends on the backend.
+| Variable | Purpose | Location |
+| --- | --- | --- |
+| PORT | Backend port, default3001 | backend/.env |
+| DATABASE_PATH | SQLite file, relative to backend | backend/.env |
+| SESSION_SECRET | Private session signing secret, minimum32characters | backend/.env |
+| FRONTEND_ORIGIN | Exact allowed browser origin | backend/.env |
+| OPENROUTER_API_KEY | Current server-only provider credential | backend/.env |
+| OPENROUTER_MODEL | Current tested provider model ID | backend/.env |
 
-## Team contract
-
-Read Aizaz/TEAM_BUILD_HANDOFF.md for endpoints, schemas, ownership, acceptance cases and checkpoints. UI decisions: Aizaz/DESIGN_SYSTEM.md. Official requirements: Aizaz/HACKATHON_CONTEXT.md.
+TokenRouter configuration is pending. Frontend needs no private environment variables.
 
 ## Demo accounts
 
-All are fictional login identifiers, not email inboxes. Planned seeded password: Demo123! for each. These do not authenticate until the backend seed/session implementation is integrated.
+All passwords are **Demo123!**. Emails are fictional login identifiers, not inboxes.
 
-|Role|Name|Email|
-|---|---|---|
-|Admin|Admin|admin@novaworks.example|
-|Manager|Ayesha Khan|ayesha@novaworks.example|
-|Manager|Bilal Ahmed|bilal@novaworks.example|
-|Manager|Hina Malik|hina@novaworks.example|
-|Agent|Ali Raza|ali@novaworks.example|
-|Agent|Hamza Shah|hamza@novaworks.example|
-|Agent|Sara Noor|sara@novaworks.example|
-|Agent|Usman Tariq|usman@novaworks.example|
-|Agent|Zain Abbas|zain@novaworks.example|
-|Agent|Maryam Asif|maryam@novaworks.example|
+| Role | Name | Email |
+| --- | --- | --- |
+| Admin | Admin | admin@novaworks.example |
+| Manager | Ayesha Khan | ayesha@novaworks.example |
+| Manager | Bilal Ahmed | bilal@novaworks.example |
+| Manager | Hina Malik | hina@novaworks.example |
+| Agent | Ali Raza | ali@novaworks.example |
+| Agent | Hamza Shah | hamza@novaworks.example |
+| Agent | Sara Noor | sara@novaworks.example |
+| Agent | Usman Tariq | usman@novaworks.example |
+| Agent | Zain Abbas | zain@novaworks.example |
+| Agent | Maryam Asif | maryam@novaworks.example |
 
-## Verification and judge testing
+## Flow and judge test
 
-Frontend build and browser preview checks passed at1440px,768px,375px. Preview shows Ayesha onlyUrbanCart; Ali3own tasks; Hamza2tasks across projects. These checks do not establish backend authorization. Evidence: hackathon/reports/frontend-milestone-20261007.md.
+Admin login -> Create from Transcript -> paste full meeting -> model extracts final decisions using safe employee directory -> validate roles/references/dates/positive hours -> save entire batch in one transaction -> success counts/project list -> project detail -> logout -> manager or developer sees permitted work.
 
-After backend integration, test actual admin login -> paste full official meeting ->3saved projects/12tasks -> final corrections -> role views/direct access denial -> refresh. Consistently modify QuickServe integration to12hours/2026-10-23; only that generated task should change. Test unresolved required fields/provider failure save nothing. Reset-generated-record instructions preserving users remain pending backend implementation.
+After actual AI configuration:
 
-## Environment and secrets
+1. Paste backend/docs/meeting_transcript.txt; expect3projects/12tasks.
+2. UrbanCart: Ayesha,20October2026,4tasks; final integration19October.
+3. Ayesha sees only UrbanCart. Ali sees3own tasks. Hamza sees2API tasks across UrbanCart and QuickServe.
+4. Direct requests for other users' work are denied; refresh preserves saved records.
+5. Modify QuickServe integration consistently to12hours/2026-10-23; verify changed output.
+6. Missing required information/provider failure must save nothing and allow correction.
 
-Frontend requires no environment variables or private credentials. Backend configuration/.env.example will be supplied with backend integration. Never put runtime AI keys, database credentials or session secrets into frontend variables, source or Git. .gitignore excludes private env files and local databases.
+npm.cmd run test:live --prefix backend makes actual provider calls and has NOT been run. Requires authorized credentials/usage. Static /?preview=1 is explicitly labeled; it cannot authenticate or save. Test fixtures are never seeded into the actual demo database.
 
-## Deployment and submission
+## Verification and reset
 
-Local frontend only. No hosted application/database; no deployment performed. Live link: not deployed. Demo video: pending working backend integration; required for local database submission. No submission performed. GitHub repository is source hosting, not application deployment.
+```powershell
+npm.cmd run test:all --prefix backend
+npm.cmd run build --prefix app/client
+```
 
-## Known limitations
+Observed:10/10 backend tests PASS; frontend build PASS. Tests cover HTTP sessions/RBAC/direct access, malformed output, wrong employees, rollback, SQLite reopen, duplicate/concurrent requests and mocked provider failure. They do not prove model correctness. Evidence: hackathon/reports/backend-integration-20261007.md.
 
-Backend not present in this milestone; normal login shows unavailable-service feedback. Live AI, persistence, server access enforcement and session-expiry backend regression are NOT RUN. Static preview is design-review data only. Full accessibility audit not run. Deadline13:00 and freeze12:40 Asia/Karachi on7October2026.
+For an intentional demo reset, stop server, run npm.cmd run reset:projects --prefix backend, then restart. This deletes generated projects/tasks/submission markers but preserves seeded users.
+
+## Deployment and limitations
+
+Local only; no hosted frontend/backend/database. Build output app/client/dist is served by npm.cmd start --prefix backend. GitHub is source hosting, not deployment. Actual TokenRouter execution and transcript correctness remain pending. Local-database submission requires a working-flow recording; the live demo remains mandatory. No signup/password reset/user management/costs/progress features. Full accessibility conformance not audited. Deadline13:00, freeze12:40 Asia/Karachi7October2026.
