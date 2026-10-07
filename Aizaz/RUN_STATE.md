@@ -30,7 +30,7 @@ Actual runtime AI UNVERIFIED. Backend currently OpenRouter, requested TokenRoute
 
 ## Run commands and demo
 
-From active clone: npm.cmd ci --prefix app/client; npm.cmd ci --prefix backend; npm.cmd run build --prefix app/client. Copy backend/.env.example to backend/.env; private sessionsecret>=32chars, exact origin127.0.0.1:3001; provider key/model server-only. npm.cmd run db:init --prefix backend; npm.cmd run seed --prefix backend; npm.cmd start --prefix backend. Combined URL http://127.0.0.1:3001/ currently running, process9264. Accounts seeded, all fictional passwordDemo123!. No generated projects in actual DB. Preview/?preview=1 explicitlystatic. Official input backend/docs/meeting_transcript.txt; expected3projects/12tasks withfinal corrections. ModifiedQuickServe12hours/2026-10-23. npm.cmd run test:live --prefix backend NOT RUN, actual authorizedprovidercalls required.
+From active clone: npm.cmd ci --prefix app/client; npm.cmd ci --prefix backend; npm.cmd run build --prefix app/client. Copy backend/.env.example to backend/.env; private sessionsecret>=32chars, exact origin127.0.0.1:3001; provider key/model server-only. npm.cmd run db:init --prefix backend; npm.cmd run seed --prefix backend; npm.cmd start --prefix backend. Combined URL http://127.0.0.1:3001/ currently running, process9264. Accounts seeded, all fictional passwordDemo123!. No generated projects in actual DB. Preview/?preview=1 explicitlystatic. Official input backend/docs/meeting-transcript.txt; expected3projects/12tasks withfinal corrections. ModifiedQuickServe12hours/2026-10-23. npm.cmd run test:live --prefix backend NOT RUN, actual authorizedprovidercalls required.
 
 ## AI behavior
 
@@ -39,3 +39,4 @@ Input actual transcript + allowlisted id/name/role/specialization/skills, never 
 ## Freeze, judge and submission
 
 Featurefreeze NO, scheduled12:40; hardcode stop13:00. Judge review NOT RUN/no fabricatedscore. Local video required and pending; no deployment/submission performed. TeamAizazUIintegration, Abdullah deliveredbackend, BasitAI/backend support. Further unverified contributions not claimed.
+

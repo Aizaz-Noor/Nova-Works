@@ -78,7 +78,7 @@ Admin login -> Create from Transcript -> paste full meeting -> model extracts fi
 
 After actual AI configuration:
 
-1. Paste backend/docs/meeting_transcript.txt; expect3projects/12tasks.
+1. Paste backend/docs/meeting-transcript.txt; expect3projects/12tasks.
 2. UrbanCart: Ayesha,20October2026,4tasks; final integration19October.
 3. Ayesha sees only UrbanCart. Ali sees3own tasks. Hamza sees2API tasks across UrbanCart and QuickServe.
 4. Direct requests for other users' work are denied; refresh preserves saved records.
@@ -101,3 +101,4 @@ For an intentional demo reset, stop server, run npm.cmd run reset:projects --pre
 ## Deployment and limitations
 
 Local only; no hosted frontend/backend/database. Build output app/client/dist is served by npm.cmd start --prefix backend. GitHub is source hosting, not deployment. Actual TokenRouter execution and transcript correctness remain pending. Local-database submission requires a working-flow recording; the live demo remains mandatory. No signup/password reset/user management/costs/progress features. Full accessibility conformance not audited. Deadline13:00, freeze12:40 Asia/Karachi7October2026.
+
