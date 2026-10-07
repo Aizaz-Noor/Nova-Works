@@ -33,3 +33,25 @@ Plain CSS/native foundation; zero visual effects sources, no fonts/icons/motion 
 ## Frontend implementation7October
 
 System name: NovaWorks ? Meeting to Execution. app/client implements the required operating screens with native React/CSS. Signature interaction: successful server-confirmed creation closes transcript area and reveals saved projects with a success notice, no decorative animation. Static review samples remain isolated behind ?preview=1 and visibly labeled; they cannot generate saved work. Production build PASS; rendered interface review PASS for examined preview states at1440/768/375 with no observed document overflow. Full live workflow and accessibility conformance NOT VERIFIED. Evidence: ../hackathon/reports/frontend-milestone-20261007.md.
+
+## Post-event UX evolution - 8 October 2026
+
+Human approval: lead requested substantive frontend/UX improvements without breaking other components. Mode OPERATE, focused on existing delivery work rather than a marketing page. API/auth/database/AI contracts stay unchanged.
+
+Inventory preserved: demo-role login/logout/session recovery; admin transcript open/close/sample/clear/inputcounter/loading/errors/replay; role-specificprojects/tasks/detail; read-onlydirectory; staticpreviewlabel; keyboardfocus and mobile reading order.
+
+Structural exploration: (1) expanded project cards with tasksummary, (2) compact delivery ledger with visible owners/dates and scoped search, (3) timeline-first workspace. Choose2: fastest comparison across realprojects, supports growingclientlist, no inventedprogress/status or backendchanges. Timeline adds date assumptions; largercards still bury comparison.
+
+Hierarchy: persistent compactbrand/accountheader; charcoal-green navigation with clear activeitem and rolecontext; warmwhite operating canvas; title/primaryaction; search/filter/order toolbar; true visible-resultcount; projects as compactidentity/scope/manager/deadline rows. Project detail retains scope and readable taskassignments. No extra dashboards, fake metrics or new persistencefields.
+
+Typography: system-ui/Segoe UI, mainheading28px, body14-16px, labels12-14px; clear weightcontrast; normalcase. Colors: existingteal#174B43 action; charcoalgreenrail; warmwhitecontent; muted#52606D; functionalborders. Minimum44pxcontrols,6pxcontrolradius, no decorativeeffects or motiondependencies. Focus3pxblue; sufficientcontrast check on renderedpairs.
+
+Features: localprojectsearch (name/client/manager) andname/deadlineorder; tasksearch/order andownerfilter scoped to visible tasks; directorysearch/rolefilter. Clear filters restoresdata. No results is distinct from no assignedwork. Changinguser resetsfilters; noglobalcounts/privatearrays. Allcontrols keyboardoperable withpersistentlabels and live polite resultfeedback.
+
+Login: compactbalancedidentity/context withfictionaldemorolechoice; credentials primary. Never auto-sign-in fromrolechoice. Narrowmobile stackscredentials/nav/work; nohiddencriticalactions or documentoverflow. Loading/error/sessionexpiry/retry retain existing behavior. Preservetranscript duringerrors andcancellation.
+
+Reference qualities only: Carbon data-table usage for search/action grouping andscannable columns; WAIformlabels forpersistentlabelcontrol associations. Originalcomposition/layout derived from NovaWorks meeting-to-execution assignments.
+https://carbondesignsystem.com/components/data-table/usage/
+https://www.w3.org/WAI/tutorials/forms/labels/
+
+QA target: actualuser workflows+filters/noresults/clear/order at1440/768/375, longtext, keyboard,200%reflow; productionbuild/backendregression/deployedacceptance. Rendering/feature acceptancependingimplementation.

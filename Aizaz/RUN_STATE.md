@@ -13,3 +13,5 @@ Resolved deployment blockers: bundled verified public SupabaseCA (TLSverificatio
 Evidence:25/25backendtests exit0; realPostgres acceptance exit0; cleanrootbuild exit0. Publicend-to-end health/login/securecookie/session/directory/liveAIcreation/exactofficialownersdateshours/replay/persistence/manageragentrestrictions/directdenial/logout exit0. Actualbrowserlogin/projectdetail/refresh/sample replayPASS;375px project/detail nooverflow. Initialloggedout/auth/me401expected. See DEPLOYMENT_AUDIT.md.
 
 Limits: per-instance AIinflightguard; cross-instance requests can callmodel twice but transactionpreventsduplicates andglobalquotaboundsusage. Fullaccessibilityconformance notclaimed. Sharedcredentials shouldrotateprivately. LinkedIn remainsdraft. Next: usertestpublicURL usingfictionaldemoaccounts; portfolioevidence reflectsverifiedpost-eventwork.
+
+Post-event frontend milestone 8 October: project ledger/navigation/login redesign and authorized-data search/sort/filter complete. Production build exit0;25/25 regressions; real Supabase browser login/filter/sample replay PASS; desktop/mobile rendered. See UI_IMPROVEMENTS.md. Release verification pending.
