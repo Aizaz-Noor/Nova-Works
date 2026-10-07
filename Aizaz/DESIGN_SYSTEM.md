@@ -54,4 +54,4 @@ Reference qualities only: Carbon data-table usage for search/action grouping and
 https://carbondesignsystem.com/components/data-table/usage/
 https://www.w3.org/WAI/tutorials/forms/labels/
 
-QA target: actualuser workflows+filters/noresults/clear/order at1440/768/375, longtext, keyboard,200%reflow; productionbuild/backendregression/deployedacceptance. Rendering/feature acceptancependingimplementation.
+QA target: actualuser workflows+filters/noresults/clear/order at1440/768/375, longtext, keyboard,200%reflow; productionbuild/backendregression/deployedacceptance. Rendering/feature acceptance PASS for documented desktop/mobile, scoped controls and real backend flows; see UI_IMPROVEMENTS.md. Fullaccessibilityconformance notclaimed.

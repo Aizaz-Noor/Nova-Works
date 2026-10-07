@@ -6,7 +6,7 @@ Owner: Aizaz / integration owner
 
 Lead authorizes post-event portfolio work, deployment first. Missed submission/no win; do not portray later improvements as event work. No LinkedIn publication authorized. Frozen event producta17f503/artifacts3ca864d preserved; original local databases preserved.
 
-Current source: main22efb8a in tmp/novaworks-publish, synchronized with GitHub. Live publicsite https://nova-works-zeta.vercel.app on Vercel+Supabase projectunwklbyuujmwoyztxrev, private novaworks schema. No privatecredentials committed.
+Current source: main17fa278 in tmp/novaworks-publish, synchronized with GitHub. Live publicsite https://nova-works-zeta.vercel.app on Vercel+Supabase projectunwklbyuujmwoyztxrev, private novaworks schema. No privatecredentials committed.
 
 Resolved deployment blockers: bundled verified public SupabaseCA (TLSverificationon); exactassigned Vercel origins; securecookiebehindHTTPSingress. Audit fixes: asynchronousduplicateAIrace, equivalentlineendingdedupe/legacyreplay, requiredtaskdescriptions, fetchdeadlines, longtextwrapping. Own duplicatebrowsertestbatch cleaned; originalthreeprojects/twelvetasks retained.
 
@@ -14,4 +14,4 @@ Evidence:25/25backendtests exit0; realPostgres acceptance exit0; cleanrootbuild 
 
 Limits: per-instance AIinflightguard; cross-instance requests can callmodel twice but transactionpreventsduplicates andglobalquotaboundsusage. Fullaccessibilityconformance notclaimed. Sharedcredentials shouldrotateprivately. LinkedIn remainsdraft. Next: usertestpublicURL usingfictionaldemoaccounts; portfolioevidence reflectsverifiedpost-eventwork.
 
-Post-event frontend milestone 8 October: project ledger/navigation/login redesign and authorized-data search/sort/filter complete. Production build exit0;25/25 regressions; real Supabase browser login/filter/sample replay PASS; desktop/mobile rendered. See UI_IMPROVEMENTS.md. Release verification pending.
+Post-event frontend milestone 8 October: project ledger/navigation/login redesign and authorized-data search/sort/filter complete. Production build exit0;25/25 regressions; real Supabase browser login/filter/sample replay PASS; desktop/mobile rendered. See UI_IMPROVEMENTS.md. Release verification PASS: Vercel production source17fa278 READY; public acceptance exit0, actual browser project search/fresh Ali login and only-own-task view PASS.
