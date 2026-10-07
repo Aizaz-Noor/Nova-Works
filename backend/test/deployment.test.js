@@ -26,3 +26,12 @@ test('quotas survive limiter recreation and reopen after their window',()=>{
 test('production responses include restrictive browser headers and API no-store',async()=>{
  await withServer({production:true},async base=>{const response=await fetch(base+'/api/health');assert.equal(response.status,200);assert.equal(response.headers.get('cache-control'),'no-store');assert.equal(response.headers.get('x-content-type-options'),'nosniff');assert.equal(response.headers.get('x-frame-options'),'DENY');assert.ok(response.headers.get('content-security-policy').includes("frame-ancestors 'none'"));assert.equal(response.headers.get('x-powered-by'),null);});
 });
+
+test('Vercel exact assigned origins work and unrelated origins stay forbidden',async()=>{
+ const keys=['VERCEL','VERCEL_URL','VERCEL_BRANCH_URL','VERCEL_PROJECT_PRODUCTION_URL'];const prior=Object.fromEntries(keys.map(k=>[k,process.env[k]]));
+ try{process.env.VERCEL='1';process.env.VERCEL_URL='demo-build.vercel.app';process.env.VERCEL_BRANCH_URL='demo-branch.vercel.app';process.env.VERCEL_PROJECT_PRODUCTION_URL='demo.vercel.app';
+ await withServer({frontendOrigin:'https://configured-preview.vercel.app'},async base=>{
+ for(const origin of ['https://demo-build.vercel.app','https://demo-branch.vercel.app','https://demo.vercel.app']){const response=await fetch(base+'/api/health',{headers:{Origin:origin}});assert.equal(response.status,200);assert.equal(response.headers.get('access-control-allow-origin'),origin);}
+ for(const origin of ['https://evil.example','https://demo.vercel.app.evil.example'])assert.equal((await fetch(base+'/api/health',{headers:{Origin:origin}})).status,403);
+ });}finally{for(const k of keys){if(prior[k]===undefined)delete process.env[k];else process.env[k]=prior[k];}}
+});

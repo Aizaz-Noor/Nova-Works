@@ -19,6 +19,8 @@ export function createApp({db,extract=extractProjects,sessionSecret=process.env.
  if(!sessionSecret||sessionSecret.length<32||sessionSecret.startsWith('replace-'))throw new Error('SESSION_SECRET must be configured with at least 32 characters');
  const origin=new URL(frontendOrigin).origin;
  if(origin!==frontendOrigin)throw new Error('FRONTEND_ORIGIN must be an exact origin without a path or trailing slash');
+ const allowedOrigins=new Set([origin]);
+ if(process.env.VERCEL){for(const key of ['VERCEL_URL','VERCEL_BRANCH_URL','VERCEL_PROJECT_PRODUCTION_URL']){const host=process.env[key];if(host && /^[a-zA-Z0-9.-]+$/.test(host))allowedOrigins.add('https://'+host);}}
  const app=express();app.disable('x-powered-by');
  const limits=createRequestLimits(db,{loginLimit,aiDailyLimit});
  app.use((req,res,next)=>{
@@ -32,8 +34,8 @@ export function createApp({db,extract=extractProjects,sessionSecret=process.env.
  if(process.env.TRUST_PROXY==='1')app.set('trust proxy',1);
  app.use((req,res,next)=>{
   const requestOrigin=req.headers.origin;
-  if(requestOrigin&&requestOrigin!==origin) return next(new ApiError(403,'ORIGIN_FORBIDDEN','Request origin is not allowed'));
-  if(requestOrigin){res.setHeader('Access-Control-Allow-Origin',origin);res.setHeader('Vary','Origin');res.setHeader('Access-Control-Allow-Credentials','true');}
+  if(requestOrigin&&!allowedOrigins.has(requestOrigin)) return next(new ApiError(403,'ORIGIN_FORBIDDEN','Request origin is not allowed'));
+  if(requestOrigin){res.setHeader('Access-Control-Allow-Origin',requestOrigin);res.setHeader('Vary','Origin');res.setHeader('Access-Control-Allow-Credentials','true');}
   if(req.method==='OPTIONS') {
    res.setHeader('Access-Control-Allow-Methods','GET, POST, OPTIONS');res.setHeader('Access-Control-Allow-Headers','Content-Type');return res.sendStatus(204);
   }
