@@ -11,6 +11,7 @@ import { taskRoutes } from './routes/tasks.routes.js';
 import { teamRoutes } from './routes/team.routes.js';
 import { aiRoutes } from './routes/ai.routes.js';
 import { extractProjects } from './services/aiService.js';
+import { SQLiteSessionStore } from './services/sessionStore.js';
 export function createApp({db,extract=extractProjects,sessionSecret=process.env.SESSION_SECRET,frontendOrigin=process.env.FRONTEND_ORIGIN||'http://localhost:5173',production=process.env.NODE_ENV==='production'}={}) {
  if(!db)throw new Error('Database is required');
  if(!sessionSecret||sessionSecret.length<32||sessionSecret.startsWith('replace-'))throw new Error('SESSION_SECRET must be configured with at least 32 characters');
@@ -30,7 +31,7 @@ export function createApp({db,extract=extractProjects,sessionSecret=process.env.
  });
  app.use(express.json({limit:'256kb'}));
  const cookieOptions={httpOnly:true,sameSite:'lax',secure:production,path:'/'};
- app.use(session({name:'novaworks.sid',secret:sessionSecret,resave:false,saveUninitialized:false,cookie:{...cookieOptions,maxAge:8*60*60*1000}}));
+ app.use(session({name:'novaworks.sid',store:new SQLiteSessionStore(db),secret:sessionSecret,resave:false,saveUninitialized:false,cookie:{...cookieOptions,maxAge:8*60*60*1000}}));
  app.get('/api/health',(req,res)=>res.json({success:true}));
  app.use('/api/auth',authRoutes(db,cookieOptions));
  app.use('/api',requireAuth(db));

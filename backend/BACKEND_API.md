@@ -1,4 +1,4 @@
-# NovaWorks backend API — handoff for Aizaz
+# NovaWorks backend API â€” handoff for Aizaz
 
 Base URL: `http://localhost:3001/api`. JSON uses camelCase. All protected routes derive identity and role from the session, never request parameters. There is no frontend in the supplied repository.
 
@@ -34,15 +34,15 @@ GET routes have no request body. POST routes accept JSON. Logout accepts an empt
 
 | Method | Route | Authentication / roles | Request | Success |
 | --- | --- | --- | --- | --- |
-| GET | `/health` | Public | — | 200 `{ "success": true }` |
-| POST | `/auth/login` | Public | `{ "email": "…", "password": "…" }` | 200 safe user; sets cookie |
+| GET | `/health` | Public | â€” | 200 `{ "success": true }` |
+| POST | `/auth/login` | Public | `{ "email": "â€¦", "password": "â€¦" }` | 200 safe user; sets cookie |
 | POST | `/auth/logout` | Public; clears existing session | `{}` | 200 `{ "success": true }`; clears cookie |
-| GET | `/auth/me` | All signed-in roles | — | 200 safe user |
-| GET | `/team` | All signed-in roles; read-only | — | 200 `{ "team": [directoryEntry] }` |
-| GET | `/projects` | ADMIN: all; MANAGER: managed; AGENT: projects with own tasks | — | 200 `{ "projects": [projectSummary] }` |
-| GET | `/projects/:id` | Same project visibility rule | — | 200 project detail with authorized tasks |
-| GET | `/tasks` | ADMIN: all; MANAGER: managed-project tasks; AGENT: assigned tasks | — | 200 `{ "tasks": [task] }` |
-| POST | `/admin/create-from-transcript` | ADMIN only | `{ "transcript": "…" }` | 201 newly saved result; 200 if replayed |
+| GET | `/auth/me` | All signed-in roles | â€” | 200 safe user |
+| GET | `/team` | All signed-in roles; read-only | â€” | 200 `{ "team": [directoryEntry] }` |
+| GET | `/projects` | ADMIN: all; MANAGER: managed; AGENT: projects with own tasks | â€” | 200 `{ "projects": [projectSummary] }` |
+| GET | `/projects/:id` | Same project visibility rule | â€” | 200 project detail with authorized tasks |
+| GET | `/tasks` | ADMIN: all; MANAGER: managed-project tasks; AGENT: assigned tasks | â€” | 200 `{ "tasks": [task] }` |
+| POST | `/admin/create-from-transcript` | ADMIN only | `{ "transcript": "â€¦" }` | 201 newly saved result; 200 if replayed |
 
 `GET /tasks` is the agent My Tasks endpoint. There is no separate `/my-tasks`, editing, signup, or user-management route. Empty lists return 200 with `[]`. Query parameters such as `userId`, `role`, or `agentId` do not change authorization.
 

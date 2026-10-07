@@ -7,15 +7,15 @@ Use ONLY the provided directory IDs. Managers must have role MANAGER; task assig
 Dates must be real ISO YYYY-MM-DD dates; use the meeting date/year to resolve dates. Do not guess missing required data: use null for unresolved fields so server validation requests correction.
 Hours must be positive numbers. Include meaningful descriptions grounded in agreed scope. Task dates must not exceed the project deadline. Never include cost, progress, budget, or hourly rate fields.
 If there are no agreed projects, return an empty projects array so the application requests correction.`;
-export async function extractProjects(transcript,directory,{fetchImpl=fetch,apiKey=process.env.OPENROUTER_API_KEY,model=process.env.OPENROUTER_MODEL,timeoutMs=60000}={}) {
- if(!apiKey||apiKey.startsWith('replace-')||!model||model.startsWith('replace-'))throw new ApiError(503,'AI_NOT_CONFIGURED','Configure OPENROUTER_API_KEY and OPENROUTER_MODEL on the backend');
+export async function extractProjects(transcript,directory,{fetchImpl=fetch,apiKey=process.env.TOKENROUTER_API_KEY,model=process.env.TOKENROUTER_MODEL||'deepseek/deepseek-v4-flash-0731',baseUrl=process.env.TOKENROUTER_BASE_URL||'https://api.tokenrouter.com/v1',timeoutMs=90000}={}) {
+ if(!apiKey||apiKey.startsWith('replace-')||!model||model.startsWith('replace-'))throw new ApiError(503,'AI_NOT_CONFIGURED','Transcript processing is not configured. Contact the administrator; no records were saved.');
  // Explicit allowlist prevents credential/session fields from reaching the provider.
  const team=directory.map(({id,name,role,specialization,skills})=>({id,name,role,specialization,skills}));
  let response;
  try {
-  response=await fetchImpl('https://openrouter.ai/api/v1/chat/completions',{
+  response=await fetchImpl(`${baseUrl.replace(/\/$/,'')}/chat/completions`,{
    method:'POST',headers:{Authorization:`Bearer ${apiKey}`,'Content-Type':'application/json'},
-   body:JSON.stringify({model,temperature:0,max_tokens:12000,provider:{require_parameters:true},response_format:{type:'json_schema',json_schema:{name:'meeting_projects',strict:true,schema:outputSchema}},messages:[{role:'system',content:systemPrompt},{role:'user',content:JSON.stringify({directory:team,transcript})}]}),
+   body:JSON.stringify({model,temperature:0,max_tokens:6000,response_format:{type:'json_object'},messages:[{role:'system',content:systemPrompt+'\nExpected JSON schema: '+JSON.stringify(outputSchema)},{role:'user',content:JSON.stringify({directory:team,transcript})}]}),
    signal:AbortSignal.timeout(timeoutMs)
   });
   if(!response.ok)throw new ApiError(response.status===429?503:502,'AI_PROVIDER_ERROR','AI provider could not complete extraction; retry or check provider configuration');

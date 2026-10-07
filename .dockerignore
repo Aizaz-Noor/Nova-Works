@@ -1,0 +1,14 @@
+.git
+**/node_modules
+**/.env
+**/.env.*
+**/*.env
+**/*.sqlite
+**/*.sqlite-shm
+**/*.sqlite-wal
+**/data
+**/dist
+tmp
+hackathon/screenshots
+hackathon/test-results
+*.log

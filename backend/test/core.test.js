@@ -58,10 +58,10 @@ test('SQLite records and deduplication survive close/reopen',()=>{
  try {db=openDatabase(file);seedUsers(db);saveDraft(db,draft(),'persist');db.close();db=openDatabase(file);assert.equal(count(db,'users'),10);assert.equal(count(db,'projects'),3);assert.equal(count(db,'tasks'),12);assert.equal(previousSubmission(db,'persist').taskCount,12);}
  finally {db?.close();rmSync(dir,{recursive:true,force:true});}
 });
-test('provider receives actual transcript and safe directory; schema enforcement enabled',async()=>{
+test('TokenRouter receives actual transcript, safe directory and expected JSON shape',async()=>{
  let sent;const unsafe=[{id:'PM01',name:'Ayesha',role:'MANAGER',specialization:'Web PM',skills:['Web'],password_hash:'secret',session:'secret'}];
- const value=await extractProjects('A changed meeting input',unsafe,{apiKey:'test-key',model:'test-model',fetchImpl:async(url,options)=>{assert.equal(url,'https://openrouter.ai/api/v1/chat/completions');sent=JSON.parse(options.body);return {ok:true,json:async()=>({choices:[{finish_reason:'stop',message:{content:JSON.stringify(fixture)}}]})};}});
- assert.equal(value.projects.length,3);assert.equal(sent.response_format.type,'json_schema');const input=JSON.parse(sent.messages[1].content);assert.equal(input.transcript,'A changed meeting input');assert.equal(input.directory[0].password_hash,undefined);assert.equal(input.directory[0].session,undefined);
+ const value=await extractProjects('A changed meeting input',unsafe,{apiKey:'test-key',model:'test-model',fetchImpl:async(url,options)=>{assert.equal(url,'https://api.tokenrouter.com/v1/chat/completions');sent=JSON.parse(options.body);return {ok:true,json:async()=>({choices:[{finish_reason:'stop',message:{content:JSON.stringify(fixture)}}]})};}});
+ assert.equal(value.projects.length,3);assert.equal(sent.response_format.type,'json_object');assert.ok(sent.messages[0].content.includes('Expected JSON schema:'));const input=JSON.parse(sent.messages[1].content);assert.equal(input.transcript,'A changed meeting input');assert.equal(input.directory[0].password_hash,undefined);assert.equal(input.directory[0].session,undefined);
 });
 test('provider errors, malformed JSON and missing configuration are sanitized',async()=>{
  await assert.rejects(extractProjects('t',[],{apiKey:'',model:'m'}),e=>e.status===503);
