@@ -7,5 +7,5 @@ export async function openPostgres(connectionString) {
  pool.on('error',()=>console.error('PostgreSQL pool connection unavailable'));
  const db={kind:'postgres',query:(text,values)=>pool.query(text,values),close:()=>pool.end()};
  db.transaction=async work=>{const client=await pool.connect();try{await client.query('BEGIN');const result=await work(client);await client.query('COMMIT');return result;}catch(error){await client.query('ROLLBACK');throw error;}finally{client.release();}};
- try{await pool.query('SELECT 1');await pool.query(await readFile(new URL('../../migrations/001_postgres.sql',import.meta.url),'utf8'));return db;}catch(error){await pool.end();const failure=new Error('PostgreSQL initialization failed; verify private database configuration and connectivity');failure.code=/^[A-Z0-9_]+$/.test(error.code||'')?error.code:'DATABASE_INIT_FAILED';throw failure;}
+ try{await pool.query('SELECT 1');if(process.env.DATABASE_AUTO_MIGRATE!=='0')await pool.query(await readFile(new URL('../../migrations/001_postgres.sql',import.meta.url),'utf8'));return db;}catch(error){await pool.end();const failure=new Error('PostgreSQL initialization failed; verify private database configuration and connectivity');failure.code=/^[A-Z0-9_]+$/.test(error.code||'')?error.code:'DATABASE_INIT_FAILED';throw failure;}
 }

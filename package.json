@@ -1,0 +1,8 @@
+{
+  "name": "novaworks-deployment",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "24.x" },
+  "scripts": { "build": "npm ci --prefix app/client && npm run build --prefix app/client" },
+  "dependencies": { "express": "5.1.0", "express-session": "1.18.2", "pg": "8.16.3" }
+}

@@ -1,0 +1,13 @@
+.env
+.env.*
+**/.env
+**/.env.*
+backend/data/**
+backend/*.crt
+backend/*.pem
+backend/*.cer
+hackathon/**
+Aizaz/**
+node_modules/**
+**/node_modules/**
+.git/**
