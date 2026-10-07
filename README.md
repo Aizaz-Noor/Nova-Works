@@ -1,4 +1,4 @@
-# NovaWorks — Meeting to Execution
+# NovaWorks - Meeting to Execution
 
 Code Nomads | Infinity Hack '26 | AI Project Manager challenge
 
@@ -15,7 +15,7 @@ React frontend and Abdullah's Express/SQLite backend are integrated. Login/logou
 - Abdul Basit: assigned backend/AI support; further delivered contributions not verified here.
 
 Repository: https://github.com/Aizaz-Noor/Nova-Works
-Live app: Not deployed. Demo recording: Pending. Submission: Not submitted.
+Live app: Not deployed. Demo recording: [Actual live-flow video](hackathon/demo-video/NovaWorks-live-demo.mp4). Submission: Not submitted.
 
 ## Stack and requirements
 
@@ -94,7 +94,7 @@ npm.cmd run test:all --prefix backend
 npm.cmd run build --prefix app/client
 ```
 
-Observed:13/13 backend tests PASS; frontend build PASS. Tests cover HTTP sessions/RBAC/direct access, malformed output, wrong employees, rollback, SQLite reopen, duplicate/concurrent requests and mocked provider failure. They do not prove model correctness. Evidence: hackathon/reports/backend-integration-20261007.md.
+Observed:13/13 backend tests PASS; frontend build PASS. Tests cover HTTP sessions/RBAC/direct access, malformed output, wrong employees, rollback, SQLite reopen, duplicate/concurrent requests and mocked provider failure. They do not prove model correctness. Evidence: hackathon/reports/final-mvp-verification-20261007.md.
 
 For an intentional demo reset, stop server, run npm.cmd run reset:projects --prefix backend, then restart. This deletes generated projects/tasks/submission markers but preserves seeded users.
 

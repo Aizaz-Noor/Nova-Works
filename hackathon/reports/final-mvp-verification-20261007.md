@@ -1,4 +1,4 @@
-﻿# Final MVP verification — 7 October 2026
+# Final MVP verification — 7 October 2026
 
 Scope: approved Direction1, Node24/React/Express/SQLite, TokenRouter deepseek/deepseek-v4-flash-0731. Lead authorized actual provider calls and Docker preparation only. No hosted deployment or submission.
 
@@ -19,3 +19,6 @@ Scope: approved Direction1, Node24/React/Express/SQLite, TokenRouter deepseek/de
 Localrecording initiallyblocked by missing pinnedPlaywrightFFmpeg; official1.3MiB runtime tool installation underway. Recording status must be verified separately; no fabricatedvideo. No hostedlink/submission. Publicfictionaldemo credentials make this a demonstration MVP, not unrestrictedbusinessproduction. SingleinstanceSQLite; no hostedDBbonus claimed. Exposeduser-pastedprovider key must be rotated before sharingdeployment; keptprivatebackendonly, not committed. This report contains no secrets.
 
 Featurefreeze12:40Asia/Karachi underleadstandinginstruction; no newproductsourcefeatures afterfreeze. Hardstop13:00. Verifiedlocalfunctional MVP; submissionreadinesspendingrecording/leadsubmission. QAcoreflow PASS; artifact completeness pendingvideo. Presentation/testguide in Aizaz/DEMO_PLAN.md and TESTING.md.
+
+## Recording verification
+PASS actual42.96s VP8recording inspected; processingframe andsuccess3/12 confirmed, Ayeshafilteredframeconfirmed. MP4convertedforportableviewing. Recordingdatabase3projects12tasks independentlyverified. MainDBunchanged. No productsourceeditsafterfreeze/hardstop. Finalsubmissionartifacts prepared, notsubmitted.

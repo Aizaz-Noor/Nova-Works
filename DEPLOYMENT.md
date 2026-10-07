@@ -50,3 +50,15 @@ Configure your HTTPS reverse proxy to forward the public origin to `127.0.0.1:30
 Check `/api/health`, then log in through HTTPS. Verify the cookie remains authenticated on refresh. Submit the original full challenge transcript and confirm three projects and twelve tasks with the final meeting corrections. The original and modified transcript acceptance tests passed with the selected TokenRouter model; repeat the useful flow on the deployed environment. Verify manager and agent visibility, logout, error recovery, and duplicate prevention. Restart the instance and confirm stored projects and the authenticated session remain while the session is unexpired. Never count a successful image build or health response as proof of the complete flow.
 
 Deployment preparation is not deployment. Docker build/container runtime and hosted HTTPS verification were not run in the preparation environment because Docker was unavailable. Record the actual results on the selected host before claiming a hosted demo works.
+
+## Recommended host: Render Docker web service
+
+Render builds this repository's root Dockerfile. SQLite needs a persistent disk; Render disks require a paid service. Free web services have ephemeral storage and cannot preserve this database across redeploys. Official instructions: https://render.com/docs/docker and https://render.com/docs/disks.
+
+1. Connect Aizaz-Noor/Nova-Works, branchmain, as one WebService; chooseDocker, rootcontext, ./Dockerfile. Do not use a static-site-only deployment for this Express/SQLite app.
+2. Attach a persistent disk at/data to a paid single instance. The directory must be writable by the container's node user. Confirm disk ownership/settings on the selected host; this has not been exercised locally.
+3. Set NODE_ENV=production, DATABASE_PATH=/data/novaworks.sqlite, TRUST_PROXY=1 for Render's trusted HTTPS proxy, FRONTEND_ORIGIN to the exact HTTPS onrender.com origin, and private SESSION_SECRET/TOKENROUTER_API_KEY. Set TOKENROUTER_MODEL=deepseek/deepseek-v4-flash-0731 and TOKENROUTER_BASE_URL=https://api.tokenrouter.com/v1. Let the host provide PORT. Keep the secret stable across restarts.
+4. For the Docker Command, use: /bin/sh -c "npm run db:init && npm run seed && npm start". This initializes the schema and seeds ten unique demo accounts before serving. Healthcheck path/api/health. Do not use a pre-deploy command that cannot access the mounted disk.
+5. Open the HTTPS link; test login, real conversion, authorized views, refresh and restart persistence before sharing. Provider key must be rotated because it was exposed in the conversation. No deployment or paid-service purchase has been performed by the agent.
+
+For a no-hosting-cost submission, use the verified local app and recorded video instead. The official brief permits this local route. The Docker instructions are a deployment plan, not a verified hosted service or a guarantee of hosting bonus marks.
