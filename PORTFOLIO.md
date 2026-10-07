@@ -37,7 +37,7 @@ React/Vite and plain CSS provide the web interface; Node.js/Express handles sess
 
 SQLite matched a three-hour local MVP: the official challenge allowed a local database, and the incoming backend already used it. It preserves the relational links between users, projects and tasks without adding database hosting or a migration to the critical path. This was a scope and integration decision, not a claim that SQLite fits every deployment.
 
-For a future hosted version, PostgreSQL through a service such as Supabase could retain those relational concepts, with an explicit migration and regression testing. A Firestore implementation would introduce a document data model and require reworking data access, relationships and the atomic-save workflow. Neither migration was needed to satisfy the local hackathon flow; neither is claimed implemented here.
+For the post-event hosted version, Supabase PostgreSQL now retains those relational concepts, with migration and real database regression testing. A Firestore implementation would introduce a document data model and require reworking data access, relationships and the atomic-save workflow. Neither migration was needed to satisfy the local hackathon flow; the later Supabase migration is recorded separately below.
 
 ## Team ownership
 
@@ -49,7 +49,7 @@ Our delivery plan needed a stronger submission buffer. An end-to-end thin slice 
 
 ## Separate post-event portfolio work
 
-On 8 October, the lead authorized portfolio enhancement and prioritized deployment. Those changes must be recorded in subsequent commits and verified separately from the frozen event source. At this document handoff, enhancements and hosted deployment are **pending**, and no public live URL is claimed. Docker packaging was prepared during the event; Docker runtime and hosted HTTPS checks were not performed then.
+On 8 October, the lead authorized portfolio enhancement and prioritized deployment. Those changes must be recorded in subsequent commits and verified separately from the frozen event source. The post-event portfolio is now live at https://nova-works-zeta.vercel.app with Vercel and Supabase. The actual hosted login, live AI conversion, exact saved3projects12tasks, sessions, replay, persistence and role restrictions passed.25backendtests pass. See DEPLOYMENT_AUDIT.md for bounded evidence and limitations. Docker packaging was prepared during the event; Docker runtime and hosted HTTPS checks were not performed then.
 
 Before describing a public deployment as working, verify its startup, persistent storage, HTTPS/session behavior, live conversion, access restrictions and failure recovery. Rotate the key previously exposed in chat before using it for deployment. Demo credentials and local tests do not establish business production readiness.
 

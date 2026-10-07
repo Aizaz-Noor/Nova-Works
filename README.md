@@ -1,12 +1,13 @@
+<!-- Post-event live verification:8October2026. See VERCEL_DEPLOYMENT.md and DEPLOYMENT_AUDIT.md. -->
 # NovaWorks - Meeting to Execution
 
 Code Nomads | Infinity Hack '26 | AI Project Manager challenge
 
 ## What works
 
-React frontend and Abdullah's Express/SQLite backend are integrated. Login/logout, ten-person directory, session-enforced project/task access, validation, duplicate prevention and atomic persistent saves are implemented. All 13 backend tests pass. Browser checks passed for real login/directory/logout and provider-not-configured recovery. Real TokenRouter original and modified transcript acceptance passed; the browser created and saved the official three projects and twelve tasks.
+React frontend and Abdullah's Express/SQLite backend are integrated. Login/logout, ten-person directory, session-enforced project/task access, validation, duplicate prevention and atomic persistent saves are implemented. All 25 backend tests pass. Browser checks passed for real login/directory/logout and provider-not-configured recovery. Real TokenRouter original and modified transcript acceptance passed; the browser created and saved the official three projects and twelve tasks.
 
-**Live AI verified:** TokenRouter with deepseek/deepseek-v4-flash-0731 produced the expected original output and changed only QuickServe integration hours/date for the modified input. Provider failure saves nothing. Docker preparation and self-test/presentation guides are included; hosted deployment and submission are not performed.
+**Live AI verified:** TokenRouter with deepseek/deepseek-v4-flash-0731 produced the expected original output and changed only QuickServe integration hours/date for the modified input. Provider failure saves nothing. Docker preparation and self-test/presentation guides are included; hosted deployment is now verified as post-hackathon work; submission was not performed.
 
 ## Team
 
@@ -15,7 +16,7 @@ React frontend and Abdullah's Express/SQLite backend are integrated. Login/logou
 - Abdul Basit: assigned backend/AI support; further delivered contributions not verified here.
 
 Repository: https://github.com/Aizaz-Noor/Nova-Works
-Live app: Not deployed. Demo recording: [Actual live-flow video](hackathon/demo-video/NovaWorks-live-demo.mp4). Submission: Not submitted.
+Live app: https://nova-works-zeta.vercel.app (Vercel + Supabase; post-hackathon). Demo recording: [Actual live-flow video](hackathon/demo-video/NovaWorks-live-demo.mp4). Submission: Not submitted.
 
 ## Stack and requirements
 
