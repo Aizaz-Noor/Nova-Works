@@ -15,10 +15,12 @@
     "test": "node --test test/core.test.js",
     "test:live": "node scripts/verify-live.js",
     "test:api": "node --test test/api.test.js",
-    "test:all": "node --test test/*.test.js"
+    "test:all": "node --test test/*.test.js",
+    "test:postgres": "node scripts/verify-postgres.js"
   },
   "dependencies": {
     "express": "^5.1.0",
-    "express-session": "^1.18.2"
+    "express-session": "^1.18.2",
+    "pg": "8.16.3"
   }
 }

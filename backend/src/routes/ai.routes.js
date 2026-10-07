@@ -10,14 +10,14 @@ export function aiRoutes(db,extract,limits) {
   const transcript=req.body?.transcript;
   if(typeof transcript!=='string'||!transcript.trim()||transcript.length>100000)throw new ApiError(400,'BAD_INPUT','Transcript must contain 1–100000 characters');
   const normalized=transcript.trim();const hash=createHash('sha256').update(normalized).digest('hex');
-  const prior=previousSubmission(db,hash);
+  const prior=await previousSubmission(db,hash);
   if(prior)return res.json({...prior,replayed:true});
   if(inFlight.has(hash))throw new ApiError(409,'SUBMISSION_IN_PROGRESS','This transcript is already processing; wait and retry');
-  limits.ai();inFlight.add(hash);
+  await limits.ai();inFlight.add(hash);
   try {
-   const directory=teamDirectory(db);
+   const directory=await teamDirectory(db);
    const draft=validateAiOutput(await extract(normalized,directory),directory);
-   const result=saveDraft(db,draft,hash);
+   const result=await saveDraft(db,draft,hash);
    res.status(result.replayed?200:201).json(result);
   } finally {inFlight.delete(hash);}
  });

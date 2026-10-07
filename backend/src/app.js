@@ -1,3 +1,4 @@
+import {PostgresSessionStore} from './services/postgresSessionStore.js';
 import './config.js';
 import express from 'express';
 import { existsSync } from 'node:fs';
@@ -40,8 +41,8 @@ export function createApp({db,extract=extractProjects,sessionSecret=process.env.
  });
  app.use(express.json({limit:'256kb'}));
  const cookieOptions={httpOnly:true,sameSite:'lax',secure:production,path:'/'};
- app.use(session({name:'novaworks.sid',store:new SQLiteSessionStore(db),secret:sessionSecret,resave:false,saveUninitialized:false,cookie:{...cookieOptions,maxAge:8*60*60*1000}}));
- app.get('/api/health',(req,res)=>res.json({success:true}));
+ app.use(session({name:'novaworks.sid',store:db.kind==='postgres'?new PostgresSessionStore(db):new SQLiteSessionStore(db),secret:sessionSecret,resave:false,saveUninitialized:false,cookie:{...cookieOptions,maxAge:8*60*60*1000}}));
+ app.get('/api/health',async(req,res)=>{try{if(db.kind==='postgres')await db.query('SELECT 1');else db.prepare('SELECT 1').get();res.json({success:true});}catch{res.status(503).json({success:false,error:{code:'DATABASE_UNAVAILABLE',message:'Database is temporarily unavailable'}});}});
  app.use('/api/auth',authRoutes(db,cookieOptions,limits));
  app.use('/api',requireAuth(db));
  app.use('/api/team',teamRoutes(db));app.use('/api/projects',projectRoutes(db));app.use('/api/tasks',taskRoutes(db));

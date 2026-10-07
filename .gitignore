@@ -15,3 +15,7 @@ coverage/
 *.pem
 *.key
 tmp/
+
+backend/*.crt
+backend/*.pem
+backend/*.cer

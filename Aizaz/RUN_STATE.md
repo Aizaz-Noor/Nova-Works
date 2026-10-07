@@ -1,46 +1,23 @@
-# Hackathon Run State
+# Post-hackathon portfolio run state
 
-Mode: LIVE
-Updated: 2026-10-07T12:40:00+05:00
-Owner: Aizaz/integration owner
+Mode: POST_HACKATHON
+Updated: 2026-10-08
+Owner: Aizaz / integration owner
 
-## Phase and gates
+The lead reports the team missed the submission window and did not win. The official event is over. New work is explicitly authorized as post-hackathon portfolio development, with deployment first, then polish and LinkedIn case study. Do not misrepresent later changes as event work or an on-time submission. Do not publish a LinkedIn post without instruction.
 
-FEATURE FREEZE; final demonstration/artifact preparation. Direction1 approved; Gate1/2/3 PASS. Integrated core build/liveAI Gate4PASS; coreQA PASS with actualoriginal/modified/unknowninput, sessionroles/persistence evidence. Submission artifacts pendingrecording; no submission claimed. Lead requested TokenRouter low-costmodel and Docker-onlypreparation, explicitlyselected.
+Frozen event product: a17f503. Final event artifacts: 3ca864d. Preserve source/history and original local databases. Current branch feature/post-hackathon-portfolio in tmp/novaworks-publish. Canonical workspace Git remains unborn infrastructure.
 
-## Clock
+Current improvements: persistent login-attempt limits (10 per15minutes perIP, successful login resets), persistent global daily AI-call cap (20 perUTCday), Retry-After feedback, production browser security headers and API no-store. New quota is charged only for distinct extraction attempts; identical saved transcript does not invoke model or consume quota. Failed extraction attempts count to prevent repeated spend.
 
-Hardstop13:00Asia/Karachi7October2026, leadconfirmed. Freeze12:40YES understandinginstruction. Twentyminutes remain atfreeze. No newproductfeatures/codeafterfreeze; no codeeditsafterhardstop. Three-hourstart10:00inferred, neverreset.
+Verification: npm.cmd run test:all --prefix backend PASS17/17 including HTTP quota/duplicate behavior, login throttling, limiter recreation/window reset and productionheaders. Existing13session/auth/role/persistence/rollback/provider tests PASS. New browser smoke and frontend changes in progress; no new paidmodelcalls in this enhancement pass.
 
-## Approved MVP
+Delegation: root backend/deployment integration and state; frontend_review owns App.jsx/styles/demoaccount component/sampletext; pitch_handoff owns PORTFOLIO.md/LINKEDIN_POST.md; backend_review read-onlyaudit blockednormalexecution, root verified current files using approved escalation. Normal exec process setup currently fails; scoped escalated execution works. No privatecredentials printed.
 
-OfficialchallengePDF12pages in HACKATHON_CONTEXT.md. Adminlogin ->fullmeeting+safe10employee directory ->realTokenRouter extraction ->validatedatomicSQLite save ->authorizedproject/taskviews. No optionalbacklog. Roles/directrequestauth, errors/correction, persistence andduplicationprotectionincluded. Finaldecisions3projects12tasks verified.
+Deployment first: lead prefers both public demo and portfolio; reports Supabase plugin connected but no project exists. Supabase callable capabilities were not present in exposedtoolmetadata; verify availability/connection before claimingaccess. No account/project/paidservice/deployment created. Host/database connection and secretrotation still required. PreserveworkingSQLite until migration is concretely authorized/provisioned and tested; do not substitute an untestedPostgres facade.
 
-## Working checkout and evidence
+Portfolio draft written; truthfulmissedsubmission/nowcontinuing, event13tests/liveAI3projects12tasks and modifiedinputevidence documented. Next: browser smokepostchanges, reviewownedfrontendhandoff, chooseconcretehosting/database provisioning, run/test/build, commitandpublishpost-eventbranch withactualevidence.
 
-Activeclone ../tmp/novaworks-publish, approvedNova-Worksorigin. Mainpreviouspublished e62e6c6; finalprovider/session/deploymentdocs candidatependingpublication. ActualbackendbranchAbdul-8869-backend42da5e1 mergedhistorypreserved. RootGitunborninfrastructurepreserved.
+Deployment milestone: user selected Aizaz-Noor's Org and confirmed private DATABASE_URL saved. Created NovaWorks Portfolio Supabase project unwklbyuujmwoyztxrev in ap-south-1 after connector quoted zero monthly project cost. Applied reviewed private novaworks schema: six tables, RLS enabled, anon/authenticated schema access revoked. Security advisors INFO only for intentionally absent browser policies. App TLS connection failed SELF_SIGNED_CERT_IN_CHAIN; verification retained, public root certificate requested. Live PG acceptance NOT PASS. Optional adapter implementation and Render free Docker blueprint in progress; no public app deployed or Render connection available. SQLite17tests remain PASS. Frontend onboarding/sample/clear/count smoke PASS; commits ef15857/55615f0 preserved. Next: trust official certificate, real PG acceptance, hosted startup/browser flow, publish tested branch and authorized hosting.
 
-npm.cmd run test:all --prefix backend PASS13/13 afterdurableSQLite sessions. npm.cmd run test:live --prefix backend PASS2genuinecalls:original3/12/allreferencefields; modifiedonlyQuickServeintegration12hours/23October. Browser actualAIcreation saved3/12, UrbanCart4tasks/meaningfulscope/corrections20/19October. AyeshaonlyUrbanCart/noCreate; Ali3owntasks; restartpreservesAli sessionandrecords. UnseenincompleteUnknownShop422,projectcount3unchanged. PriorbuildPASS26modules/responsivechecks375/768/1440PASS. Report ../hackathon/reports/final-mvp-verification-20261007.md.
-
-## AI
-
-TokenRouter https://api.tokenrouter.com/v1; modeldeepseek/deepseek-v4-flash-0731 leadselectedandactuallytested. Inputfulltranscript+allowlisted directory,no passwords. JSONmodeloutput ->servervalidation ->atomictransaction. No hardcodedanswerfallback. Failure savesnothing/requests correction. Realkeyprivatebackend.envonly; exposedchatkeyrequiresrotationbeforedeployment,nevercommitted. Paidcallsauthorizedbyuserrequest.
-
-## Run and selftest
-
-CombinedliveURL http://127.0.0.1:3001/, backendterminalsession72401. ActualDBhas3officialAIgeneratedprojects12tasks. npm.cmd ci --prefix app/client; npm.cmd ci --prefix backend; npm.cmd run build --prefix app/client; configureprivatebackend.env; npm.cmd run db:init --prefix backend; npm.cmd run seed --prefix backend; npm.cmd start --prefix backend. Seed10fictionalaccounts/allDemo123!. Guides TESTING.md, README.md, Aizaz/DEMO_PLAN.md. Identicaltranscriptreusesearlierresult; intentionalresetdocumentedbeforefreshconversion. Do not resetneededwork.
-
-## Deployment and artifacts
-
-UserselectedDockerpreparationonly. Dockerfile/.dockerignore/DEPLOYMENT.md:Node24nonroot,oneinstance,persistent/data,HTTPSsecurecookie/trustedproxy. Dockerunavailable image/runtime/hostedHTTPSNOTRUN. No hostedDBbonusorbusinessproductionclaim. LocalrecordinginitiallyblockedmissingFFmpeg; officialpinnedtoolinstallongoing; videoUNVERIFIEDuntilartifactexists. Recordingandfinalsubmissionleadowned; nosubmissionperformed.
-
-## Next action
-
-Publishreviewedfinaltestedcandidatewithoutsecrets; finishactualrecordingifavailable; verifyartifacts; present/rehearseunchangedMVP. Pitchguideprepared2minrehearsaldefault,officialdurationunknown. Do notclaimnovelresearch/measuredsavings/perfectscores. TeamAizazUIintegration,Abdullahbackend, BasitbackendAIassignedsupport.
-
-## Publication verified12:43
-Finaltestedsource a17f503ce98dc9d9b266730a223baaaa095c8389 pushedandremoteHEADconfirmed. FunctionalMVPsourcefrozen; onlyrecording/docsafterfreeze. PinnedPlaywrightFFmpeginstallPASS; actualrecording underwayonseparateunchangedbackend3002/database, main3001recordsuntouched. NoDockerorhosteddeploymenttestclaimed.
-
-
-## Final submission artifacts
-ActualrecordingPASS42.96s: realproviderconversion3projects12tasks plusmanagerfiltering. Sourcea17f503 frozen; finaldocs/video only afterward. SUBMISSION.md prepared; MP4 in hackathon/demo-video. Localroutecomplete; Docker/HTTPSdeploymentNOTRUN. RecommendedRenderDockerpaidpersistentdisk; no paidservice/deployment/submission executed. Hardstopobserved; no furthercodechanges.
+Verification update: root ran npm.cmd run test:all --prefix backend, exit0 PASS19/19. Official publiccertificate located supabase-ca.crt.crt and copied to expectedfilename; TLS trustnowpasses. Live npm.cmd run test:postgres --prefix backend exit1 SQLSTATE28P01 invalidpassword after userupdatedURL. SanitizedURLchecks: correctsessionpooler/5432/projectusername/postgresDB/passwordpresent/no brackets. Resetdatabasepasswordrequested; appnotconnected/deployed. OriginalSQLitedatapreserved. OptionalPGadaptercomplete; schemaMCPverified; livePGtransaction/session/RBACtestsNOTPASSuntilauthfixed.

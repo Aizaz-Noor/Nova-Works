@@ -1,0 +1,6 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createApp} from '../src/app.js';
+import {openDatabase,openConfiguredDatabase} from '../src/db/database.js';
+test('required hosted postgres never falls back to ephemeral SQLite',async()=>{const oldUrl=process.env.DATABASE_URL,oldRequire=process.env.REQUIRE_POSTGRES;try{delete process.env.DATABASE_URL;process.env.REQUIRE_POSTGRES='1';await assert.rejects(openConfiguredDatabase(),/required/);}finally{if(oldUrl===undefined)delete process.env.DATABASE_URL;else process.env.DATABASE_URL=oldUrl;if(oldRequire===undefined)delete process.env.REQUIRE_POSTGRES;else process.env.REQUIRE_POSTGRES=oldRequire;}});
+test('database outage health returns generic 503 without private errors',async()=>{const db=openDatabase(':memory:');const app=createApp({db,sessionSecret:'health-test-secret-at-least-32-characters'});const server=app.listen(0,'127.0.0.1');await new Promise(r=>server.once('listening',r));try{const url=`http://127.0.0.1:${server.address().port}/api/health`;assert.equal((await fetch(url)).status,200);db.close();const response=await fetch(url);assert.equal(response.status,503);assert.equal((await response.json()).error.code,'DATABASE_UNAVAILABLE');}finally{await new Promise(r=>server.close(r));}});

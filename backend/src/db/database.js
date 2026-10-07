@@ -18,5 +18,7 @@ export function transaction(db, work) {
  catch (error) { db.exec('ROLLBACK'); throw error; }
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
- const db = openDatabase(); db.close(); console.log('SQLite schema initialized.');
+ try{const db=await openConfiguredDatabase();await db.close();console.log('Database schema initialized.');}catch{console.error('Database initialization failed; check private configuration/connectivity');process.exitCode=1;}
 }
+
+export async function openConfiguredDatabase(){if(process.env.REQUIRE_POSTGRES==='1'&&!process.env.DATABASE_URL)throw new Error('PostgreSQL configuration is required');if(process.env.DATABASE_URL){const {openPostgres}=await import('./postgres.js');return openPostgres(process.env.DATABASE_URL);}return openDatabase();}

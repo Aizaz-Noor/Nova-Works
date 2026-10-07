@@ -1,5 +1,5 @@
 import { pathToFileURL } from 'node:url';
-import { openDatabase, transaction } from './database.js';
+import { openConfiguredDatabase, transaction } from './database.js';
 import { hashPassword } from '../services/passwords.js';
 export const demoUsers = [
  ['ADMIN','Admin','admin','ADMIN','Administrator',['Company overview','transcript creation']],
@@ -14,6 +14,7 @@ export const demoUsers = [
  ['DEV06','Maryam Asif','maryam','AGENT','AI Developer',['Retrieval','document processing']]
 ];
 export function seedUsers(db) {
+ if(db.kind==='postgres')return db.transaction(async client=>{for(const [id,name,email,role,specialization,skills] of demoUsers)await client.query('INSERT INTO novaworks.users(id,name,email,password_hash,role,specialization,skills) VALUES($1,$2,$3,$4,$5,$6,$7::jsonb) ON CONFLICT(email) DO NOTHING',[id,name,`${email}@novaworks.example`,hashPassword('Demo123!'),role,specialization,JSON.stringify(skills)]);return Number((await client.query('SELECT COUNT(*) AS count FROM novaworks.users')).rows[0].count);});
  const insert = db.prepare(`INSERT INTO users(id,name,email,password_hash,role,specialization,skills)
  VALUES(?,?,?,?,?,?,?) ON CONFLICT(email) DO NOTHING`);
  transaction(db, () => {
@@ -23,5 +24,5 @@ export function seedUsers(db) {
  return db.prepare('SELECT COUNT(*) AS count FROM users').get().count;
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
- const db = openDatabase(); console.log(`Seed complete: ${seedUsers(db)} users.`); db.close();
+ let db;try{db=await openConfiguredDatabase();console.log(`Seed complete: ${await seedUsers(db)} users.`);}catch{console.error('Database seed failed; verify private configuration');process.exitCode=1;}finally{await db?.close();}
 }

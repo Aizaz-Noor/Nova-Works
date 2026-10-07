@@ -1,5 +1,2 @@
-import { openDatabase, transaction } from './database.js';
-const db = openDatabase();
-transaction(db, () => db.exec('DELETE FROM tasks; DELETE FROM projects; DELETE FROM transcript_submissions;'));
-db.close();
-console.log('Generated projects, tasks and transcript deduplication records cleared; users retained.');
+import {openConfiguredDatabase,transaction} from './database.js';
+let db;try{db=await openConfiguredDatabase();if(db.kind==='postgres')await db.transaction(client=>client.query('DELETE FROM novaworks.tasks; DELETE FROM novaworks.projects; DELETE FROM novaworks.transcript_submissions;'));else transaction(db,()=>db.exec('DELETE FROM tasks; DELETE FROM projects; DELETE FROM transcript_submissions;'));console.log('Generated projects, tasks and transcript deduplication records cleared; users retained.');}catch{console.error('Database reset failed; verify private configuration');process.exitCode=1;}finally{await db?.close();}

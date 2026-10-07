@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: novaworks-portfolio
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: REQUIRE_POSTGRES
+        value: "1"
+      - key: TRUST_PROXY
+        value: "1"
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_CA_CERT
+        sync: false
+      - key: FRONTEND_ORIGIN
+        sync: false
+      - key: TOKENROUTER_API_KEY
+        sync: false
+      - key: TOKENROUTER_MODEL
+        value: deepseek/deepseek-v4-flash-0731
+      - key: AI_DAILY_LIMIT
+        value: "20"
+      - key: LOGIN_ATTEMPT_LIMIT
+        value: "10"

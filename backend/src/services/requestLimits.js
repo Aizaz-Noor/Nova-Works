@@ -1,5 +1,7 @@
+import {createPostgresLimits} from './postgresRequestLimits.js';
 ﻿import { ApiError } from '../middleware/errorHandler.js';
 export function createRequestLimits(db, { loginLimit = 10, aiDailyLimit = 20, now = Date.now } = {}) {
+ if(db.kind==='postgres')return createPostgresLimits(db,{loginLimit,aiDailyLimit,now});
  if (!Number.isSafeInteger(loginLimit) || loginLimit < 1 || !Number.isSafeInteger(aiDailyLimit) || aiDailyLimit < 1) throw new Error('Request limits must be positive integers');
  db.exec('CREATE TABLE IF NOT EXISTS request_limits (bucket TEXT PRIMARY KEY, count INTEGER NOT NULL, resets_at INTEGER NOT NULL)');
  const read=db.prepare('SELECT count,resets_at FROM request_limits WHERE bucket=?');
