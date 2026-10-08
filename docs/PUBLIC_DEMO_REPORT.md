@@ -1,3 +1,5 @@
+Current adaptive UI and replacement88-second media are documented in [RESPONSIVE_RELEASE.md](RESPONSIVE_RELEASE.md). This audit records the earlier code/media release; its historical recording duration and timing refer to that release.
+
 # Public demo readiness report
 
 8 October 2026. Post-event portfolio work; baseline `eabe5e2`. This release preserves the official meeting-to-execution scope. The team missed the event submission deadline; later improvements are not presented as competition work.

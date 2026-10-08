@@ -40,4 +40,8 @@ Social drafts and storyboard are updated for the new adaptive interface. Videos 
 
 ## Cloud publication
 
-Pending the authorized push of this combined candidate. Final source and cloud checks are appended after the deployment is observed.
+Product/media commit `eb4b05442519eff4ba4f7cd2aa9cd99df86c216a` pushed to main. GitHub Actions [37795079866](https://github.com/Aizaz-Noor/Nova-Works/actions/runs/37795079866) SUCCESS. Vercel production `dpl_ChepAbDLEFhpVxMTyikowoLaQ3Up` READY on that exact SHA and public alias.
+
+Public `node backend/scripts/verify-deployed.js` PASS exit0: health/login/directory/creation/replay/persistence/role restrictions/direct access/logout;3projects12tasks,reusedExisting=true. Cloud verification used saved replay, not another model request. Actual public browser1366/1024/375px PASS: menu closes on navigation, Escape restores focus, directory/projects remain usable, no document overflow, freshAli sign-in/own-task view/logout. Observed11Ali rows reflect additional shared demo records; no records were deleted. Logged-out /auth/me401 is expected.
+
+Expanded Edge+WebKit matrix PASS exit0 for project details, directory, long transcript entry and My Tasks at1366/1024/800/683/375/320px, with no horizontal overflow. Separate real login-screen matrix at the same six widths PASS in both engines. No new provider calls were made. The extended maintainer verification script and this evidence-only follow-up do not change production application source or media.
