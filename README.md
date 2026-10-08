@@ -1,39 +1,73 @@
-<!-- Post-event live verification:8October2026. See VERCEL_DEPLOYMENT.md and DEPLOYMENT_AUDIT.md. -->
-# NovaWorks - Meeting to Execution
+# NovaWorks — Meeting to Execution
 
-Code Nomads | Infinity Hack '26 | AI Project Manager challenge
+Turn a meeting's final decisions into saved projects, tasks, owners, deadlines and effort estimates.
 
-## What works
+[![Verify NovaWorks](https://github.com/Aizaz-Noor/Nova-Works/actions/workflows/verify.yml/badge.svg)](https://github.com/Aizaz-Noor/Nova-Works/actions/workflows/verify.yml)
+![Node.js 24](https://img.shields.io/badge/Node.js-24-417E38)
+![React 19](https://img.shields.io/badge/React-19-149ECA)
+![Express 5](https://img.shields.io/badge/Express-5-333333)
 
-React frontend and Abdullah's Express/SQLite backend are integrated. Login/logout, ten-person directory, session-enforced project/task access, validation, duplicate prevention and atomic persistent saves are implemented. All 25 backend tests pass. Browser checks passed for real login/directory/logout and provider-not-configured recovery. Real TokenRouter original and modified transcript acceptance passed; the browser created and saved the official three projects and twelve tasks.
+**[Try the live demo](https://nova-works-zeta.vercel.app)** · **[Watch the captioned walkthrough](docs/assets/novaworks-demo.mp4)** · **[Audit and improvements](docs/PUBLIC_DEMO_REPORT.md)**
 
-**Live AI verified:** TokenRouter with deepseek/deepseek-v4-flash-0731 produced the expected original output and changed only QuickServe integration hours/date for the modified input. Provider failure saves nothing. Docker preparation and self-test/presentation guides are included; hosted deployment is now verified as post-hackathon work; submission was not performed.
+NovaWorks helps an administrator move from meeting notes to assigned work without entering every project and task separately. A server-side AI request reads the full meeting and a safe team directory. The server checks the result, saves the complete batch together, and shows each person only their permitted work.
 
-## Team
+Built by Code Nomads for the Infinity Hack '26 AI Project Manager challenge, then improved as a portfolio project. We missed the event submission deadline and did not win. The current deployment, audit fixes and presentation improvements are post-event work.
 
-- Aizaz: product, UI/UX, React frontend, integration and main pushes.
-- Abdullah: delivered backend branch Abdul-8869-backend (42da5e1), authentication, SQLite, extraction adapter, validation and tests.
-- Abdul Basit: assigned backend/AI support; further delivered contributions not verified here.
+## Take a look
 
-Repository: https://github.com/Aizaz-Noor/Nova-Works
-Live app: https://nova-works-zeta.vercel.app (Vercel + Supabase; post-hackathon). Demo recording: [Actual live-flow video](hackathon/demo-video/NovaWorks-live-demo.mp4). Submission: Not submitted.
+![Administrator project workspace with scoped search and delivery dates](docs/assets/projects.png)
 
-## Stack and requirements
+| Assigned work | On a narrow screen |
+| --- | --- |
+| ![Project detail, task ownership, deadline and hours](docs/assets/project-detail.png) | ![Responsive developer task view](docs/assets/mobile-tasks.png) |
 
-Node.js 24+ (tested24.12.0), npm, React19.2.8, Vite6.4.3, JavaScript/plainCSS, Express5, express-session, built-in SQLite. Actual AI requires authorized provider credentials and a tested model. Sessions use HttpOnly cookies and a SQLite-backed store. Sessions and project/task records persist across restart with the same database and session secret.
+The captioned video records the real application with fictional accounts in an isolated local database. Its provenance, extraction/replay disclosure and editing details are in [the demo guide](docs/SOCIAL_DEMO.md). [Download the vertical social version](docs/assets/novaworks-demo-vertical.mp4). No social posts have been published automatically.
+
+## Try it in two minutes
+
+Open the live demo. Choose a role to fill its credentials, then select **Sign in**.
+
+| Role | Email | What you can explore |
+| --- | --- | --- |
+| Administrator | `admin@novaworks.example` | Projects, directory, transcript creation |
+| Project manager | `ayesha@novaworks.example` | Ayesha's assigned projects and their tasks |
+| Developer | `ali@novaworks.example` | Ali's own tasks and related projects |
+
+All fictional demo passwords are **`Demo123!`**. This is a shared public demonstration; use fictional sample meetings, not private business information.
+
+1. As administrator, choose **Create from Transcript → Load sample meeting → Create projects and tasks**.
+2. A new successful sample batch has three projects and twelve tasks. An already saved meeting reuses its original batch; the success notice tells you which happened.
+3. Search **UrbanCart**, open the project and inspect its manager, deadline and task estimates.
+4. Sign out and try Ayesha or Ali to see the access boundaries.
+
+The shared workspace may contain other demo projects. Counts for the sample batch do not describe the entire workspace. A fresh extraction uses provider credits; saved replay makes no new model call.
+
+## Features
+
+- AI extraction of final decisions, including later corrections and rejected scope.
+- Whole-batch validation of users, roles, dates, task descriptions and positive hours.
+- Atomic saves and duplicate-safe replay of an identical meeting.
+- Cookie sessions with server-enforced administrator, manager and developer access.
+- Project search by project/client/manager and ordering by name or deadline.
+- Task search, authorized assignee filters and deadline ordering.
+- Read-only team directory with search and role filtering.
+- Persistent SQLite locally or Supabase PostgreSQL on the hosted demo.
+- Responsive screens, keyboard focus, loading, correction and recovery states.
 
 ## Run locally
+
+Install **Node.js 24** and Git. These commands are PowerShell examples; use `npm` instead of `npm.cmd` on macOS/Linux.
 
 ```powershell
 git clone https://github.com/Aizaz-Noor/Nova-Works.git
 cd Nova-Works
-npm.cmd ci --prefix app/client
 npm.cmd ci --prefix backend
+npm.cmd ci --prefix app/client
 npm.cmd run build --prefix app/client
 Copy-Item backend/.env.example backend/.env
 ```
 
-Edit backend/.env: set a private SESSION_SECRET of at least32characters. Keep FRONTEND_ORIGIN=http://127.0.0.1:3001. Configure only authorized AI credentials/model. Never commit .env or place keys in browser variables.
+Edit `backend/.env`. Set a private random `SESSION_SECRET` of at least 32 characters. Keep `FRONTEND_ORIGIN=http://127.0.0.1:3001` and `NODE_ENV=development` for local HTTP. Leave `DATABASE_URL` empty to use SQLite. Set your own authorized server-only `TOKENROUTER_API_KEY` to enable fresh AI extraction; login and browsing do not need that key.
 
 ```powershell
 npm.cmd run db:init --prefix backend
@@ -41,64 +75,70 @@ npm.cmd run seed --prefix backend
 npm.cmd start --prefix backend
 ```
 
-Keep that terminal open. Visit **http://127.0.0.1:3001/**. Backend serves the built frontend and API on one origin. Default database: backend/data/novaworks.sqlite. Seed reruns preserve ten unique accounts. For Vite development run npm.cmd run dev --prefix app/client, change FRONTEND_ORIGIN to http://127.0.0.1:5173 and restart backend. Vite proxies /api to3001. Use exactly the configured browser origin.
+Keep the terminal open and visit **http://127.0.0.1:3001/**. One Express server serves both the built frontend and API. The database is `backend/data/novaworks.sqlite`; preserve it and your session secret across restarts. Seeding again does not duplicate accounts or erase projects.
 
-## Environment variables
+For frontend development, run `npm.cmd run dev --prefix app/client`, set `FRONTEND_ORIGIN=http://127.0.0.1:5173`, restart the backend, and use that exact URL. The Vite server proxies `/api` to port 3001. The explicitly labeled `/?preview=1` design preview is static and cannot authenticate, run AI or save work.
 
-| Variable | Purpose | Location |
-| --- | --- | --- |
-| PORT | Backend port, default3001 | backend/.env |
-| DATABASE_PATH | SQLite file, relative to backend | backend/.env |
-| SESSION_SECRET | Private session signing secret, minimum32characters | backend/.env |
-| FRONTEND_ORIGIN | Exact allowed browser origin | backend/.env |
-| TOKENROUTER_API_KEY | Current server-only provider credential | backend/.env |
-| TOKENROUTER_MODEL | Current tested provider model ID | backend/.env |
+## Configuration and deployment
 
-TOKENROUTER_BASE_URL defaults to https://api.tokenrouter.com/v1; TOKENROUTER_MODEL defaults to deepseek/deepseek-v4-flash-0731. NODE_ENV=production enables secure cookies; TRUST_PROXY=1 only behind one trusted HTTPS ingress. Frontend needs no private environment variables.
+Private values belong in `backend/.env` locally or the host's secret manager. Never put them in `VITE_*` variables, screenshots or Git.
 
-## Demo accounts
+| Variable | Purpose |
+| --- | --- |
+| `SESSION_SECRET` | Private session signing secret, at least 32 characters |
+| `FRONTEND_ORIGIN` | Exact browser origin, with no path or trailing slash |
+| `TOKENROUTER_API_KEY` | Server-only provider credential |
+| `TOKENROUTER_MODEL` | Tested model: `deepseek/deepseek-v4-flash-0731` |
+| `TOKENROUTER_BASE_URL` | Defaults to `https://api.tokenrouter.com/v1` |
+| `DATABASE_URL` | Optional private PostgreSQL connection; empty selects SQLite |
+| `DATABASE_PATH` | SQLite path, relative to `backend` |
+| `REQUIRE_POSTGRES` | Set `1` on ephemeral hosted filesystems |
+| `NODE_ENV` / `TRUST_PROXY` | Production secure cookies / trusted HTTPS ingress |
+| `AI_DAILY_LIMIT` / `LOGIN_ATTEMPT_LIMIT` | Persistent request quotas; defaults 20 / 10 |
 
-All passwords are **Demo123!**. Emails are fictional login identifiers, not inboxes.
+The current live demo uses **Vercel + Supabase PostgreSQL**. Supabase provides database storage, not browser-side authentication. Express checks permissions; the private database schema denies access to public browser roles. TLS verification remains enabled.
 
-| Role | Name | Email |
-| --- | --- | --- |
-| Admin | Admin | admin@novaworks.example |
-| Manager | Ayesha Khan | ayesha@novaworks.example |
-| Manager | Bilal Ahmed | bilal@novaworks.example |
-| Manager | Hina Malik | hina@novaworks.example |
-| Agent | Ali Raza | ali@novaworks.example |
-| Agent | Hamza Shah | hamza@novaworks.example |
-| Agent | Sara Noor | sara@novaworks.example |
-| Agent | Usman Tariq | usman@novaworks.example |
-| Agent | Zain Abbas | zain@novaworks.example |
-| Agent | Maryam Asif | maryam@novaworks.example |
+- [Vercel setup and verification](VERCEL_DEPLOYMENT.md)
+- [Supabase configuration](SUPABASE.md)
+- [Optional Docker deployment](DEPLOYMENT.md) — container execution is not verified here
 
-## Flow and judge test
+## How it works
 
-Admin login -> Create from Transcript -> paste full meeting -> model extracts final decisions using safe employee directory -> validate roles/references/dates/positive hours -> save entire batch in one transaction -> success counts/project list -> project detail -> logout -> manager or developer sees permitted work.
+```mermaid
+flowchart LR
+  A[Administrator: full meeting] --> B[Express session and quotas]
+  B --> C[TokenRouter: safe directory + transcript]
+  C --> D[Validate final project and task fields]
+  D --> E[Save one transaction]
+  E --> F[Role-scoped projects and tasks]
+```
 
-After actual AI configuration:
+The prompt treats the transcript as source data, uses supplied employee IDs, and prefers final agreed corrections. Structural validation cannot guarantee that an AI model understood every sentence correctly. Incomplete or invalid results are returned for correction rather than partly saved.
 
-1. Paste backend/docs/meeting-transcript.txt; expect3projects/12tasks.
-2. UrbanCart: Ayesha,20October2026,4tasks; final integration19October.
-3. Ayesha sees only UrbanCart. Ali sees3own tasks. Hamza sees2API tasks across UrbanCart and QuickServe.
-4. Direct requests for other users' work are denied; refresh preserves saved records.
-5. Modify QuickServe integration consistently to12hours/2026-10-23; verify changed output.
-6. Missing required information/provider failure must save nothing and allow correction.
+Stack: React 19, Vite 6, JavaScript/plain CSS, Node.js 24, Express 5, `express-session`, built-in SQLite or `pg`, TokenRouter. No custom training, browser API key or Firebase/Supabase Auth migration.
 
-npm.cmd run test:live --prefix backend makes actual provider calls; original/modified acceptance PASSED. Requires authorized credentials/usage. Static /?preview=1 is explicitly labeled; it cannot authenticate or save. Test fixtures are never seeded into the actual demo database.
-
-## Verification and reset
+## Verify it yourself
 
 ```powershell
 npm.cmd run test:all --prefix backend
-npm.cmd run build --prefix app/client
+npm.cmd run build
+node backend/scripts/verify-deployed.js
 ```
 
-Observed:13/13 backend tests PASS; frontend build PASS. Tests cover HTTP sessions/RBAC/direct access, malformed output, wrong employees, rollback, SQLite reopen, duplicate/concurrent requests and mocked provider failure. They do not prove model correctness. Evidence: hackathon/reports/final-mvp-verification-20261007.md.
+The backend suite covers authentication, role restrictions, validation, rollback, persistence, quotas, concurrency and provider failures. The public verifier checks the complete saved-sample flow and direct access denials. It makes a fresh AI call only if that sample is not already saved. [Testing guide](TESTING.md) · [Detailed audit, fixes and results](docs/PUBLIC_DEMO_REPORT.md).
 
-For an intentional demo reset, stop server, run npm.cmd run reset:projects --prefix backend, then restart. This deletes generated projects/tasks/submission markers but preserves seeded users.
+GitHub Actions runs backend tests, production build and dependency audits on pushes to `main` and pull requests. A passing build is not a substitute for the browser and data-flow checks documented in the audit.
 
-## Deployment and limitations
+## Scope and limitations
 
-Local only; no hosted frontend/backend/database. Build output app/client/dist is served by npm.cmd start --prefix backend. GitHub is source hosting, not deployment. TokenRouter original/modified acceptance and real browser creation verified. Docker build/runtime NOT RUN because Docker is unavailable here. Docker-only preparation was requested; see DEPLOYMENT.md. Self-test guide: TESTING.md. Presentation: Aizaz/DEMO_PLAN.md. Local-database submission requires a working-flow recording; the live demo remains mandatory. No signup/password reset/user management/costs/progress features. Full accessibility conformance not audited. Deadline13:00, freeze12:40 Asia/Karachi7October2026.
+This is a portfolio demonstration with shared fictional credentials, not a private company workspace. There is no signup, password reset, user administration, task editing, progress tracking, billing or cost calculation. Provider availability and semantic accuracy are not guaranteed. Full accessibility conformance and Docker runtime are not claimed. Before using real data, replace demo accounts, rotate previously exposed private credentials and review the restricted database/runtime access model.
+
+## Team and acknowledgments
+
+- **Aizaz** — product direction, UI/UX, frontend, integration and repository ownership.
+- **Abdullah** — delivered the original backend branch, authentication, storage, extraction adapter, validation and tests.
+- **Abdul Basit** — team member assigned backend/AI support; specific additional delivered code is not independently attributed here.
+
+Thanks to the Infinity Hack '26 organizers for the challenge and fictional company/team scenario. Built with the open-source projects named above, Supabase, Vercel and TokenRouter. Codex assisted implementation, testing and documentation. Dependency licenses remain with their respective authors.
+
+[90-second script and storyboard](docs/SOCIAL_DEMO.md) · [Social post drafts](docs/SOCIAL_POSTS.md) · [Earlier event recording and submission history](SUBMISSION.md)

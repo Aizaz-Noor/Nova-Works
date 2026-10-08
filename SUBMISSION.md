@@ -1,8 +1,10 @@
-﻿# NovaWorks submission handoff
+# Historical event submission package — 7 October 2026
+
+**Not submitted.** This page records the frozen event artifacts. Current post-event source, deployment and social video are documented in the root README; later portfolio commits include product changes.
 
 Team: Code Nomads (Aizaz, Abdul Basit, Abdullah).
 Repository: https://github.com/Aizaz-Noor/Nova-Works
-Frozen tested product source: a17f503ce98dc9d9b266730a223baaaa095c8389. Later commits contain documentation and recording only; no product-code changes after the official development deadline.
+Frozen tested product source: a17f503ce98dc9d9b266730a223baaaa095c8389. The event snapshot is preserved; separately authorized portfolio improvements were made after the event.
 
 ## Submit these artifacts
 

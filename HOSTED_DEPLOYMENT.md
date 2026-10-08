@@ -1,6 +1,8 @@
-# Hosted portfolio deployment: Render + Supabase
+# Alternative hosting plan: Render + Supabase
 
-This is post-hackathon work. No live website is deployed yet.
+**Current host:** Vercel + Supabase, https://nova-works-zeta.vercel.app. See VERCEL_DEPLOYMENT.md. The Render plan below is an unused alternative, not the active deployment.
+
+This Render alternative was prepared after the hackathon and has not been deployed.
 
 The repository contains render.yaml for one Docker web service on Render's Free plan. Supabase stores projects, tasks, sessions and request limits; do not attach a local database to the free web service. Free Render services sleep after 15 minutes idle and can take about a minute to wake. This is a portfolio demo, not an availability guarantee.
 

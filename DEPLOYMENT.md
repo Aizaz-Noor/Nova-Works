@@ -1,4 +1,6 @@
-# NovaWorks single-instance deployment
+# Optional Docker deployment
+
+The current public portfolio is deployed on Vercel + Supabase: https://nova-works-zeta.vercel.app. See VERCEL_DEPLOYMENT.md. This page describes the alternative single-instance Docker/SQLite route; Docker build/runtime remains unverified here.
 
 This is a hackathon MVP with fictional seeded accounts. The supplied demo passwords are public. Use it only as an isolated demonstration; it is not ready to hold real business data on an unrestricted public endpoint. Do not publish the demo accounts as production credentials.
 
@@ -41,7 +43,7 @@ docker run --rm --env-file /private/deployment.env -v novaworks-data:/data novaw
 docker run -d --name novaworks --restart unless-stopped --env-file /private/deployment.env -v novaworks-data:/data -p 127.0.0.1:3001:3001 novaworks:demo
 ```
 
-Configure your HTTPS reverse proxy to forward the public origin to `127.0.0.1:3001`. The user selected Docker preparation; no hosted deployment has been performed. Mount the persistent volume at `/data` and keep one container instance. The volume must be writable by the container's `node` user. An ephemeral filesystem loses saved work and sessions.
+Configure your HTTPS reverse proxy to forward the public origin to `127.0.0.1:3001`. This alternative describes Docker preparation, not the active Vercel deployment. Mount the persistent volume at `/data` and keep one container instance. The volume must be writable by the container's `node` user. An ephemeral filesystem loses saved work and sessions.
 
 `Dockerfile` installs from the existing lockfiles, builds the frontend, excludes private `.env` files and databases, and runs as the unprivileged `node` user. Back up the database using a SQLite-consistent snapshot before replacing the volume or resetting records. Do not run the project reset command on a database whose records you need to preserve.
 

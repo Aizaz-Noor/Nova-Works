@@ -10,7 +10,10 @@ ENV NODE_ENV=production PORT=3001 DATABASE_PATH=/data/novaworks.sqlite
 WORKDIR /app/backend
 COPY backend/package.json backend/package-lock.json ./
 RUN npm ci --omit=dev --ignore-scripts --no-audit --no-fund
-COPY --chown=node:node backend/ ./
+# Copy only runtime sources; local certificates, tooling and private files stay outside the image.
+COPY --chown=node:node backend/src/ ./src/
+COPY --chown=node:node backend/migrations/ ./migrations/
+COPY --chown=node:node backend/certs/ ./certs/
 COPY --from=frontend --chown=node:node /build/app/client/dist /app/app/client/dist
 RUN mkdir -p /data && chown node:node /data
 USER node

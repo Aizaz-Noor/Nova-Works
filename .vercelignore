@@ -13,3 +13,6 @@ node_modules/**
 .git/**
 
 !backend/certs/supabase-root.pem
+
+# Presentation assets are served by GitHub, not the application bundle.
+docs/assets/**

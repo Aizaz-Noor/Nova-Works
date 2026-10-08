@@ -12,3 +12,14 @@ tmp
 hackathon/screenshots
 hackathon/test-results
 *.log
+
+# Keep private key material and large presentation assets out of the build context.
+**/*.key
+**/*.pfx
+**/*.p12
+**/*.pem
+backend/*.crt
+backend/*.cer
+!backend/certs/supabase-root.pem
+docs/assets/
+hackathon/demo-video/

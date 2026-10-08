@@ -26,6 +26,7 @@ export async function extractProjects(transcript,directory,{fetchImpl=fetch,apiK
   try {return JSON.parse(content);}catch {throw new ApiError(422,'INVALID_AI_OUTPUT','AI returned invalid JSON; nothing was saved',[{path:'root',message:'Expected valid JSON'}]);}
  }catch(error){
   if(error instanceof ApiError)throw error;
+  if(error?.name==='TimeoutError'||error?.name==='AbortError')throw new ApiError(504,'AI_TIMEOUT','Transcript processing took too long; no records were saved. Please retry.');
   throw new ApiError(502,'AI_PROVIDER_ERROR','AI provider was unreachable or returned an unreadable response');
  }
 }

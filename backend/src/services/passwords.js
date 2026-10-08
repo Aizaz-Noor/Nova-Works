@@ -4,7 +4,8 @@ export function hashPassword(password) {
  return `scrypt:${salt}:${scryptSync(password, salt, 64).toString('hex')}`;
 }
 export function verifyPassword(password, hash) {
- const [scheme, salt, value] = hash.split(':');
- if (scheme !== 'scrypt' || !salt || !/^[a-f0-9]{128}$/.test(value || '')) return false;
+ if(typeof hash!=='string')return false;
+ const [scheme, salt, value, extra] = hash.split(':');
+ if (scheme !== 'scrypt' || extra!==undefined || !/^[a-f0-9]{32}$/.test(salt||'') || !/^[a-f0-9]{128}$/.test(value || '')) return false;
  return timingSafeEqual(Buffer.from(value, 'hex'), scryptSync(password, salt, 64));
 }

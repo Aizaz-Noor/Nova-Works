@@ -1,6 +1,6 @@
 import { ApiError } from '../middleware/errorHandler.js';
 export function validDate(value) {
- if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value))return false;
+ if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value)||value.startsWith('0000-'))return false;
  const date=new Date(`${value}T00:00:00Z`);
  return Number.isFinite(date.getTime())&&date.toISOString().slice(0,10)===value;
 }
@@ -8,8 +8,8 @@ export function validateAiOutput(value,directory) {
  const issues=[];const roles=new Map(directory.map(u=>[u.id,u.role]));
  const issue=(path,message)=>issues.push({path,message});
  const object=v=>v!==null && typeof v==='object' && !Array.isArray(v);
- const text=(v,path)=>{if(typeof v!=='string'||!v.trim()||v.length>10000)issue(path,'Required non-empty text (maximum 10000 characters)');};
- const description=(v,path)=>{if(v!==undefined&&(typeof v!=='string'||v.length>20000))issue(path,'Description must be text (maximum 20000 characters)');};
+ const text=(v,path)=>{if(typeof v!=='string'||!v.trim()||v.length>10000||v.includes('\u0000'))issue(path,'Required non-empty text without NUL characters (maximum 10000 characters)');};
+ const description=(v,path)=>{if(v!==undefined&&(typeof v!=='string'||v.length>20000||v.includes('\u0000')))issue(path,'Description must be text without NUL characters (maximum 20000 characters)');};
  const extras=(v,allowed,path)=>{for(const k of Object.keys(v))if(!allowed.includes(k))issue(`${path}.${k}`,'Unexpected field');};
  if(!object(value)) issue('root','Expected a JSON object');
  else {
@@ -27,7 +27,7 @@ export function validateAiOutput(value,directory) {
     const tp=`${path}.tasks[${j}]`;
     if(!object(t)){issue(tp,'Expected a task object');return;}
     extras(t,['title','description','assigneeId','deadline','estimatedHours'],tp);
-    text(t.title,`${tp}.title`);if(typeof t.description!=='string'||!t.description.trim()||t.description.length>20000)issue(`${tp}.description`,'Required non-empty task description (maximum 20000 characters)');
+    text(t.title,`${tp}.title`);if(typeof t.description!=='string'||!t.description.trim()||t.description.length>20000||t.description.includes('\u0000'))issue(`${tp}.description`,'Required non-empty task description without NUL characters (maximum 20000 characters)');
     if(roles.get(t.assigneeId)!=='AGENT')issue(`${tp}.assigneeId`,'Must reference an existing AGENT');
     if(!validDate(t.deadline))issue(`${tp}.deadline`,'Expected a real date in YYYY-MM-DD format');
     else if(validDate(p.deadline)&&t.deadline>p.deadline)issue(`${tp}.deadline`,'Task deadline must not exceed project deadline');
