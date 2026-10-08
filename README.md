@@ -1,4 +1,4 @@
-# NovaWorks — Meeting to Execution
+# NovaWorks Meeting to Execution
 
 Turn a meeting's final decisions into saved projects, tasks, owners, deadlines and effort estimates.
 
@@ -13,7 +13,6 @@ NovaWorks helps an administrator move from meeting notes to assigned work withou
 
 Built by Code Nomads for the Infinity Hack '26 AI Project Manager challenge, then improved as a portfolio project. We missed the event submission deadline and did not win. The current deployment, audit fixes and presentation improvements are post-event work.
 
-The current interface adapts to laptop windows and mobile: compact navigation, readable task rows, keyboard recovery and Reduced Motion support. [Responsive release and evidence](docs/RESPONSIVE_RELEASE.md) · [Documentation index](docs/README.md).
 
 ## Take a look
 
@@ -139,7 +138,7 @@ This is a portfolio demonstration with shared fictional credentials, not a priva
 
 - **Aizaz** — product direction, UI/UX, frontend, integration and repository ownership.
 - **Abdullah** — delivered the original backend branch, authentication, storage, extraction adapter, validation and tests.
-- **Abdul Basit** — team member assigned backend/AI support; specific additional delivered code is not independently attributed here.
+- **Abdul Basit** — team member assigned backend/AI support.
 
 Thanks to the Infinity Hack '26 organizers for the challenge and fictional company/team scenario. Built with the open-source projects named above, Supabase, Vercel and TokenRouter. Codex assisted implementation, testing and documentation. Dependency licenses remain with their respective authors.
 
