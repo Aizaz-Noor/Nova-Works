@@ -95,7 +95,13 @@ README now leads with the problem, live app, screenshots and video, then explain
 
 ### Release verification
 
-Pending publication at report creation. Final commit, GitHub synchronization, CI and deployed acceptance are appended after actual checks.
+Code/media release `e0b0c16e7ffe69325d2a99058b2bfb58a9bc2411` pushed to main; local and remote refs matched. GitHub Actions run [37786480078](https://github.com/Aizaz-Noor/Nova-Works/actions/runs/37786480078) completed SUCCESS: backend tests, build and both dependency audits passed.
+
+Vercel production deployment `dpl_GTcQi5kP8hZ6wiinSLaXJvJCioWa` READY on the exact release SHA; public alias verified. `node backend/scripts/verify-deployed.js` exited 0 with PASS for health/login/directory/creation/replay/persistence/role restrictions/direct access/logout, sample counts 3/12 and reusedExisting=true. This cloud check reused saved work; fresh live extraction evidence comes from the separately recorded local flow.
+
+Actual public browser: admin sign-in, no-result filter/clear focus, UrbanCart detail, fresh Ali sign-in, own-task view and logout PASS. At 375px there was no document overflow and no developer assignee filter. Observed shared totals were 11 projects and 11 Ali rows, not the isolated sample counts; no public records were removed for filming. The initial logged-out /auth/me 401 is expected. An ambiguous Clear filters test locator was narrowed to the intended control before rerunning; this was a harness correction, not an app defect.
+
+This evidence-only follow-up changes documentation/caption whitespace and operational state; product source and media remain those verified above.
 
 ## Remaining boundaries and owner actions
 

@@ -49,4 +49,3 @@ Responsive browser view — 375 pixels
 13
 00:01:15,127 --> 00:01:25,141
 Try the live demo. Explore the code. Share your feedback.
-
