@@ -27,7 +27,7 @@ try {
  const responsePromise=page.waitForResponse(r=>r.url().endsWith('/api/admin/create-from-transcript')&&r.request().method()==='POST',{timeout:115000});
  mark('Actual AI request: extract, validate, then save together');
  await page.locator('.composer-footer button').click();
- const response=await responsePromise;const result=await response.json();assert.equal(response.status(),201);assert.equal(result.replayed,false);assert.equal(result.projectCount,3);assert.equal(result.taskCount,12);
+ const response=await responsePromise;const result=await response.json();assert.equal(response.status(),201,`Extraction failed: ${result.error?.code || 'unexpected status'}`);assert.equal(result.replayed,false);assert.equal(result.projectCount,3);assert.equal(result.taskCount,12);
  const expected=JSON.parse(await readFile('backend/test/fixtures/expected.json','utf8'));
  const canonical=d=>d.projects.map(p=>({name:p.name,clientName:p.clientName,managerId:p.managerId,deadline:p.deadline,tasks:p.tasks.map(t=>({title:t.title,assigneeId:t.assigneeId,deadline:t.deadline,estimatedHours:t.estimatedHours})).sort((a,b)=>a.title.localeCompare(b.title))})).sort((a,b)=>a.name.localeCompare(b.name));
  assert.deepEqual(canonical(result),canonical(expected));
@@ -41,7 +41,7 @@ try {
  await page.locator('nav button').filter({hasText:'Team directory'}).click();await page.locator('#team-role').waitFor();await page.locator('#team-role').selectOption('MANAGER');mark('A searchable, read-only directory of the supplied team');await hold(5);
  await page.getByRole('button',{name:'Sign out',exact:true}).click();await page.locator('#email').waitFor();await signIn('ayesha');assert.equal(await page.locator('.project-card').count(),1);mark('Managers see their assigned projects');await hold(6);
  await page.getByRole('button',{name:'Sign out',exact:true}).click();await page.locator('#email').waitFor();await signIn('ali');await page.locator('#task-search').waitFor();assert.equal(await page.locator('.task-row').count(),3);assert.equal(await page.locator('#task-assignee').count(),0);mark('Developers see their own tasks, not everyone else’s');await hold(6);
- await page.setViewportSize({width:375,height:720});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);mark('Responsive browser view — 375 pixels');await page.screenshot({path:'docs/assets/mobile-tasks.png',fullPage:true});await hold(7);
+ await page.setViewportSize({width:375,height:720});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);mark('Responsive menu and assigned work — 375 pixels');await page.getByRole('button',{name:'Menu',exact:true}).click();await hold(2);await page.keyboard.press('Escape');await page.locator('.task-row').first().scrollIntoViewIfNeeded();await page.screenshot({path:'docs/assets/mobile-tasks.png',fullPage:true});await hold(5);
  await page.setViewportSize({width:1280,height:720});await page.getByRole('button',{name:'Sign out',exact:true}).click();await page.locator('#email').waitFor();await page.screenshot({path:'docs/assets/login.png',fullPage:true});mark('Try the live demo. Explore the code. Share your feedback.');await hold(6);
  assert.deepEqual(errors,[],'No uncaught browser errors');
  const duration=(Date.now()-begin)/1000;await context.close();const raw=await page.video().path();

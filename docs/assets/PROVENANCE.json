@@ -7,10 +7,10 @@
                    "projects":  3,
                    "tasks":  12
                },
-    "providerWaitSeconds":  11.850999999999999,
-    "editing":  "Actual browser recordings with task and mobile detail shots from the same saved batch; 2-second opening and 4-second ending holds; captions and framing. Original AI processing wait preserved without cuts.",
+    "providerWaitSeconds":  12.833,
+    "editing":  "Actual browser recording including responsive menu interaction and task details from the same saved batch; 2-second opening and 4-second ending holds; captions and framing. Original AI processing wait preserved without cuts.",
     "audio":  "Silent; captioned. Optional voiceover script provided separately.",
-    "durationTarget":  85.141,
+    "durationTarget":  88.018,
     "formats":  [
                     "1920x1080 H.264 MP4",
                     "1080x1920 H.264 MP4"
@@ -18,5 +18,5 @@
     "browserErrors":  [
 
                       ],
-    "durationSeconds":  85
+    "durationSeconds":  88.08
 }

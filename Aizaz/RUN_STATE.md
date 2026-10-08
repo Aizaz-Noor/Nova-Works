@@ -4,16 +4,10 @@ Mode: POST_HACKATHON
 Updated: 2026-10-08 Asia/Karachi
 Owner: Aizaz / integration owner
 
-Approval: public-demo audit, fixes, UI improvements, actual video, README and GitHub push authorized. No social publication or official submission authorized. Event missed submission/no win; frozen event product a17f503 and earlier recording preserved.
+Approval: adaptive Apple-guided web redesign, useful motion, new demo, repository cleanup and GitHub push. No social publication authorized. Event missed submission/no win; event source a17f503 and original evidence preserved.
 
-Current code/media release: main e0b0c16, synchronized with GitHub; subsequent evidence-only documentation commit does not change product behavior. Live https://nova-works-zeta.vercel.app, Vercel + Supabase private novaworks schema. Product directory tmp/novaworks-publish. Goal: public-demo portfolio package, complete pending final evidence-doc synchronization.
+Candidate: feature/adaptive-portfolio from main7b897f8 in tmp/novaworks-publish. Full-width light shell; compact sidebar and accessible Menu<=1024px; compact scope previews/full details; system typography/safeareas/reducedmotion. Current guides/audits/history grouped in docs; empty placeholder removed; source/tests/lockfiles/evidence preserved. Internal links checked.
 
-Repairs: ten backend correctness/reliability findings and eight frontend resilience/accessibility findings; packaging/production-mode/CI hardening. Detailed locations, severity, impact and before/after in docs/PUBLIC_DEMO_REPORT.md, BACKEND_PUBLIC_AUDIT.md and FRONTEND_PUBLIC_AUDIT.md.
+Evidence:39/39backendtests exit0; integratedbuild exit0; actual Edge+WebKit login/roles/detail/directory/menu/focus acceptance at9widths320-1920 PASS/nooverflow/no uncaughtJSerrors. AccessLint examined login/labeledpreview no violations. Actual newAI take: first provider attempt502/no save; boundedretry201/replayedfalse exact3projects12tasks with expected fields asserted.88.08s landscape/verticalcaptioned silentvideos decode;12.833sproviderwait retained. See docs/RESPONSIVE_RELEASE.md.
 
-Evidence: 39/39 backend tests exit0; integrated build exit0; dependency audits zero known findings; real PostgreSQL acceptance exit0. Actual fresh TokenRouter recording: 201, replayed=false, exact3projects12tasks, expected owners/dates/hours; manager/agent checks, no uncaught JS errors. Two85-second captioned MP4s (landscape/vertical), SRT/screenshots/provenance committed. Videos silent; voiceover script provided. Provider wait11.85s retained; isolated database only.
-
-Release verification: GitHub Actions37786480078 SUCCESS. Vercel dpl_GTcQi5kP8hZ6wiinSLaXJvJCioWa READY exacte0b0c16. Public verifier PASS exit0 (saved sample replay, no fresh cloud model call); actual public admin/Ali login, project detail, filter focus,375px nooverflow/logoutPASS. Shared workspace totals may exceed sample counts. Initial logged-out401 expected. Bounded AccessLint states no violations; full conformance notclaimed.
-
-Gate: portfolio QA PASS for documented core; deployment PASS; presentation package ready. Limits: Docker runtime NOT RUN; credential rotation not independently verified; shared fictional demo access; privileged runtime database connection; per-instance model-inflight guard can cause duplicate cross-instance calls but one saved batch/global quota. No uptime/all-input semantic guarantee.
-
-Next action: Aizaz review video/captions, optionally record supplied voiceover, rotate previously exposed private credentials privately if outstanding, then publish chosen social draft. Do not use private meetings in the public demo.
+Gate: local QA PASS. Next: push main, verify CI/latestVercelSHA/public core, append releaseevidence, stop ownedlocalserver. Limits: actualMac/iPhone/VoiceOver/truebrowser200%zoom/Dockerruntime unverified; sharedfictionalaccess; credentialrotation notverified; privilegedruntimeDB; crossinstanceproviderduplication boundedbyquota/one savedbatch.

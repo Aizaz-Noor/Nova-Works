@@ -1,6 +1,6 @@
 # NovaWorks social demo: 90-second walkthrough
 
-Prepared 8 October 2026 for the post-event portfolio. Presenter: Aizaz. An actual 85-second captioned recording is now available; the storyboard below is a reusable 90-second narration plan. No social post has been published. The lead owns publication. Check the final video and deployment revision before attaching it to any post.
+Prepared 8 October 2026 for the post-event portfolio. Presenter: Aizaz. An actual 88-second captioned recording is now available; the storyboard below is a reusable 90-second narration plan. No social post has been published. The lead owns publication. Check the final video and deployment revision before attaching it to any post.
 
 ## Story and truthful labels
 
@@ -82,7 +82,7 @@ A small deliverable set: landscape master MP4, vertical adaptation if useful, su
 
 Thumbnail: a readable project/detail crop with the title **“Meeting decisions. Assigned work.”** and small **“NovaWorks • portfolio demo”**. Avoid “winner,” “production-ready” or fabricated savings.
 
-Suggested video description: “NovaWorks turns a complete meeting into saved projects and assigned tasks, then applies role-based access. This walkthrough shows the post-event portfolio version. The attached 8 October recording shows a new real TokenRouter request in an isolated local SQLite workspace: three projects and twelve tasks. Its approximately 11.85-second processing wait is preserved. We missed the hackathon submission window and did not win. Hosted deployment and interface improvements were completed afterward. Live app: https://nova-works-zeta.vercel.app. Code: https://github.com/Aizaz-Noor/Nova-Works. Demo identities are fictional.”
+Suggested video description: “NovaWorks turns a complete meeting into saved projects and assigned tasks, then applies role-based access. This walkthrough shows the post-event portfolio version. The attached 8 October recording shows a new real TokenRouter request in an isolated local SQLite workspace: three projects and twelve tasks. Its approximately 11.88-second processing wait is preserved. We missed the hackathon submission window and did not win. Hosted deployment and interface improvements were completed afterward. Live app: https://nova-works-zeta.vercel.app. Code: https://github.com/Aizaz-Noor/Nova-Works. Demo identities are fictional.”
 
 For actual new-request footage, replace only the saved-sample sentence with the accurate recorded date/result. Document shortened waits if present. A recording of an actual request is genuine extraction evidence, but remains recorded footage when posted; it is not a synchronous live broadcast.
 
@@ -92,6 +92,10 @@ Verify the final release and app URL, play the final export, inspect captions wi
 
 ## Completed exports and provenance
 
-[Landscape MP4](assets/novaworks-demo.mp4) · [Vertical MP4](assets/novaworks-demo-vertical.mp4) · [SRT](assets/novaworks-demo.srt) · [Provenance](assets/PROVENANCE.json). Both exports are approximately 85 seconds, H.264, captioned and silent. Capture used Playwright with installed Edge; editing used FFmpeg. It records a new real request against the isolated local app, not the hosted database. The full provider wait is retained; supplementary task/mobile footage uses the same saved records. No static preview or earlier-event clip is substituted.
+[Landscape MP4](assets/novaworks-demo.mp4) · [Vertical MP4](assets/novaworks-demo-vertical.mp4) · [SRT](assets/novaworks-demo.srt) · [Provenance](assets/PROVENANCE.json). Both exports are approximately 88 seconds, H.264, captioned and silent. Capture used Playwright with installed Edge; editing used FFmpeg. It records a new real request against the isolated local app, not the hosted database. The full provider wait is retained; supplementary task/mobile footage uses the same saved records. No static preview or earlier-event clip is substituted.
 
 Maintainer helpers: scripts/start-recording-server.mjs, scripts/record-demo.mjs and scripts/edit-demo.mjs. They require existing local Playwright/Edge and FFmpeg; editing currently uses the Windows Arial font path. They are optional tooling, not app runtime dependencies. The recording server seeds a separate database and binds only to loopback; never reset shared public data for filming. Review the full export before publishing; narration can be added using the fresh-request script above.
+
+## Latest adaptive-interface export
+
+The replacement recording is88.08seconds and shows the new light adaptive workspace and mobile Menu interaction. The fresh successful request took approximately12.83seconds; its complete wait is retained. The prior85-second portfolio clip is preserved in Git history; the original event recording is in history/NovaWorks-event-demo.mp4. The current footage uses one continuous successful take with captions/framing/opening/ending holds, rather than inserted supplementary task shots. Both MP4s decode completely. The detailed cross-browser and release evidence is in [RESPONSIVE_RELEASE.md](RESPONSIVE_RELEASE.md).

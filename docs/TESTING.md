@@ -37,6 +37,6 @@ npm.cmd run test:postgres --prefix backend
 npm.cmd run test:live --prefix backend
 ```
 
-Tests using a fixture provider are not evidence of live AI accuracy. Current results, tested source and known limits are recorded in [PUBLIC_DEMO_REPORT.md](docs/PUBLIC_DEMO_REPORT.md). GitHub Actions repeats the local suite, build and dependency audit.
+Tests using a fixture provider are not evidence of live AI accuracy. Current results, tested source and known limits are recorded in [PUBLIC_DEMO_REPORT.md](PUBLIC_DEMO_REPORT.md). GitHub Actions repeats the local suite, build and dependency audit.
 
 Docker execution remains NOT RUN because Docker is unavailable in this environment. Vercel/Supabase is the verified hosted route. No event submission was made; current improvements are post-event portfolio work.

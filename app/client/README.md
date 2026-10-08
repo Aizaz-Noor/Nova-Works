@@ -14,4 +14,4 @@ Follow the [root README](../../README.md) for the combined local app. For fronte
 
 Login/logout, session expiry, transcript sample/loading/validation/retry/replay, authorized projects/tasks and responsive layouts are integrated. The API enforces access; hiding controls is not the security boundary. Loading and error states preserve useful input. Persistent labels and keyboard focus support interaction; full accessibility conformance is not claimed.
 
-See [the public-demo audit](../../docs/PUBLIC_DEMO_REPORT.md), [design handoff](../../Aizaz/DESIGN_SYSTEM.md) and [testing guide](../../TESTING.md). This portfolio includes post-event deployment and UI improvements; it is not an on-time hackathon submission.
+See [the public-demo audit](../../docs/PUBLIC_DEMO_REPORT.md), [design handoff](../../Aizaz/DESIGN_SYSTEM.md) and [testing guide](../../docs/TESTING.md). This portfolio includes post-event deployment and UI improvements; it is not an on-time hackathon submission.

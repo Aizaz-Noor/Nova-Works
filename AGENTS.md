@@ -44,7 +44,7 @@ Problem Understanding 15%; Innovation & Creativity 20%; Technical / Practical Ex
 
 ## Code Nomads Git ownership
 
-Aizaz is lead and integration owner; Basit and Abdullah may push their own feature branches. Aizaz alone integrates, merges and pushes main. Use the Git lead/contributor skills for repository operations; they supplement these product gates and do not authorize deployment or submission. Initial setup is documented in [TEAM_GIT_SETUP.md](Aizaz/TEAM_GIT_SETUP.md).
+Aizaz is lead and integration owner; Basit and Abdullah may push their own feature branches. Aizaz alone integrates, merges and pushes main. Use the Git lead/contributor skills for repository operations; they supplement these product gates and do not authorize deployment or submission. Initial setup is documented in TEAM_GIT_SETUP.md (original local workspace reference: `Aizaz/TEAM_GIT_SETUP.md`).
 
 ## Role-based workspace layout
 

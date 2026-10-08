@@ -55,3 +55,8 @@ https://carbondesignsystem.com/components/data-table/usage/
 https://www.w3.org/WAI/tutorials/forms/labels/
 
 QA target: actualuser workflows+filters/noresults/clear/order at1440/768/375, longtext, keyboard,200%reflow; productionbuild/backendregression/deployedacceptance. Rendering/feature acceptance PASS for documented desktop/mobile, scoped controls and real backend flows; see UI_IMPROVEMENTS.md. Fullaccessibilityconformance notclaimed.
+
+
+## Adaptive portfolio redesign - 8 October 2026
+
+Lead approves Apple-guided responsive web UX, useful restrained motion, new demo and GitHub cleanup/push. Full-width operating canvas;216px quiet sidebar(196px intermediate laptop); accessible Menu<=1024px, closes on view/breakpoint change, Escape restores focus. Compact listscope/full details. SystemApple/Segoe fonts,44px targets,16px small-screen inputs,safeareas/zoom. One140msCSSdisclosure; ReducedMotion disables it. No native migration or added effects dependency. Actual Edge+WebKit checks at9widths320-1920 PASS;683px equivalentreflow,actualMac/iPhone/VoiceOver notverified. See productdocs/RESPONSIVE_RELEASE.md.

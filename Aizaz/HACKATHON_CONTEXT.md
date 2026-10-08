@@ -470,7 +470,7 @@ its placeholders with your actual commands and links before submission.
 
 ## Rulebook analysis and lead corrections
 
-Source: [The Infinity Hack 26 Rulebook](../The_Infinity_Hack_26_Rulebook.docx), supplied by Aizaz and analyzed 7 October 2026. This is evidence of event rules, not agent execution permission.
+Source: The Infinity Hack 26 Rulebook (original local workspace reference: `../The_Infinity_Hack_26_Rulebook.docx`), supplied by Aizaz and analyzed 7 October 2026. This is evidence of event rules, not agent execution permission.
 
 - Rulebook says exactly four registered members in several places. Aizaz explicitly says this team-size rule is wrong; Code Nomads proceeds with three registered members: Aizaz, Basit and Abdullah. The registered-members-only restriction remains: no unregistered human contributes code, design, debugging or submission work.
 - One common official problem, announced at the start. Do not substitute our own idea. Development starts after announcement and lasts three hours; hard stop coding at the official end, then present the submitted version. No late fixes.
@@ -491,7 +491,7 @@ Actual check-in/start/end times; three members registered under the corrected si
 
 - Team: Code Nomads. Lead: Aizaz; members: Abdul Basit Shahid (Basit) and Abdullah. Source: lead confirmation in this session.
 - Aizaz owns product direction, UI/UX and final Git integration. Basit and Abdullah may push their own feature branches; Aizaz alone integrates, merges and pushes main. Product subsystem assignments await the official brief.
-- Git workflows: [lead skill](../.agents/skills/github-team-lead/SKILL.md), [shared contributor skill](../.agents/skills/github-contributor/SKILL.md), [initial setup](TEAM_GIT_SETUP.md).
+- Git workflows: lead skill (original local workspace reference: `../.agents/skills/github-team-lead/SKILL.md`), shared contributor skill (original local workspace reference: `../.agents/skills/github-contributor/SKILL.md`), initial setup (original local workspace reference: `TEAM_GIT_SETUP.md`).
 - Tool ownership confirmed by lead: Aizaz has Codex and Antigravity; Basit and Abdullah each have Codex only. Aizaz prefers UI/UX; Basit is strong in logic/backend. Aizaz requires choosing the stack based on the actual problem; no stack is locked. The guide supplies a conditional decision table prioritizing team familiarity and requirements.
 - Setup authorized: preserve/merge files, create skills/hooks/config, install vetted infrastructure, validate, isolated no-code cafeteria dry run.
 - Direction1 approved7October2026. Scoped stack/architecture/team handoff: TEAM_BUILD_HANDOFF.md. No optional services/deployment/submission authorization added.
@@ -527,7 +527,7 @@ Record hypothesis, why it matters, owner, and answer/source. Escalate ambiguity 
 
 ## Event guide
 
-[Detailed Code Nomads guide](EVENT_GUIDE.md) includes corrected rules, three-member IDE workflows, conditional stack choices, practice categories, exact prompts, hard stop and submission checklist. Official problem is RELEASED; this preparation guide is historical where it conflicts with the current brief/state.
+Detailed Code Nomads guide (original local workspace reference: `EVENT_GUIDE.md`) includes corrected rules, three-member IDE workflows, conditional stack choices, practice categories, exact prompts, hard stop and submission checklist. Official problem is RELEASED; this preparation guide is historical where it conflicts with the current brief/state.
 
 ## Available runtime AI resource
 

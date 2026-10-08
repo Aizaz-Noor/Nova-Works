@@ -9,7 +9,7 @@ Frozen tested product source: a17f503ce98dc9d9b266730a223baaaa095c8389. The even
 ## Submit these artifacts
 
 - Source repository, including root README/setup/environment/account instructions.
-- Recorded demo: [NovaWorks-live-demo.mp4](hackathon/demo-video/NovaWorks-live-demo.mp4). Silent actual screen recording,42.96seconds. Shows login, complete official transcript processing through real TokenRouter, success3projects/12tasks, saved details and Ayesha's filtered view. Captured against a separate persistent recording database using the unchanged tested app; no fixture extraction or pre-seeded answer. Supplementary to the mandatory live demonstration.
+- Recorded demo: [NovaWorks-live-demo.mp4](NovaWorks-event-demo.mp4). Silent actual screen recording,42.96seconds. Shows login, complete official transcript processing through real TokenRouter, success3projects/12tasks, saved details and Ayesha's filtered view. Captured against a separate persistent recording database using the unchanged tested app; no fixture extraction or pre-seeded answer. Supplementary to the mandatory live demonstration.
 - Local working demo http://127.0.0.1:3001/ with ten supplied accounts; all fictional passwordsDemo123!. Live hosted link: Not deployed.
 - Self-test: TESTING.md. Presentation: Aizaz/DEMO_PLAN.md. Deployment packaging: Dockerfile/.dockerignore/DEPLOYMENT.md.
 - Verification: hackathon/reports/final-mvp-verification-20261007.md. Backend13testsPASS; actual original/modified TokenRouter acceptancePASS; browser real creation/roles and restart persistencePASS; missing-information input422savesnothing.

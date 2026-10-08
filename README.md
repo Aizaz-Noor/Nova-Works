@@ -13,9 +13,11 @@ NovaWorks helps an administrator move from meeting notes to assigned work withou
 
 Built by Code Nomads for the Infinity Hack '26 AI Project Manager challenge, then improved as a portfolio project. We missed the event submission deadline and did not win. The current deployment, audit fixes and presentation improvements are post-event work.
 
+The current interface adapts to laptop windows and mobile: compact navigation, readable task rows, keyboard recovery and Reduced Motion support. [Responsive release and evidence](docs/RESPONSIVE_RELEASE.md) · [Documentation index](docs/README.md).
+
 ## Take a look
 
-![Administrator project workspace with scoped search and delivery dates](docs/assets/projects.png)
+![Administrator workspace at a 1366px laptop window](docs/assets/laptop-workspace.png)
 
 | Assigned work | On a narrow screen |
 | --- | --- |
@@ -98,9 +100,9 @@ Private values belong in `backend/.env` locally or the host's secret manager. Ne
 
 The current live demo uses **Vercel + Supabase PostgreSQL**. Supabase provides database storage, not browser-side authentication. Express checks permissions; the private database schema denies access to public browser roles. TLS verification remains enabled.
 
-- [Vercel setup and verification](VERCEL_DEPLOYMENT.md)
-- [Supabase configuration](SUPABASE.md)
-- [Optional Docker deployment](DEPLOYMENT.md) — container execution is not verified here
+- [Vercel setup and verification](docs/deployment/VERCEL.md)
+- [Supabase configuration](docs/deployment/SUPABASE.md)
+- [Optional Docker deployment](docs/deployment/DOCKER.md) — container execution is not verified here
 
 ## How it works
 
@@ -125,7 +127,7 @@ npm.cmd run build
 node backend/scripts/verify-deployed.js
 ```
 
-The backend suite covers authentication, role restrictions, validation, rollback, persistence, quotas, concurrency and provider failures. The public verifier checks the complete saved-sample flow and direct access denials. It makes a fresh AI call only if that sample is not already saved. [Testing guide](TESTING.md) · [Detailed audit, fixes and results](docs/PUBLIC_DEMO_REPORT.md).
+The backend suite covers authentication, role restrictions, validation, rollback, persistence, quotas, concurrency and provider failures. The public verifier checks the complete saved-sample flow and direct access denials. It makes a fresh AI call only if that sample is not already saved. [Testing guide](docs/TESTING.md) · [Detailed audit, fixes and results](docs/PUBLIC_DEMO_REPORT.md).
 
 GitHub Actions runs backend tests, production build and dependency audits on pushes to `main` and pull requests. A passing build is not a substitute for the browser and data-flow checks documented in the audit.
 
@@ -141,4 +143,4 @@ This is a portfolio demonstration with shared fictional credentials, not a priva
 
 Thanks to the Infinity Hack '26 organizers for the challenge and fictional company/team scenario. Built with the open-source projects named above, Supabase, Vercel and TokenRouter. Codex assisted implementation, testing and documentation. Dependency licenses remain with their respective authors.
 
-[90-second script and storyboard](docs/SOCIAL_DEMO.md) · [Social post drafts](docs/SOCIAL_POSTS.md) · [Earlier event recording and submission history](SUBMISSION.md)
+[90-second script and storyboard](docs/SOCIAL_DEMO.md) · [Social post drafts](docs/SOCIAL_POSTS.md) · [Earlier event recording and submission history](docs/history/SUBMISSION.md)

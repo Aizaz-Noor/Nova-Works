@@ -1,51 +1,51 @@
 1
-00:00:02,286 --> 00:00:07,558
+00:00:02,400 --> 00:00:07,881
 NovaWorks: meeting decisions become assigned work
 
 2
-00:00:07,558 --> 00:00:11,685
+00:00:07,881 --> 00:00:12,308
 An administrator creates work for the team
 
 3
-00:00:11,685 --> 00:00:16,757
+00:00:12,308 --> 00:00:17,379
 Use the complete meeting, including final corrections
 
 4
-00:00:16,757 --> 00:00:28,607
+00:00:17,379 --> 00:00:30,206
 Actual AI request: extract, validate, then save together
 
 5
-00:00:28,607 --> 00:00:34,813
+00:00:30,206 --> 00:00:36,532
 Three projects and twelve tasks saved from a real request
 
 6
-00:00:34,813 --> 00:00:38,910
+00:00:36,532 --> 00:00:40,745
 Find client work by project, client or manager
 
 7
-00:00:38,910 --> 00:00:44,072
+00:00:40,745 --> 00:00:46,125
 Project scope, manager and agreed delivery date
 
 8
-00:00:44,072 --> 00:00:50,191
+00:00:46,125 --> 00:00:52,312
 Every task has an owner, deadline and effort estimate
 
 9
-00:00:50,191 --> 00:00:55,512
+00:00:52,312 --> 00:00:57,810
 A searchable, read-only directory of the supplied team
 
 10
-00:00:55,512 --> 00:01:01,811
+00:00:57,810 --> 00:01:04,287
 Managers see their assigned projects
 
 11
-00:01:01,811 --> 00:01:07,841
+00:01:04,287 --> 00:01:10,367
 Developers see their own tasks, not everyone else’s
 
 12
-00:01:07,841 --> 00:01:15,127
-Responsive browser view — 375 pixels
+00:01:10,367 --> 00:01:18,006
+Responsive menu and assigned work — 375 pixels
 
 13
-00:01:15,127 --> 00:01:25,141
+00:01:18,006 --> 00:01:28,018
 Try the live demo. Explore the code. Share your feedback.

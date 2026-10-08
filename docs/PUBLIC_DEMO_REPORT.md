@@ -8,7 +8,7 @@ Reviewed frontend screens, API/session/permission boundaries, extraction validat
 
 ### Issue ledger
 
-P1 = important correctness/reliability/accessibility defect; P2 = smaller robustness/clarity defect. Detailed reproductions and symbols are in [backend audit](../BACKEND_PUBLIC_AUDIT.md) and [frontend audit](../FRONTEND_PUBLIC_AUDIT.md).
+P1 = important correctness/reliability/accessibility defect; P2 = smaller robustness/clarity defect. Detailed reproductions and symbols are in [backend audit](audits/BACKEND.md) and [frontend audit](audits/FRONTEND.md).
 
 | Issue | Severity | Location | Impact before | Result after |
 | --- | --- | --- | --- | --- |
