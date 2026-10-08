@@ -22,8 +22,6 @@ Built by Code Nomads for the Infinity Hack '26 AI Project Manager challenge, the
 | --- | --- |
 | ![Project detail, task ownership, deadline and hours](docs/assets/project-detail.png) | ![Responsive developer task view](docs/assets/mobile-tasks.png) |
 
-The captioned video records the real application with fictional accounts in an isolated local database. Its provenance, extraction/replay disclosure and editing details are in [the demo guide](docs/SOCIAL_DEMO.md). [Download the vertical social version](docs/assets/novaworks-demo-vertical.mp4). No social posts have been published automatically.
-
 ## Try it in two minutes
 
 Open the live demo. Choose a role to fill its credentials, then select **Sign in**.
