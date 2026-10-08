@@ -139,5 +139,3 @@ This is a portfolio demonstration with shared fictional credentials, not a priva
 - **Abdul Basit** — team member assigned backend/AI support.
 
 Thanks to the Infinity Hack '26 organizers for the challenge and fictional company/team scenario. Built with the open-source projects named above, Supabase, Vercel and TokenRouter. Codex assisted implementation, testing and documentation. Dependency licenses remain with their respective authors.
-
-[90-second script and storyboard](docs/SOCIAL_DEMO.md) · [Social post drafts](docs/SOCIAL_POSTS.md) · [Earlier event recording and submission history](docs/history/SUBMISSION.md)
