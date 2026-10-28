@@ -1,6 +1,7 @@
 import { openConfiguredDatabase } from '../backend/src/db/database.js';
 import { assertPlatformRuntimeRole } from '../backend/src/platform/runtime.js';
 import { createApp } from '../backend/src/app.js';
+import { startupDiagnostic } from '../backend/src/services/startupDiagnostics.js';
 let ready;
 function fail(code) { const error = new Error('Hosted service configuration unavailable'); error.code = code; throw error; }
 async function initialize() {
@@ -18,9 +19,14 @@ async function initialize() {
     process.env.DATABASE_CA_CERT = process.env.DATABASE_CA_CERT.replace(/\\n/g, '\n').trim();
     delete process.env.DATABASE_CA_FILE;
   }
-  const db = await openConfiguredDatabase();
-  try { if(process.env.ERP_ENABLED==='1')await assertPlatformRuntimeRole(db);return createApp({ db, production: true }); }
-  catch (error) { await db.close(); throw error; }
+  let db, phase = 'database';
+  try {
+    db = await openConfiguredDatabase();
+    phase = 'runtime';
+    if(process.env.ERP_ENABLED==='1')await assertPlatformRuntimeRole(db);
+    phase = 'application';
+    return createApp({ db, production: true });
+  } catch (error) { error.startupPhase = phase; await db?.close(); throw error; }
 }
 const safeCodes = new Set(['DATABASE_URL_MISSING','SESSION_SECRET_INVALID','FRONTEND_ORIGIN_MISSING','FRONTEND_ORIGIN_INVALID','28P01','SELF_SIGNED_CERT_IN_CHAIN','UNABLE_TO_VERIFY_LEAF_SIGNATURE','CERT_HAS_EXPIRED','ENOTFOUND','ECONNREFUSED','ETIMEDOUT','DATABASE_INIT_FAILED']);
 export default async function handler(req, res) {
@@ -31,6 +37,7 @@ export default async function handler(req, res) {
   } catch (error) {
     const diagnostic = safeCodes.has(error.code) ? error.code : 'STARTUP_FAILED';
     console.error('NovaWorks startup diagnostic:', diagnostic);
+    console.error('NovaWorks startup checkpoint:', startupDiagnostic(error));
     res.statusCode = 503;
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Cache-Control', 'no-store');
