@@ -1,16 +1,9 @@
 # Vercel deployment
 
-Live portfolio: https://nova-works-zeta.vercel.app
+NovaWorks uses `vercel.json` for its Vercel build and API route configuration. Set the project root to the repository root and use Node.js 24. Keep dashboard overrides aligned with `vercel.json`.
 
-Repository root (blank Root Directory), Framework Other, Node24.x. vercel.json installs npm ci, builds npm run build, serves app/client/dist, and routes /api/* to Express. Keep dashboard overrides consistent with these values.
+The hosted application requires server-only configuration, including a PostgreSQL `DATABASE_URL`, a private `SESSION_SECRET`, and the exact public `FRONTEND_ORIGIN`. Configure these values in Vercel's environment settings; never put them in source files or frontend variables. Configure the database TLS trust settings only from the certificate supplied by the database provider. Keep certificate and hostname verification enabled.
 
-Server-only variables: DATABASE_URL (Supabase Session Pooler), SESSION_SECRET (random32+characters), TOKENROUTER_API_KEY, TOKENROUTER_MODEL, FRONTEND_ORIGIN=https://nova-works-zeta.vercel.app, NODE_ENV=production. The adapter handles trusted HTTPS ingress itself. Vercel's exact production, deployment and branch domains are allowed; unrelated origins remain forbidden.
+Before deploying a schema change, take a protected database backup and rehearse restoring it to a separate database. Apply the reviewed migrations using a schema-owner connection before deploying the application version that depends on them. Do not run schema migrations on function cold starts.
 
-The verified public Supabase root certificate is bundled. DATABASE_CA_CERT is optional for a custom trust chain. Do not set DATABASE_CA_FILE on Vercel. TLS certificate and hostname verification stay enabled. No passwords, keys, local databases or private environment files are deployed. The Supabase schema and demo users are already initialized; functions do not run migrations at cold start.
-
-Verification8October2026: clean build PASS;39backendtests PASS; realPG transactional/RBAC/session/quota acceptance PASS; public HTTPS health/login/cookie/session/directory/liveAI exact3projects12tasks/replay/persistence/forbidden-access/logout PASS. Browser login/projectdetail/refresh/sample replay PASS. Mobile375px no observed horizontal overflow. These are functional portfolio checks, not a guarantee against every possible bug or a full accessibility audit.
-
-Repeat deployed acceptance: node backend/scripts/verify-deployed.js
-This performs live AI only when its official meeting has not already been saved. With the current saved sample it reuses results. Use fictional data only.
-
-The public-demo release also bounds database statements, repairs metadata cleanup and explicitly enables hosted production behavior. See docs/PUBLIC_DEMO_REPORT.md for release-specific cloud verification and scope.
+After deployment, verify health, sign-in, role-based access, the primary customer-to-invoice workflow, refresh persistence and database isolation against the deployed service. A successful build does not establish that the live workflow or database is correct. Use fictional sample data only.

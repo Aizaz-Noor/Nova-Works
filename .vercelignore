@@ -24,6 +24,9 @@ private-config/**
 **/*.db-shm
 **/*.key
 backups/**
+docs/**
+scripts/**
 backend/test/**
+backend/docs/**
 
 !backend/certs/supabase-root.pem
