@@ -10,8 +10,6 @@ A service-business ERP/CRM that connects customers, sales, projects, approved ti
 
 </div>
 
-![NovaWorks overview with company activity, delivery work and financial summaries](docs/assets/live-evaluation-20261028/overview.png)
-
 ## See the workflow
 
 From the first conversation to the final invoice:
