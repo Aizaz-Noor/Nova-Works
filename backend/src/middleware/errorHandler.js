@@ -8,6 +8,12 @@ export function errorHandler(error, req, res, next) {
  const status = error instanceof ApiError ? error.status : databaseTimeout?503 : badPath||error.type === 'entity.parse.failed' ? 400 : error.type === 'entity.too.large' ? 413 : 500;
  const code = error instanceof ApiError ? error.code : databaseTimeout?'DATABASE_TIMEOUT' : status === 400 ? (badPath?'BAD_PATH':'BAD_JSON') : status === 413 ? 'PAYLOAD_TOO_LARGE' : 'INTERNAL_ERROR';
  const message = error instanceof ApiError ? error.message : databaseTimeout?'Database operation timed out; please retry' : status === 400 ? (badPath?'Request path contains invalid encoding':'Request body must be valid JSON') : status === 413 ? 'Request body exceeds the size limit' : 'An internal error occurred';
+ if (status >= 500) {
+  const diagnostic = /^[0-9A-Z]{5}$/.test(error.code || '') || ['ECONNRESET','ETIMEDOUT','ECONNREFUSED','EPIPE'].includes(error.code) ? error.code : 'UNEXPECTED_ERROR';
+  const kind = ['Error','TypeError','ReferenceError','SyntaxError','RangeError','DatabaseError'].includes(error.name) ? error.name : 'Error';
+  // Keep provider responses, SQL, credentials and request bodies out of logs.
+  console.error('NovaWorks request failure', {code: diagnostic, kind, method: req.method, path: req.path});
+ }
  if(error.retryAfter)res.setHeader('Retry-After',String(error.retryAfter));
  res.status(status).json({success:false,error:{code,message,...(error.issues ? {issues:error.issues} : {})}});
 }
