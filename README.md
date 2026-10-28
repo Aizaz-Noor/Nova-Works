@@ -1,53 +1,84 @@
+<div align="center">
+
 # NovaWorks
 
-**Customer relationships, sales and project delivery in one workspace.** NovaWorks is a service-business ERP/CRM that connects a lead to a customer, an accepted sales order, assigned delivery work, approved time and an invoice.
+### Customer relationships. Clear delivery. Connected finances.
 
-[Open the live demo](https://nova-works-zeta.vercel.app/) · [Watch the workflow](docs/assets/novaworks-workflow-guide-20261028.mp4)
+A service-business ERP/CRM that connects customers, sales, projects, approved time and invoices in one workspace.
 
-## Explore the workflow
+**[Live demo](https://nova-works-zeta.vercel.app/)** · **[Watch the full walkthrough](docs/assets/novaworks-workflow-guide-20261028.mp4)** · **[Run locally](#run-locally)**
 
-Choose **Explore demo workspace** to open the shared fictional sample company. The Owner and Manager roles show different views and permissions. Use sample data only; do not enter private customer information.
+</div>
 
-**Overview → Customers → Pipeline → Deals → Quotes / Sales orders → Projects & tasks → Timesheets → Invoices → Reports**
+![NovaWorks overview with company activity, delivery work and financial summaries](docs/assets/live-evaluation-20261028/overview.png)
 
-The video is an edited, captioned walkthrough using separate fictional local data. It is not a continuous recording of the live company. [Overview](docs/assets/live-evaluation-20261028/overview.png) · [Pipeline](docs/assets/live-evaluation-20261028/pipeline-deals.png) · [Invoice](docs/assets/live-evaluation-20261028/invoice-details.png)
+## See the workflow
 
-## What it includes
+From the first conversation to the final invoice:
 
-- Company-scoped customers, contacts, activities, leads and deals.
-- Quotes and sales orders with recorded acceptance and preserved terms.
-- Projects, assigned tasks, milestones, comments and notifications.
-- Time entry, submission, independent approval and billing rates.
-- Order and approved-time invoices, PDF export, payment records and credit history.
-- Company reports, currency separation and role-aware navigation.
-- Session authentication, membership and role checks, PostgreSQL row-level security and stale-edit protection.
-- Meeting-to-project workflow from the original product.
+**Lead → Customer & deal → Quote → Sales order → Project & tasks → Approved time → Invoice → Reports**
 
-NovaWorks is a demonstration, not a complete accounting package. Inventory, payroll, HR, purchasing, POS, general-ledger accounting and customer approval portals are outside its scope. It does not move money. Live AI generation, recovery email, durable hosted attachments and persistent workers are not configured for the public demo.
+[![Animated preview of the NovaWorks customer-to-invoice workflow. Select to open the full video.](docs/assets/workflow-preview.gif)](docs/assets/novaworks-workflow-guide-20261028.mp4)
+
+**[Watch the full walkthrough →](docs/assets/novaworks-workflow-guide-20261028.mp4)**
+
+The silent, captioned walkthrough uses fictional local records. It is an edited sequence showing the fixed-price workflow; it does not demonstrate live AI generation or payment processing. [Walkthrough notes](docs/WORKFLOW_TUTORIAL.md)
+
+## Inside the workspace
+
+### Sales pipeline
+
+Manage customer relationships, qualify leads and follow opportunities through the sales process.
+
+![NovaWorks deals pipeline showing sales opportunities and their stages](docs/assets/live-evaluation-20261028/pipeline-deals.png)
+
+### Invoices and payment records
+
+Issue invoices, export PDFs and track recorded receipts and outstanding balances.
+
+![NovaWorks invoice detail showing invoice lines, recorded payments and the remaining balance](docs/assets/live-evaluation-20261028/invoice-details.png)
+
+## Capabilities
+
+| Area | Included |
+| --- | --- |
+| CRM & sales | Customers, contacts, activities, leads, deals, quotes and sales orders |
+| Delivery | Projects, assigned tasks, deadlines, milestones, comments and notifications |
+| Time & invoicing | Submitted time, independent approval, billing rates, order/time invoices, PDF export and credit history |
+| Workspace & access | Company reports, currency separation, role-aware navigation, sessions, membership checks and stale-edit protection |
+
+The original meeting-to-project workflow is also included. PostgreSQL deployments support company isolation through application permissions and row-level security.
+
+## Try the demo
+
+Open **[NovaWorks](https://nova-works-zeta.vercel.app/)** and use the demo entry point offered by the sign-in screen. The workspace contains shared fictional business records. Explore Overview, Customers, Pipeline, Projects & tasks, Timesheets, Invoices and Reports using sample data only.
 
 ## Run locally
 
-Requires Node.js 24 and npm. From the repository root:
+Requires **Node.js 24** and **npm**. Clone the repository, then install the locked dependencies:
 
-```powershell
-npm.cmd ci
-npm.cmd ci --prefix backend
-npm.cmd ci --prefix app/client
-npm.cmd run build:client
-npm.cmd run start:demo
+```sh
+git clone https://github.com/Aizaz-Noor/Nova-Works.git
+cd Nova-Works
+npm ci
+npm ci --prefix backend
+npm ci --prefix app/client
+npm run build:client
+npm run start:demo
 ```
 
-Open **http://127.0.0.1:3048/** and select **Explore demo workspace**. The local demo uses its own fictional SQLite data under `tmp/`; it refuses hosted database or production configuration. Keep the terminal open while using it and press Ctrl+C to stop.
+Open **http://127.0.0.1:3048/** and select **Explore demo workspace**. The local demo uses its own fictional SQLite data under `tmp/` and refuses hosted database or production configuration. Keep the terminal open while using it; press Ctrl+C to stop.
 
-## Technology
+## Built with
 
-React 19 · Vite 6 · Node.js 24 · Express 5 · SQLite for the local demo · PostgreSQL for the hosted workspace · Vercel
+**React 19 · Vite 6 · Node.js 24 · Express 5 · SQLite · PostgreSQL · Vercel**
 
 ## Documentation
 
-- [Developer guide](docs/README.md)
-- [Testing](docs/TESTING.md)
-- [Workflow tutorial notes](docs/WORKFLOW_TUTORIAL.md)
-- [Deployment guides](docs/deployment/README.md)
+[Developer guide](docs/README.md) · [Testing](docs/TESTING.md) · [Workflow notes](docs/WORKFLOW_TUTORIAL.md) · [Deployment](docs/deployment/README.md)
+
+## Current scope
+
+NovaWorks is a demonstration for service teams. Inventory, payroll, HR, purchasing, POS, general-ledger accounting and customer approval portals are outside its current scope. Payment entries record external receipts; the application does not move money. Live AI generation, recovery email, durable hosted attachments and persistent workers are not configured for the public demo.
 
 Keep local credentials in an untracked `backend/.env` file or a hosting secret manager. Never commit database URLs, session secrets, provider keys, private certificates or database backups.
