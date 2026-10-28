@@ -1,0 +1,37 @@
+import {createHash,randomUUID} from 'node:crypto';
+import {createPlatformService} from '../../platform/service.js';
+import {requireBillingFeature} from '../../platform/billing/policy.js';
+import {ApiError} from '../../middleware/errorHandler.js';
+const fail=(status,code,message)=>{throw new ApiError(status,code,message);};
+const uuid=value=>typeof value==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(value);
+const scalarText=value=>{for(let i=0;i<value.length;i++){const n=value.charCodeAt(i);if(n>=0xd800&&n<=0xdbff){const next=value.charCodeAt(++i);if(!(next>=0xdc00&&next<=0xdfff))return false;}else if(n>=0xdc00&&n<=0xdfff)return false;}return true;};
+const maxFile=2*1024*1024;
+const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
+const columns='id,task_id,created_by,name,mime_type,size_bytes,sha256,created_at';
+function payload(input){
+ if(!input||typeof input!=='object'||Array.isArray(input)||Object.keys(input).some(k=>!['requestId','name','contentBase64'].includes(k))||!uuid(input.requestId)||typeof input.name!=='string'||!input.name.trim()||input.name.length>180||!scalarText(input.name)||/[\x00-\x1f\x7f/\\<>:"|?*\u202a-\u202e\u2066-\u2069]/.test(input.name)||/[. ]$/.test(input.name)||input.name==='.'||input.name==='..'||typeof input.contentBase64!=='string'||input.contentBase64.length>Math.ceil(maxFile/3)*4||!/^[A-Za-z0-9+/]*={0,2}$/.test(input.contentBase64))fail(400,'BAD_INPUT','Provide a safe filename, request ID and canonical base64 file up to 2 MiB');
+ const bytes=Buffer.from(input.contentBase64,'base64');if(!bytes.length||bytes.length>maxFile||bytes.toString('base64')!==input.contentBase64)fail(400,'BAD_INPUT','File must contain between 1 byte and 2 MiB');
+ const name=input.name.trim(),extension=name.split('.').pop().toLowerCase(),mime=({pdf:'application/pdf',png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',txt:'text/plain'})[extension];let valid=false;
+ if(mime==='application/pdf')valid=extension==='pdf'&&bytes.subarray(0,5).toString('ascii')==='%PDF-'&&bytes.subarray(-1024).includes(Buffer.from('%%EOF'));
+ if(mime==='image/png')valid=extension==='png'&&bytes.length>=33&&bytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10]))&&bytes.subarray(12,16).toString('ascii')==='IHDR'&&bytes.subarray(-8,-4).toString('ascii')==='IEND';
+ if(mime==='image/jpeg')valid=['jpg','jpeg'].includes(extension)&&bytes.length>=4&&bytes[0]===255&&bytes[1]===216&&bytes[2]===255&&bytes.at(-2)===255&&bytes.at(-1)===217;
+ if(mime==='text/plain'){try{const text=new TextDecoder('utf-8',{fatal:true}).decode(bytes);valid=extension==='txt'&&!/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(text)&&!/^\s*(?:<!doctype\s+html|<html|<svg|<script)/i.test(text);}catch{valid=false;}}
+ if(!valid)fail(415,'FILE_TYPE_UNSUPPORTED','Use a matching PDF, PNG, JPEG or UTF-8 TXT file. Files are downloaded rather than previewed.');
+ return {name,mime,bytes,hash:digest(bytes),requestId:input.requestId.toLowerCase()};
+}
+export function createAttachmentService(db,{storage}={}){
+ const platform=createPlatformService(db),prefix=db.kind==='postgres'?'novaworks.':'',table=prefix+'platform_task_attachments';
+ function configured(){if(!storage||typeof storage.put!=='function'||typeof storage.get!=='function')fail(503,'STORAGE_UNCONFIGURED','Private attachment storage is not configured');}
+ async function access(c,taskId,write=false){if(!uuid(taskId))fail(400,'BAD_INPUT','Invalid task ID');const task=(await c.query(`SELECT t.assignee_id,p.manager_id FROM ${prefix}platform_tasks t JOIN ${prefix}platform_projects p ON p.organization_id=t.organization_id AND p.id=t.project_id WHERE t.organization_id=? AND t.id=?`,[c.organizationId,taskId])).rows[0];if(!task||!(['OWNER','ADMIN'].includes(c.member.role)||(c.member.role==='MANAGER'&&task.manager_id===c.userId)||(c.member.role==='MEMBER'&&task.assignee_id===c.userId)))fail(404,'NOT_FOUND','Task not found');await requireBillingFeature(db,c,'projects',{write});}
+ return {
+  list(userId,org,taskId,filters={}){return platform.transaction(userId,org,async c=>{await access(c,taskId);if(Object.keys(filters).some(k=>!['page','limit'].includes(k)))fail(400,'BAD_INPUT','Unsupported attachment filter');const page=filters.page===undefined?1:Number(filters.page),limit=filters.limit===undefined?20:Number(filters.limit);if(!Number.isSafeInteger(page)||page<1||page>1000000||!Number.isSafeInteger(limit)||limit<1||limit>100)fail(400,'BAD_INPUT','Invalid attachment pagination');const total=Number((await c.query(`SELECT COUNT(*) AS total FROM ${table} WHERE organization_id=? AND task_id=?`,[org,taskId])).rows[0].total),attachments=(await c.query(`SELECT ${columns} FROM ${table} WHERE organization_id=? AND task_id=? ORDER BY created_at DESC,id DESC LIMIT ? OFFSET ?`,[org,taskId,limit,(page-1)*limit])).rows;return {attachments,pagination:{page,limit,total,totalPages:Math.ceil(total/limit)}};},{snapshot:true});},
+  create(userId,org,taskId,input){return platform.transaction(userId,org,async c=>{await access(c,taskId,true);configured();const file=payload(input);if(db.kind==='postgres')await c.query('SELECT pg_advisory_xact_lock(hashtext(?))',[`attachment-company:${org}`]);
+   const prior=(await c.query(`SELECT * FROM ${table} WHERE organization_id=? AND created_by=? AND request_id=?`,[org,userId,file.requestId])).rows[0];
+   if(prior){if(prior.task_id!==taskId||prior.name!==file.name||prior.mime_type!==file.mime||prior.sha256!==file.hash||Number(prior.size_bytes)!==file.bytes.length)fail(409,'REQUEST_CONFLICT','This request ID was used for a different attachment');const {storage_key,request_id,organization_id,...safe}=prior;return {...safe,replayed:true};}
+   const quota=(await c.query(`SELECT file_count AS total,size_bytes AS bytes FROM ${prefix}platform_attachment_usage WHERE organization_id=?`,[org])).rows[0]||{total:0,bytes:0};if(Number(quota.total)>=100||Number(quota.bytes)+file.bytes.length>32*1024*1024)fail(429,'ATTACHMENT_LIMIT','Company attachment limit reached (100 files or 32 MiB). Existing files remain downloadable.');
+   const id=randomUUID(),key=digest(JSON.stringify([org,userId,file.requestId,file.hash,file.name,file.mime])),stamp=new Date().toISOString();await storage.put(key,file.bytes);
+   await c.query(`INSERT INTO ${table}(organization_id,id,task_id,created_by,request_id,name,mime_type,size_bytes,sha256,storage_key,created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)`,[org,id,taskId,userId,file.requestId,file.name,file.mime,file.bytes.length,file.hash,key,stamp]);await c.query(`INSERT INTO ${prefix}platform_audit(organization_id,id,actor_id,action,entity_id,created_at) VALUES(?,?,?,?,?,?)`,[org,randomUUID(),userId,'task.attachment_added',id,stamp]);return {id,task_id:taskId,created_by:userId,name:file.name,mime_type:file.mime,size_bytes:file.bytes.length,sha256:file.hash,created_at:stamp,replayed:false};
+  });},
+  download(userId,org,taskId,id){return platform.transaction(userId,org,async c=>{await access(c,taskId);if(!uuid(id))fail(400,'BAD_INPUT','Invalid attachment ID');const row=(await c.query(`SELECT * FROM ${table} WHERE organization_id=? AND task_id=? AND id=?`,[org,taskId,id])).rows[0];if(!row)fail(404,'NOT_FOUND','Attachment not found');configured();const bytes=await storage.get(row.storage_key);if(!Buffer.isBuffer(bytes)||bytes.length!==Number(row.size_bytes)||digest(bytes)!==row.sha256)fail(503,'STORAGE_INTEGRITY','Private file could not be verified. Contact the administrator.');return {name:row.name,mimeType:row.mime_type,bytes};});},
+ };
+}

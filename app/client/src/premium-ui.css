@@ -1,0 +1,63 @@
+/* NovaWorks service operations: restrained surfaces, readable work, instant navigation. */
+.erp-shell{--nw-canvas:#f8f9fb;--nw-surface:#fff;--nw-ink:#18232d;--nw-muted:#566471;--nw-line:#e1e6eb;--nw-accent:#21594e;--nw-ease:cubic-bezier(.23,1,.32,1);background:var(--nw-canvas);color:var(--nw-ink);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-variant-numeric:tabular-nums;}
+.erp-shell .erp-operating-workspace{max-width:1680px}
+.erp-shell .erp-company-layout{grid-template-columns:196px minmax(0,1fr);gap:28px}
+.erp-shell .erp-company-layout>.company-module-navigation{border:0;border-radius:0;background:transparent;padding:0 12px 12px 0}
+.erp-shell .erp-module-list{gap:15px}
+.erp-shell .erp-module-group h2{font-size:10px;letter-spacing:.08em;color:#697681;padding:6px 10px}
+.erp-shell .erp-module-group button{gap:10px;min-height:44px;border-radius:6px;color:#4c5a66;font-weight:500;padding:9px 10px}
+.erp-shell .erp-module-group button[aria-current=page]{background:#e8efed;border-color:transparent;color:#194f43;font-weight:650;box-shadow:inset 3px 0 #21594e}
+.nw-module-icon{flex:none}
+.erp-shell .erp-commandbar{border-bottom:1px solid var(--nw-line);margin-bottom:10px;padding-bottom:18px}
+.erp-shell .erp-module-content>.crm-workspace,.erp-shell .nw-record-detail{min-width:0}
+.erp-shell .erp-module-content .section-heading h2{font-size:24px;letter-spacing:-.6px;line-height:1.25}
+.erp-shell .erp-module-content :is(h2,h3,strong,dd){overflow-wrap:anywhere}
+.erp-shell .erp-utility-tray{border-radius:7px;border-color:var(--nw-line);box-shadow:none}
+.erp-shell :is(button,input,select,textarea){border-radius:6px}
+.erp-shell :is(button,a,summary){touch-action:manipulation}
+.erp-shell button{user-select:none;-webkit-user-select:none}
+.erp-shell :is(button,a,summary):focus-visible{outline:3px solid #3473ad;outline-offset:3px}
+.erp-shell :is(input,select,textarea):focus-visible{outline:3px solid #3473ad;outline-offset:2px}
+.erp-shell :is(button,.text-button){transition:none}
+.erp-shell button:active:not(:disabled){background-color:#e0e9e5}
+.erp-shell .primary:active:not(:disabled){background-color:#123e35;color:#fff}
+.erp-shell :is(.notice,.empty,.transcript-panel){border-radius:7px}
+.erp-shell .loading{min-height:88px;display:flex;align-items:center;color:var(--nw-muted)}
+.erp-shell .nw-saved-views{margin:12px 0 18px;padding:12px 0;border-bottom:1px solid var(--nw-line);min-width:0}
+.nw-saved-view-controls,.nw-save-view-form{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.erp-shell .nw-saved-view-controls>label{font-size:12px;font-weight:600;margin:0;color:var(--nw-muted)}
+.erp-shell .nw-saved-view-controls>select{width:auto;max-width:100%;min-width:180px;font-size:13px;min-height:44px}
+.erp-shell .nw-saved-view-controls button{font-size:12px;min-height:44px}
+.nw-save-view-form{margin-top:12px;align-items:end}
+.nw-save-view-form label{min-width:160px;flex:1;max-width:360px}
+.erp-shell .nw-view-hint,.erp-shell .nw-view-feedback{font-size:12px;line-height:1.5;color:var(--nw-muted);margin:8px 0 0}
+.erp-shell .nw-view-feedback{color:#21594e}
+.erp-shell .nw-table-region{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;border:1px solid var(--nw-line);border-radius:8px;background:#fff}
+.erp-shell .nw-table-region:focus-visible{outline:3px solid #3473ad;outline-offset:3px}
+.erp-shell .nw-record-table{width:100%;border-collapse:collapse;text-align:left;font-size:13px;table-layout:auto}
+.erp-shell .nw-record-table :is(th,td){padding:14px 16px;border-bottom:1px solid var(--nw-line);vertical-align:middle;overflow-wrap:anywhere;min-width:100px;max-width:400px}
+.erp-shell .nw-record-table thead th{background:#f5f7f9;font-size:11px;font-weight:650;color:#566471;white-space:nowrap}
+.erp-shell .nw-record-table tbody th{font-weight:600;min-width:200px}
+.erp-shell .nw-record-table tr:last-child :is(th,td){border-bottom:0}
+.nw-table-secondary{display:block;font-size:12px;color:#566471;font-weight:400;margin-top:4px}
+.erp-shell .nw-status{display:inline-flex;align-items:center;gap:6px;border:1px solid #dbe3e8;border-radius:4px;padding:4px 7px;font-size:11px;line-height:1.3;font-weight:600;white-space:normal;color:#495b68;background:#f5f7f9}
+.erp-shell .nw-status[data-status=ACTIVE],.erp-shell .nw-status[data-status=DONE]{color:#225a43;border-color:#c8dfd2;background:#eef7f1}
+.nw-record-header{display:flex;align-items:start;justify-content:space-between;gap:16px;border-bottom:1px solid var(--nw-line);padding:16px 0 20px;margin-bottom:20px}
+.erp-shell .nw-record-header h2{font-size:28px;letter-spacing:-.65px;line-height:1.25;margin:6px 0 8px}
+.nw-record-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:0 0 24px;padding:18px;background:#fff;border:1px solid var(--nw-line);border-radius:8px}
+.nw-record-facts dt{font-size:11px;color:#566471;font-weight:500;margin-bottom:6px}
+.nw-record-facts dd{margin:0;font-size:14px;font-weight:600}
+.nw-detail-section{padding:18px 0;border-bottom:1px solid var(--nw-line);margin-bottom:20px}
+.nw-preserve-text{white-space:pre-wrap;overflow-wrap:anywhere;max-width:90ch;line-height:1.7}
+.nw-project-status{display:block;max-width:280px;margin:16px 0}
+.erp-shell .nw-deadline-editor{min-width:0;max-width:640px;margin:16px 0 24px;padding:16px;border:1px solid var(--nw-line);border-radius:8px;background:#fff}
+.erp-shell .nw-deadline-editor h3{margin:0 0 12px}
+.erp-shell .nw-deadline-editor input[type=date]{display:block;width:100%;max-width:100%;min-width:0;margin:8px 0}
+.erp-shell .nw-deadline-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.erp-shell .nw-deadline-conflict{min-width:0;overflow-wrap:anywhere}
+.erp-shell .nw-project-filters{align-items:end;margin:18px 0 0}
+.erp-shell .nw-project-filters label:first-child{flex:1;min-width:190px}
+@media(hover:hover) and (pointer:fine){.erp-shell .nw-record-table tbody tr:hover{background:#f8faf9}.erp-shell .erp-module-group button:hover:not(:disabled){background:#edf1f0}.erp-shell .text-button:hover:not(:disabled){color:#174b43;text-decoration:underline;text-underline-offset:3px}}
+@media(max-width:1024px){.erp-shell .erp-company-layout{grid-template-columns:minmax(0,1fr);gap:18px}.erp-shell .erp-company-layout>.company-module-navigation{position:static;border:1px solid var(--nw-line);background:#fff;padding:8px;border-radius:7px}.erp-shell .erp-module-list{gap:12px}.erp-shell .erp-module-group button{width:100%}}
+@media(max-width:600px){.erp-shell .nw-record-header{flex-wrap:wrap}.erp-shell .nw-record-header h2{font-size:24px}.nw-record-facts{grid-template-columns:1fr;gap:14px}.erp-shell :is(input,select,textarea){font-size:16px!important}.nw-saved-view-controls{align-items:stretch}.erp-shell .nw-saved-view-controls>select{width:100%;min-width:0}.nw-save-view-form{align-items:stretch}.nw-save-view-form label{width:100%;max-width:none}.erp-shell .nw-record-table :is(th,td){padding:12px}.erp-shell{padding-bottom:max(20px,env(safe-area-inset-bottom))}}
+@media(prefers-reduced-motion:reduce){.erp-shell *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}

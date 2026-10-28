@@ -1,0 +1,8 @@
+import React, { useState } from 'react';
+import { request } from './api.js';
+
+export default function Signup({ onLogin, onCancel }) {
+ const [busy,setBusy]=useState(false);const [error,setError]=useState(null);
+ async function submit(event){event.preventDefault();if(busy)return;const form=new FormData(event.currentTarget);setBusy(true);setError(null);try{const user=await request('/v1/register',{method:'POST',body:Object.fromEntries(form)});onLogin(user);}catch(error){setError(error);}finally{setBusy(false);}}
+ return <main id="main" className="main-content nw-auth-page nw-auth-signup"><section className="transcript-panel nw-auth-card"><p className="login-eyebrow">NovaWorks ERP</p><h1>Create your ERP account</h1><p>Set up your company workspace after creating your account. This development release has no email verification yet. Recovery is available only where delivery is explicitly configured; use test data.</p>{error&&<p className="notice error" role="alert">{error.message}</p>}<form onSubmit={submit}><fieldset disabled={busy} className="draft-fields"><label>Your name<input name="name" autoComplete="name" maxLength={100} required/></label><label>Email<input name="email" type="email" autoComplete="username" maxLength={254} required/></label><label>Password<input name="password" type="password" autoComplete="new-password" minLength={12} maxLength={128} required/></label><p>Use 12 or more characters. The fictional demo domain is reserved.</p><div className="composer-footer"><button type="button" className="secondary" onClick={onCancel}>Back to sign in</button><button className="primary">{busy?'Creating account…':'Create account'}</button></div></fieldset></form></section></main>;
+}

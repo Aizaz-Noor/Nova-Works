@@ -1,4 +1,5 @@
 import { openConfiguredDatabase } from '../backend/src/db/database.js';
+import { assertPlatformRuntimeRole } from '../backend/src/platform/runtime.js';
 import { createApp } from '../backend/src/app.js';
 let ready;
 function fail(code) { const error = new Error('Hosted service configuration unavailable'); error.code = code; throw error; }
@@ -18,7 +19,7 @@ async function initialize() {
     delete process.env.DATABASE_CA_FILE;
   }
   const db = await openConfiguredDatabase();
-  try { return createApp({ db, production: true }); }
+  try { if(process.env.ERP_ENABLED==='1')await assertPlatformRuntimeRole(db);return createApp({ db, production: true }); }
   catch (error) { await db.close(); throw error; }
 }
 const safeCodes = new Set(['DATABASE_URL_MISSING','SESSION_SECRET_INVALID','FRONTEND_ORIGIN_MISSING','FRONTEND_ORIGIN_INVALID','28P01','SELF_SIGNED_CERT_IN_CHAIN','UNABLE_TO_VERIFY_LEAF_SIGNATURE','CERT_HAS_EXPIRED','ENOTFOUND','ECONNREFUSED','ETIMEDOUT','DATABASE_INIT_FAILED']);

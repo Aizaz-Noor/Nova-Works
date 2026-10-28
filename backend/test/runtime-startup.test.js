@@ -1,0 +1,16 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {assertPlatformRuntimeRole} from '../src/platform/runtime.js';
+const names=['organizations','memberships','member_access','projects','tasks','drafts','files','invitations','audit','customers','contacts','activities','project_customers','pipeline_stages','leads','deals','deal_projects','quotes','quote_items','sales_orders','sales_order_items','time_entries','time_approvals','client_invoices','invoice_items','payment_records','credit_notes','invoice_counters','ai_jobs','ai_usage','subscriptions','billing_events','billing_operations','organization_settings','task_comments','milestones','notifications','task_attachments','attachment_usage','billing_rates','time_billing_roots','time_allocations'];
+function db({role={},unsafe={},missing=false,oldAiSchema=false,oldProjectVersion=false,oldTaskVersion=false,membershipWrites=false,lifecycleUnsafe=false}={}){return{kind:'postgres',async query(sql){if(sql.includes('discarded_at')&&oldAiSchema)throw new Error('column discarded_at does not exist');if(sql.includes('platform_projects LIMIT 0')&&oldProjectVersion)throw new Error('column version does not exist');if(sql.includes('platform_tasks LIMIT 0')&&oldTaskVersion)throw new Error('column version does not exist');if(sql.includes('unsafe_member_gate'))return{rows:[{unsafe_member_gate:lifecycleUnsafe,unsafe_member_functions:false}]};if(sql.includes('has_any_column_privilege'))return{rows:[{can_update:membershipWrites,can_delete:false}]};if(sql.includes('owns_tables'))return{rows:[{owns_tables:false,schema_create:false,database_create:false,inherits_roles:false,...unsafe}]};if(sql.includes('pg_roles'))return{rows:[{rolsuper:false,rolbypassrls:false,...role}]};if(sql.includes('relname,relrowsecurity'))return{rows:[...names.slice(missing?1:0).map(name=>({relname:`platform_${name}`,relrowsecurity:true,relforcerowsecurity:true})),{relname:'account_recovery_tokens',relrowsecurity:true,relforcerowsecurity:true},...['account_security_events','account_mfa_factors','account_mfa_recovery_codes','account_mfa_events'].map(relname=>({relname,relrowsecurity:true,relforcerowsecurity:true}))]};return{rows:[]};}};}
+test('ERP startup rejects privileged runtime credentials and missing forced policies',async()=>{
+ for(const name of ['rolsuper','rolbypassrls','rolcreatedb','rolcreaterole','rolreplication'])await assert.rejects(assertPlatformRuntimeRole(db({role:{[name]:true}})));
+ for(const name of ['owns_tables','schema_create','database_create','inherits_roles'])await assert.rejects(assertPlatformRuntimeRole(db({unsafe:{[name]:true}})));
+ await assert.rejects(assertPlatformRuntimeRole(db({missing:true})));
+ await assert.rejects(assertPlatformRuntimeRole(db({membershipWrites:true})),/memberships/);
+ await assert.rejects(assertPlatformRuntimeRole(db({lifecycleUnsafe:true})),/lifecycle/);
+ await assert.rejects(assertPlatformRuntimeRole(db({oldAiSchema:true})),/discarded_at/);
+ await assert.rejects(assertPlatformRuntimeRole(db({oldProjectVersion:true})),/migration 025/);
+ await assert.rejects(assertPlatformRuntimeRole(db({oldTaskVersion:true})),/migration 025/);
+ assert.deepEqual(await assertPlatformRuntimeRole(db()),{database:'postgres',databaseRls:true});
+});

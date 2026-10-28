@@ -9,6 +9,9 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
+    "worker:ai": "node src/companyAiWorker.js",
+    "worker:billing": "node src/billingReconciler.js",
+    "billing:operate": "node scripts/operate-subscription.js",
     "db:init": "node src/db/database.js",
     "seed": "node src/db/seed.js",
     "reset:projects": "node src/db/reset.js",
@@ -16,11 +19,15 @@
     "test:live": "node scripts/verify-live.js",
     "test:api": "node --test test/api.test.js",
     "test:all": "node --test test/*.test.js",
-    "test:postgres": "node scripts/verify-postgres.js"
+    "test:postgres": "node scripts/verify-postgres.js",
+    "db:migrate:erp": "node scripts/migrate-platform.js",
+    "recovery:prune": "node scripts/prune-recovery.js",
+    "backup:sqlite": "node scripts/backup-sqlite.js"
   },
   "dependencies": {
     "express": "^5.1.0",
     "express-session": "^1.18.2",
+    "pdfkit": "0.20.2",
     "pg": "8.16.3"
   }
 }

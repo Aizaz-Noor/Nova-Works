@@ -1,0 +1,13 @@
+# Premium reports — first UI upgrade surface
+
+22October2026, isolated next candidate. Adds scoped project bars/task distribution SVG, exact-value table toggles, approved-time card and independent sales-workflow diagram; improves system type, contrast, panel hierarchy and responsive layout. Currency tables, exact BigInt financial values and JSON exports remain. No charts imply trends or conversion rates absent from source data.
+
+User-authorized parallel work:resource review, read-only chart correctness review and notification component implementation. Parent integrated/tested. Reviewer found7-digit ring totals overlap the inner ring (synthetic Edge measurement80.51 versus72units); center now uses Total for large values while exact totals remain outside/accessibly described. Huge-value wrapping added.
+
+Actual npm.cmd run build --prefix app/client exit0,53 modules,4.12s. Actual node scripts/verify-premium-reports-browser.mjs exit0/PASS: live local fixture financial amounts15000issued/5000credit/1000netpaid/9000outstanding, draft excluded;GBP filter/export7000minor; exact PKR18014398509481982minor; independently approved90minutes; current-company reset/member finance403; chart-to-table toggle;28 responsive checks320–1366/zero overflow/zero page errors. Final4 widths include explicitly synthetic huge-count/time layout input, followed by refresh to actual empty-company records; these are layout fixtures, not real business metrics. Evidence tmp/premium-reports-browser/results.json. Desktop report surface visually reviewed; full shell still needs compact redesign.
+
+Actual node scripts/verify-task-notifications-browser.mjs exit0/PASS: member receives21 private events/2pages; lazy loading;mark-read counts21→20/read-only20→19;lost task access removes records;12 responsive checks/no overflow/zero errors. Evidence tmp/notifications-browser-bnxf7L/results.json. This does not yet prove020 populated-upgrade/restore or all notification error/session scenarios.
+
+Backend source remains at verified125/125 PASS exit0 (notification milestone). No human-testing3039 rebuild, schema change or data mutation. No deployment/push/provider calls. Full premium ERP redesign, private attachments,020 upgrade/restore and remaining original launch scope stay open.
+
+Final compact-shell rerun: actual premium report verifier PASSexit0,28width checks,zero page errors; independent time approval, exact money/export and mobile member403 scope preserved. Fresh disposable fixture database prevents repeat runs consuming historical signup limits; product limiter unchanged. Evidence tmp/premium-reports-browser/results.json.

@@ -1,0 +1,6 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseMoneyToMinor,minorToDecimal,formatMinor} from './pipelineMoney.js';
+test('decimal amounts convert exactly without floating point',()=>{assert.equal(parseMoneyToMinor('0'),'0');assert.equal(parseMoneyToMinor('1250.50'),'125050');assert.equal(parseMoneyToMinor('0.1'),'10');assert.equal(parseMoneyToMinor(''),null);assert.equal(parseMoneyToMinor('90071992547409.91'),'9007199254740991');});
+test('invalid and out-of-range amounts rejected',()=>{for(const value of ['-1','1e2','1.001','01.00','.5','1.','Infinity','NaN','90071992547409.92','9,000','+1'])assert.throws(()=>parseMoneyToMinor(value),value);assert.throws(()=>parseMoneyToMinor(0));});
+test('formatting groups exact amounts without floating point',()=>{assert.equal(formatMinor('125050','USD'),'USD 1,250.50');assert.equal(formatMinor('8500000','PKR'),'PKR 85,000.00');assert.equal(formatMinor('0','PKR'),'PKR 0.00');assert.equal(formatMinor(null),'Value not set');assert.equal(formatMinor('9007199254740991','USD'),'USD 90,071,992,547,409.91');assert.equal(minorToDecimal('9007199254740991'),'90071992547409.91');for(const value of ['01','-1','1.5','9007199254740992'])assert.throws(()=>minorToDecimal(value));assert.throws(()=>formatMinor('9007199254740992','USD'));});

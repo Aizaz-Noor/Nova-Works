@@ -4,7 +4,7 @@ export function validDate(value) {
  const date=new Date(`${value}T00:00:00Z`);
  return Number.isFinite(date.getTime())&&date.toISOString().slice(0,10)===value;
 }
-export function validateAiOutput(value,directory) {
+export function validateAiOutput(value,directory,{company=false}={}) {
  const issues=[];const roles=new Map(directory.map(u=>[u.id,u.role]));
  const issue=(path,message)=>issues.push({path,message});
  const object=v=>v!==null && typeof v==='object' && !Array.isArray(v);
@@ -14,26 +14,30 @@ export function validateAiOutput(value,directory) {
  if(!object(value)) issue('root','Expected a JSON object');
  else {
   extras(value,['projects'],'root');
-  if(!Array.isArray(value.projects)||value.projects.length<1||value.projects.length>50)issue('projects','Expected 1–50 projects');
-  else value.projects.forEach((p,i)=>{
+  if(!Array.isArray(value.projects)||value.projects.length<1||value.projects.length>10)issue('projects','Expected 1–10 projects');
+  else {
+   const taskCount=value.projects.reduce((n,p)=>n+(Array.isArray(p?.tasks)?p.tasks.length:0),0);
+   if(taskCount>100)issue('projects','Expected at most 100 total tasks');
+   value.projects.forEach((p,i)=>{
    const path=`projects[${i}]`;
    if(!object(p)){issue(path,'Expected a project object');return;}
    extras(p,['name','clientName','description','managerId','deadline','tasks'],path);
-   text(p.name,`${path}.name`);text(p.clientName,`${path}.clientName`);description(p.description,`${path}.description`);
-   if(roles.get(p.managerId)!=='MANAGER')issue(`${path}.managerId`,'Must reference an existing MANAGER');
+   text(p.name,`${path}.name`);if(company&&[p.name,p.clientName].some(v=>typeof v==='string'&&v.length>200))issue(path,'Project and client names must be at most 200 characters');if(company&&typeof p.description==='string'&&p.description.length>5000)issue(path,'Project description must be at most 5000 characters');text(p.clientName,`${path}.clientName`);description(p.description,`${path}.description`);
+   if(!(company?['OWNER','ADMIN','MANAGER'].includes(roles.get(p.managerId)):roles.get(p.managerId)==='MANAGER'))issue(`${path}.managerId`,'Must reference an existing MANAGER');
    if(!validDate(p.deadline))issue(`${path}.deadline`,'Expected a real date in YYYY-MM-DD format');
    if(!Array.isArray(p.tasks)||p.tasks.length<1||p.tasks.length>100)issue(`${path}.tasks`,'Expected 1–100 tasks');
    else p.tasks.forEach((t,j)=>{
     const tp=`${path}.tasks[${j}]`;
     if(!object(t)){issue(tp,'Expected a task object');return;}
     extras(t,['title','description','assigneeId','deadline','estimatedHours'],tp);
-    text(t.title,`${tp}.title`);if(typeof t.description!=='string'||!t.description.trim()||t.description.length>20000||t.description.includes('\u0000'))issue(`${tp}.description`,'Required non-empty task description without NUL characters (maximum 20000 characters)');
-    if(roles.get(t.assigneeId)!=='AGENT')issue(`${tp}.assigneeId`,'Must reference an existing AGENT');
+    text(t.title,`${tp}.title`);if(company&&(typeof t.title==='string'&&t.title.length>200||typeof t.description==='string'&&t.description.length>5000))issue(tp,'Task title must be at most 200 characters and description at most 5000');if(typeof t.description!=='string'||!t.description.trim()||t.description.length>20000||t.description.includes('\u0000'))issue(`${tp}.description`,'Required non-empty task description without NUL characters (maximum 20000 characters)');
+    if(!(company?roles.has(t.assigneeId):roles.get(t.assigneeId)==='AGENT'))issue(`${tp}.assigneeId`,'Must reference an existing AGENT');
     if(!validDate(t.deadline))issue(`${tp}.deadline`,'Expected a real date in YYYY-MM-DD format');
     else if(validDate(p.deadline)&&t.deadline>p.deadline)issue(`${tp}.deadline`,'Task deadline must not exceed project deadline');
     if(typeof t.estimatedHours!=='number'||!Number.isFinite(t.estimatedHours)||t.estimatedHours<=0)issue(`${tp}.estimatedHours`,'Expected positive numeric hours');
    });
   });
+ }
  }
  if(issues.length)throw new ApiError(422,'INVALID_AI_OUTPUT','AI result requires correction; nothing was saved',issues);
  return {projects:value.projects.map(p=>({...p,name:p.name.trim(),clientName:p.clientName.trim(),description:p.description||'',tasks:p.tasks.map(t=>({...t,title:t.title.trim(),description:t.description||''}))}))};

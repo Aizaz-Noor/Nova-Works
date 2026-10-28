@@ -3,8 +3,11 @@ import assert from 'node:assert/strict';
 import express from 'express';
 import {aiRoutes} from '../src/routes/ai.routes.js';
 import {ApiError,errorHandler} from '../src/middleware/errorHandler.js';
-const db={prepare:()=>({get:()=>null,all:()=>[]})};
-async function start(extract,limits){const app=express();app.use(express.json());app.use((req,res,next)=>{req.user={id:'ADMIN',role:'ADMIN'};next();});app.use(aiRoutes(db,extract,limits));app.use(errorHandler);const server=app.listen(0,'127.0.0.1');await new Promise(r=>server.once('listening',r));return{submit:()=>fetch(`http://127.0.0.1:${server.address().port}/create-from-transcript`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({transcript:'Identical fixture transcript'})}),close:()=>new Promise(r=>server.close(r))};}
+import {openDatabase} from '../src/db/database.js';
+const db=openDatabase(':memory:');
+import {initializeDrafts} from '../src/services/aiDrafts.js';
+initializeDrafts(db);
+async function start(extract,limits){db.exec('DELETE FROM ai_drafts');const app=express();app.use(express.json());app.use((req,res,next)=>{req.user={id:'ADMIN',role:'ADMIN'};next();});app.use(aiRoutes(db,extract,limits));app.use(errorHandler);const server=app.listen(0,'127.0.0.1');await new Promise(r=>server.once('listening',r));return{submit:()=>fetch(`http://127.0.0.1:${server.address().port}/create-from-transcript`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({transcript:'Identical fixture transcript'})}),close:()=>new Promise(r=>server.close(r))};}
 test('async quota cannot allow duplicate same-transcript provider calls',async()=>{
  let quotaCalls=0,providerCalls=0,releaseQuota,entered;
  const ready=new Promise(r=>entered=r),gate=new Promise(r=>releaseQuota=r);

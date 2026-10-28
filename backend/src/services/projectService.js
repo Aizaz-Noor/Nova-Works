@@ -2,9 +2,11 @@ import * as postgres from './postgresProjects.js';
 import { randomUUID } from 'node:crypto';
 import { transaction } from '../db/database.js';
 import { ApiError } from '../middleware/errorHandler.js';
+import { demoIdentityPredicate } from '../db/demoIdentity.js';
 export function teamDirectory(db) {
  if(db.kind==='postgres')return postgres.teamDirectory(db);
- return db.prepare('SELECT id,name,role,specialization,skills FROM users ORDER BY id').all().map(u => ({...u,skills:JSON.parse(u.skills)}));
+ const args=[];const predicate=demoIdentityPredicate('u',value=>{args.push(value);return '?';});
+ return db.prepare(`SELECT id,name,role,specialization,skills FROM users u WHERE ${predicate} ORDER BY id`).all(...args).map(u => ({...u,skills:JSON.parse(u.skills)}));
 }
 const projectSelect = `SELECT p.id,p.name,p.client_name AS clientName,p.description,p.manager_id AS managerId,
  p.deadline,p.created_at AS createdAt,u.name AS managerName,u.specialization AS managerSpecialization

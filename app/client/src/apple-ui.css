@@ -1,0 +1,112 @@
+/* NovaWorks: Apple-inspired hierarchy and materials, built for daily ERP work. */
+.erp-shell,.erp-entry,.nw-auth-page{
+  --nw-canvas:#f5f5f7;--nw-surface:#fff;--nw-surface-secondary:#f0f2f4;
+  --nw-ink:#1d2630;--nw-muted:#53616d;--nw-line:#dce1e6;
+  --nw-accent:#21594e;--nw-accent-soft:#e6f0ec;--nw-control-line:#87959f;
+  --nw-radius-control:10px;--nw-radius-panel:20px;
+  --nw-shadow:0 2px 5px #1d263005,0 12px 32px #1d263006;
+  --nw-ease:cubic-bezier(.2,.8,.2,1);
+  --primary:var(--nw-accent);--border:var(--nw-line);--muted:var(--nw-muted);
+  --erp-ink:var(--nw-ink);--erp-secondary:var(--nw-muted);--erp-line:var(--nw-line);
+  --erp-border:var(--nw-line);--erp-muted:var(--nw-muted);--erp-teal:var(--nw-accent);
+  color:var(--nw-ink);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-variant-numeric:tabular-nums;font-size:14px;line-height:1.55;
+}
+.workspace.erp-workspace-layout{background:#f5f5f7}
+.app-header.erp-app-header{min-height:64px;padding:0;background:#fffffff5;border-bottom:1px solid #dce1e6}
+.app-header.erp-app-header .header-inner{min-height:64px;padding:10px clamp(16px,3vw,40px)}
+@supports(backdrop-filter:blur(16px)){.app-header.erp-app-header{background:#ffffffeb;backdrop-filter:blur(16px)}}
+.app-header.erp-app-header .brand-symbol,.erp-entry .brand-symbol{border-radius:11px;background:#21594e;box-shadow:inset 0 1px #ffffff30}
+.app-header.erp-app-header .brand small{font-size:10px;letter-spacing:.01em}
+.app-header.erp-app-header .user-info{font-size:12px}
+.app-header.erp-app-header button{min-height:44px;border-radius:10px}
+.erp-shell{background:var(--nw-canvas);padding:18px clamp(16px,3vw,40px) 28px;max-width:none}
+.erp-shell .erp-operating-workspace{max-width:1600px}
+.erp-shell .erp-commandbar{padding:0 0 12px;margin:0;border-bottom:1px solid var(--nw-line);gap:16px}
+.erp-shell .erp-context-label>span{font-size:10px;letter-spacing:.09em;color:var(--nw-muted)}
+.erp-shell .erp-context-label>strong{font-size:19px;letter-spacing:-.45px;font-weight:650;line-height:1.35}
+.erp-shell .erp-company-picker{gap:8px;font-size:12px}
+.erp-shell .erp-company-picker select{border-color:var(--nw-control-line);border-radius:10px;min-height:44px;background:var(--nw-surface);font-size:13px}
+.erp-shell .erp-role-chip{background:var(--nw-accent-soft);border-color:#cbded5;color:#21594e;border-radius:8px}
+.erp-shell .erp-utility-tray{padding:10px 0 18px;gap:8px}
+.erp-shell .erp-utility-tray>details,.erp-shell .erp-utility-tray>.nw-notifications{border:1px solid var(--nw-line);border-radius:10px;box-shadow:none}
+.erp-shell .erp-utility-tray>details{padding:0}
+.erp-shell .erp-utility-tray>details>summary,.erp-shell .erp-utility-tray>.nw-notifications>details>summary{font-size:12px;padding:10px 12px;min-height:44px;border-radius:10px;font-weight:550;color:var(--nw-muted)}
+.erp-shell .erp-utility-tray details[open]{background:var(--nw-surface)}
+.erp-shell .erp-utility-tray>details[open]>p{max-width:80ch;margin:16px;color:var(--nw-muted)}
+.erp-shell .erp-utility-tray>details[open]>form{max-width:760px;margin:16px}
+.erp-shell .erp-utility-tray>details[open]>section{margin:20px 16px;padding:20px 0 0;border-top:1px solid var(--nw-line)}
+.erp-shell .erp-utility-tray>details[open]>section>p{max-width:80ch;margin:8px 0 16px}
+.erp-shell .erp-utility-tray fieldset{border:1px solid var(--nw-line);border-radius:14px;padding:18px;background:var(--nw-surface-secondary);max-width:760px;min-width:0}
+.erp-shell .erp-utility-tray legend{font-size:13px;font-weight:600;padding:0 6px}
+.erp-shell .erp-utility-tray fieldset input{margin-top:6px;margin-bottom:18px}
+.erp-shell .erp-utility-tray section>form{max-width:760px}
+.erp-shell .erp-utility-tray section>form button{margin:4px 8px 4px 0}
+.erp-shell .erp-company-layout{grid-template-columns:204px minmax(0,1fr);gap:28px;align-items:start}
+.erp-shell .erp-company-layout>.company-module-navigation{background:#eceef1;border:1px solid #e2e5e9;border-radius:18px;padding:14px 10px}
+.erp-shell .erp-module-list{gap:15px}
+.erp-shell .erp-module-group h2{font-size:10px;font-weight:650;letter-spacing:.07em;padding:3px 10px 6px;color:#586571}
+.erp-shell .erp-module-group button{min-height:44px;padding:10px;border-radius:10px;color:#45535f;font-size:13px;font-weight:500;gap:10px;background:transparent;border-color:transparent;box-shadow:none}
+.erp-shell .erp-module-group button[aria-current=page]{background:var(--nw-surface);box-shadow:0 1px 3px #1d26300d;color:var(--nw-accent);font-weight:650;border:1px solid #dbe4df}
+.erp-shell .erp-module-content{min-width:0;padding:2px 0}
+.erp-shell .erp-module-content>.crm-workspace,.erp-shell .nw-record-detail{min-width:0}
+.erp-shell h2{letter-spacing:-.035em}
+.erp-shell .erp-module-content .section-heading h2,.erp-shell .nw-record-header h2{font-size:28px;line-height:1.2;font-weight:650;letter-spacing:-.8px}
+.erp-shell h3{font-weight:600;letter-spacing:-.25px}
+.erp-shell :is(button,input,select,textarea){border-radius:var(--nw-radius-control)}
+.erp-shell :is(input,select,textarea){border-color:var(--nw-control-line);background:var(--nw-surface);color:var(--nw-ink);box-shadow:inset 0 1px 2px #1d263004}
+.erp-shell :is(input,select,textarea):disabled{background:#edf0f2;color:#53616d}
+.erp-shell label{font-size:13px;font-weight:550;color:#354550}
+.erp-shell button{font-weight:550;min-height:44px;transition:background-color 120ms var(--nw-ease),border-color 120ms var(--nw-ease),color 120ms var(--nw-ease)}
+.erp-shell .primary{background:var(--nw-accent);color:#fff;border-color:var(--nw-accent);box-shadow:inset 0 1px #ffffff15}
+.erp-shell form button:not([type]):not(.secondary):not(.quiet):not(.text-button){background:var(--nw-accent);color:#fff;border-color:var(--nw-accent)}
+.erp-shell :is(.secondary,.quiet){border-color:#c0c9d0;background:var(--nw-surface);color:#354550}
+.erp-shell button:active:not(:disabled){background:#dfe8e4;transition-duration:0ms}
+.erp-shell .primary:active:not(:disabled){background:#173f37;color:#fff}
+.erp-shell button:disabled{opacity:.55;box-shadow:none;cursor:not-allowed}
+.erp-shell :is(button,a,summary,input,select,textarea):focus-visible{outline:3px solid #2568b2;outline-offset:3px}
+.erp-shell :is(.transcript-panel,.directory,.empty,.nw-record-facts){border-radius:16px;border-color:var(--nw-line)}
+.erp-shell .transcript-panel{background:var(--nw-surface);padding:20px}
+.erp-shell .transcript-panel,.nw-auth-page .transcript-panel{animation:none}
+.erp-shell details>summary{cursor:pointer;min-height:44px;align-content:center;font-weight:550}
+.erp-shell .directory-row{padding:16px;border-color:var(--nw-line)}
+.erp-shell .nw-record-header{padding:12px 0 20px;margin-bottom:20px}
+.erp-shell .nw-record-facts{background:var(--nw-surface);padding:20px 24px;gap:20px;box-shadow:var(--nw-shadow)}
+.erp-shell :is(.nw-status,.record-status){border-radius:7px}
+.erp-shell .nw-saved-views{padding:12px 14px;background:#eef1f3;border:1px solid var(--nw-line);border-radius:12px;margin:18px 0}
+.erp-shell .nw-view-hint{font-size:11px;max-width:80ch}
+.erp-shell :is(.nw-table-region,.premium-table-wrap){border-radius:16px}
+.erp-shell .notice{border-radius:12px;padding:13px 16px;font-size:13px;line-height:1.5;margin:12px 0}
+.erp-shell .erp-operating-workspace>.erp-selection-feedback{background:transparent;border:0;padding:0;margin:8px 0;color:var(--nw-muted);font-size:12px}
+.erp-shell .empty{background:var(--nw-surface);padding:28px 24px;border:1px dashed #bac6ce}
+.erp-shell .workspace-footer{margin-top:32px;border-top-color:var(--nw-line);font-size:11px}
+@media(hover:hover) and (pointer:fine){
+  .erp-shell .erp-module-group button:hover:not(:disabled){background:#ffffffb8;color:var(--nw-ink)}
+  .erp-shell .primary:hover:not(:disabled){background:#194a40;border-color:#194a40;color:#fff}
+  .erp-shell :is(.secondary,.quiet):hover:not(:disabled){background:#f0f4f2;border-color:#8eaaa0}
+}
+@media(max-width:1024px){
+  .erp-shell .erp-company-layout{grid-template-columns:minmax(0,1fr);gap:18px}
+  .erp-shell .erp-company-layout>.company-module-navigation{padding:8px;border-radius:14px}
+  .erp-shell .erp-module-menu-trigger{background:var(--nw-surface);border-radius:10px}
+}
+@media(max-width:600px){
+  .erp-shell{padding:16px 12px max(24px,env(safe-area-inset-bottom))}
+  .erp-shell .erp-context-label>strong{font-size:17px}
+  .erp-shell .erp-commandbar{gap:12px}
+  .erp-shell .erp-company-picker{max-width:100%;width:100%}
+  .erp-shell .erp-company-picker select{min-width:0;flex:1;max-width:100%}
+  .erp-shell .erp-utility-tray{padding-bottom:16px}
+  .erp-shell .erp-module-content .section-heading h2,.erp-shell .nw-record-header h2{font-size:24px}
+  .erp-shell :is(input,select,textarea){font-size:16px!important}
+  .erp-shell .transcript-panel,.erp-shell .nw-record-facts{padding:16px}
+  .erp-shell .nw-saved-views{padding:12px}
+}
+@media(prefers-reduced-motion:reduce){.erp-shell *, .erp-entry *,.nw-auth-page *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-transparency:reduce){.app-header.erp-app-header{backdrop-filter:none;background:#fff}}
+@media(forced-colors:active){
+  .erp-shell,.erp-entry,.nw-auth-page{--nw-ink:CanvasText;--nw-muted:CanvasText;--nw-line:ButtonBorder;--nw-surface:Canvas;--nw-canvas:Canvas;--nw-accent:LinkText;--nw-control-line:ButtonBorder}
+  .erp-shell :is(button,input,select,textarea,.transcript-panel,.erp-company-layout>.company-module-navigation){border:1px solid ButtonBorder;box-shadow:none}
+  .erp-shell .erp-module-group button[aria-current=page]{outline:2px solid Highlight;background:Canvas;color:CanvasText}
+  .app-header.erp-app-header{background:Canvas;backdrop-filter:none}
+}

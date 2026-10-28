@@ -11,6 +11,25 @@ Aizaz/**
 node_modules/**
 **/node_modules/**
 .git/**
+.vercel/**
+tmp/**
+**/tmp/**
+private-config/**
+**/private-config/**
+**/*.dump
+**/*.sqlite
+**/*.sqlite3
+**/*.db
+**/*.db-wal
+**/*.db-shm
+**/*.key
+backups/**
+docs/**
+scripts/**
+backend/test/**
+backend/docs/**
+SOURCE_MANIFEST.json
+START-NOVAWORKS.cmd
 
 !backend/certs/supabase-root.pem
 

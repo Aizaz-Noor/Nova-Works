@@ -1,0 +1,120 @@
+.erp-entry .entry-motion { grid-area: scene; min-width: 0; align-self: start; }
+.entry-motion-frame {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 178px;
+  border: 1px solid #d8e5e0;
+  border-radius: 18px;
+  background: radial-gradient(ellipse at 55% 48%, #e4f2ed 0, #edf4f0 40%, #f5f5f1 100%);
+  box-shadow: 0 16px 38px #224b3d12, inset 0 1px #ffffffc9;
+}
+.entry-motion-poster, .entry-motion-video {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.entry-motion-poster { z-index: 0; }
+.entry-motion-video { visibility: hidden; }
+.entry-motion-video.is-active { visibility: visible; }
+.entry-motion-art { position: absolute; z-index: 1; inset: 0; overflow: hidden; }
+.entry-art-orbit {
+  position: absolute;
+  width: 68%;
+  height: 70%;
+  left: 16%;
+  top: 12%;
+  border: 1px solid #b1d0c4;
+  border-radius: 50%;
+  transform: rotate(-17deg);
+  box-shadow: 0 0 28px #79aa951c;
+}
+.entry-art-orbit::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #548c79;
+  box-shadow: 0 0 0 4px #548c791c;
+}
+.entry-art-card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 26%;
+  height: 48%;
+  padding: 14px 12px;
+  border: 1px solid #ffffffda;
+  border-radius: 11px;
+  background: linear-gradient(145deg, #fff, #f5f8f5);
+  box-shadow: 0 12px 26px #27483a1a, inset 0 1px #fff;
+}
+.entry-art-card i { width: 30%; height: 5px; border-radius: 3px; background: #6d9987; }
+.entry-art-card b { width: 76%; height: 4px; border-radius: 3px; background: #d6e2dc; }
+.entry-art-card b:nth-of-type(2) { width: 54%; }
+.entry-art-card em { display: block; width: 48%; height: 18px; margin-top: auto; border-radius: 5px; background: #e2efe9; }
+.entry-art-customer { left: 8%; top: 22%; transform: rotate(-7deg); }
+.entry-art-project { left: 36%; top: 15%; z-index: 1; transform: rotate(2deg); }
+.entry-art-invoice { right: 7%; top: 23%; transform: rotate(7deg); }
+.entry-motion-caption {
+  position: absolute;
+  z-index: 3;
+  right: 12px;
+  bottom: 11px;
+  left: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  color: #43584e;
+  font-size: 10px;
+  letter-spacing: .01em;
+}
+.entry-motion-caption > span { min-width: 0; max-width: 100%; }
+.entry-motion-caption > span:first-child { padding: 5px 8px; border: 1px solid #d8e5de; border-radius: 20px; background: #fffffff0; }
+.entry-motion-steps { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 6px 9px; border: 1px solid #d8e5de; border-radius: 20px; background: #fffffff0; }
+.entry-motion-steps b { font-weight: 600; }
+.entry-motion-steps i { width: 9px; height: 1px; background: #93ab9f; }
+.entry-motion-control {
+  min-width: 134px;
+  min-height: 44px;
+  margin-top: 7px;
+  padding: 8px 12px;
+  border: 1px solid #c8d6cf;
+  border-radius: 9px;
+  color: #344d42;
+  background: #fff;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.entry-motion-control:focus-visible { outline: 3px solid #2568b2; outline-offset: 3px; }
+@media (max-width: 760px) {
+  .entry-motion-frame { min-height: 156px; }
+  .entry-art-card { padding: 11px 9px; gap: 6px; }
+  .entry-motion-caption { right: 9px; bottom: 9px; left: 9px; font-size: 9px; }
+  .entry-motion-steps { gap: 4px; padding: 5px 7px; }
+  .entry-motion-steps i { width: 6px; }
+}
+@media (max-width: 380px) {
+  .entry-motion-frame { min-height: 136px; }
+  .entry-motion-caption { justify-content: flex-end; }
+  .entry-motion-caption > span:first-child { display: none; }
+}
+@media (forced-colors: active) {
+  .entry-motion-frame, .entry-motion-caption > span, .entry-motion-control { border-color: CanvasText; box-shadow: none; }
+  .entry-motion-control { color: ButtonText; background: ButtonFace; }
+  .entry-art-card { border-color: CanvasText; box-shadow: none; }
+  .entry-art-card i, .entry-art-card b, .entry-art-card em, .entry-art-orbit { border-color: CanvasText; background: Canvas; }
+  .entry-motion-caption { color: CanvasText; }
+}

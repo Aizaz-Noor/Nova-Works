@@ -1,0 +1,14 @@
+import {randomUUID} from 'node:crypto';
+import {createPlatformService} from './service.js';
+import {ApiError} from '../middleware/errorHandler.js';
+export function accountSecuritySql(prefix=''){return `CREATE TABLE ${prefix}account_security_events(id TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES ${prefix}users(id),event_type TEXT NOT NULL CHECK(event_type IN ('PASSWORD_CHANGED','RECOVERY_RESET')),occurred_at TEXT NOT NULL);CREATE INDEX account_security_user_recent ON ${prefix}account_security_events(user_id,occurred_at,id);CREATE INDEX account_recovery_expiry ON ${prefix}account_recovery_tokens(expires_at,token_hash);`;}
+export function accountSecuritySqliteGuards(){return `CREATE TRIGGER account_security_no_update BEFORE UPDATE ON account_security_events BEGIN SELECT RAISE(ABORT,'Security history is immutable');END;CREATE TRIGGER account_security_no_delete BEFORE DELETE ON account_security_events BEGIN SELECT RAISE(ABORT,'Security history is immutable');END;`;}
+export function accountSecurityRlsSql(){const scope="user_id=NULLIF(current_setting('app.user_id',true),'')";return `ALTER TABLE novaworks.account_security_events ENABLE ROW LEVEL SECURITY;ALTER TABLE novaworks.account_security_events FORCE ROW LEVEL SECURITY;CREATE POLICY security_select ON novaworks.account_security_events FOR SELECT USING(${scope});CREATE POLICY security_insert ON novaworks.account_security_events FOR INSERT WITH CHECK(${scope});REVOKE ALL ON novaworks.account_security_events FROM PUBLIC;`;}
+export async function recordAccountSecurity(db,c,userId,eventType,at=new Date().toISOString()){
+ if(!['PASSWORD_CHANGED','RECOVERY_RESET'].includes(eventType))throw new Error('Unsupported security event');
+ return c.query(`INSERT INTO ${db.kind==='postgres'?'novaworks.':''}account_security_events(id,user_id,event_type,occurred_at) VALUES(?,?,?,?)`,[randomUUID(),userId,eventType,at]);
+}
+export function createAccountSecurityService(db){const platform=createPlatformService(db),table=`${db.kind==='postgres'?'novaworks.':''}account_security_events`;
+ const events=`WITH events AS (SELECT id,event_type,occurred_at,0 AS source_order FROM ${table} WHERE user_id=? UNION ALL SELECT id,event_type,occurred_at,sequence AS source_order FROM ${db.kind==='postgres'?'novaworks.':''}account_mfa_events WHERE user_id=?)`;
+ return {list(userId,{page=1}={}){page=Number(page);if(!Number.isSafeInteger(page)||page<1||page>10000)throw new ApiError(400,'BAD_INPUT','Use a page from1 to10000');return platform.transaction(userId,null,async c=>{const total=Number((await c.query(`${events} SELECT COUNT(*) AS n FROM events`,[userId,userId])).rows[0].n),rows=(await c.query(`${events} SELECT id,event_type,occurred_at FROM events ORDER BY occurred_at DESC,source_order DESC,id DESC LIMIT 20 OFFSET ?`,[userId,userId,(page-1)*20])).rows;return {events:rows,pagination:{page,pageSize:20,total,totalPages:Math.max(1,Math.ceil(total/20))}};},{snapshot:true});}};
+}

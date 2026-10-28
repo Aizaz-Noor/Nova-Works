@@ -1,0 +1,23 @@
+.nw-notifications { margin-block: 1rem; border: 1px solid var(--border, #cdd5df); border-radius: 14px; background: var(--surface, #fff); color: var(--text, #17212b); overflow-wrap: anywhere; }
+.nw-notifications summary { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem; min-height: 48px; padding: .8rem 1rem; cursor: pointer; font-weight: 650; }
+.nw-notifications summary::before { content: '+'; width: 1em; font-size: 1.15rem; font-weight: 500; }
+.nw-notifications details[open] > summary::before { content: '−'; }
+.nw-notifications summary:focus-visible, .nw-notifications button:focus-visible { outline: 3px solid #245b91; outline-offset: 3px; }
+.nw-notifications-count { margin-left: auto; padding: .2rem .55rem; border-radius: 6px; background: #e8f1f0; color: #174b43; font-size: .8rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+.nw-notifications-content { padding: 0 1rem 1rem; }
+.nw-notifications-toolbar, .nw-notifications-pages { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .75rem; }
+.nw-notifications-toolbar p, .nw-notifications-caption { color: #52606d; font-size: .875rem; line-height: 1.5; }
+.nw-notifications-toolbar p { margin: .5rem 0; }
+.nw-notifications button { min-height: 44px; max-width: 100%; white-space: normal; }
+.nw-notifications-list { list-style: none; padding: 0; margin: 1rem 0; }
+.nw-notifications-list li { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-top: 1px solid var(--border, #cdd5df); }
+.nw-notifications-message { min-width: 0; }
+.nw-notifications-message p { margin: .25rem 0; line-height: 1.45; }
+.nw-notifications-task { color: var(--text, #17212b); }
+.nw-notifications-message time, .nw-notifications-state { color: #52606d; font-size: .8rem; line-height: 1.5; }
+.nw-notifications-state { display: inline-block; font-weight: 650; }
+.nw-notifications-list .is-unread .nw-notifications-state { color: #174b43; }
+.nw-notifications-list .is-read { background: transparent; }
+.nw-notifications-empty { padding-block: 1rem; line-height: 1.6; }
+.nw-notifications-pages { font-size: .875rem; font-variant-numeric: tabular-nums; }
+@media (max-width: 600px) { .nw-notifications-list li { align-items: flex-start; flex-direction: column; gap: .6rem; } .nw-notifications-pages { align-items: stretch; } .nw-notifications-pages span { align-self: center; } .nw-notifications-content { padding-inline: .75rem; } }

@@ -1,0 +1,52 @@
+{
+  "testOnly": true,
+  "initialPlan": "GROWTH",
+  "trialDays": 14,
+  "graceDays": 3,
+  "plans": {
+    "STARTER": {
+      "seats": 3,
+      "aiDaily": 1,
+      "features": {
+        "crm": true,
+        "projects": true,
+        "sales": true,
+        "timesheets": true,
+        "invoicing": true,
+        "ai": true,
+        "reports": false
+      }
+    },
+    "GROWTH": {
+      "seats": 10,
+      "aiDaily": 3,
+      "features": {
+        "crm": true,
+        "projects": true,
+        "sales": true,
+        "timesheets": true,
+        "invoicing": true,
+        "ai": true,
+        "reports": true
+      }
+    },
+    "AGENCY_PRO": {
+      "seats": 25,
+      "aiDaily": 10,
+      "features": {
+        "crm": true,
+        "projects": true,
+        "sales": true,
+        "timesheets": true,
+        "invoicing": true,
+        "ai": true,
+        "reports": true
+      }
+    }
+  },
+  "pricePlans": {
+    "pri_aaaaaaaaaaaaaaaaaaaaaaaaaa": "STARTER",
+    "pri_bbbbbbbbbbbbbbbbbbbbbbbbbb": "GROWTH",
+    "pri_cccccccccccccccccccccccccc": "AGENCY_PRO"
+  }
+}

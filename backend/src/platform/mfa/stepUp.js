@@ -1,0 +1,2 @@
+import {ApiError} from '../../middleware/errorHandler.js';
+export function requireRecentAuthentication(req,res,next){const now=Date.now(),fresh=value=>Number.isSafeInteger(value)&&value<=now&&now-value<=300000;if(!fresh(req.session.primaryAuthenticatedAt)||req.auth?.mfaEnabled&&(!req.session.mfaVerified||!fresh(req.session.mfaVerifiedAt)))return next(new ApiError(403,'REAUTHENTICATION_REQUIRED','Reauthenticate in Account security before this sensitive action'));next();}
