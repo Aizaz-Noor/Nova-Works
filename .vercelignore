@@ -24,14 +24,6 @@ private-config/**
 **/*.db-shm
 **/*.key
 backups/**
-docs/**
-scripts/**
 backend/test/**
-backend/docs/**
-SOURCE_MANIFEST.json
-START-NOVAWORKS.cmd
 
 !backend/certs/supabase-root.pem
-
-# Presentation assets are served by GitHub, not the application bundle.
-docs/assets/**
